@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     margin: 10,
-    backgroundColor: '#5A8F91',
+    backgroundColor: '#ffffff',
     borderRadius: 30,
   },
   buttonText: {
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   actionButton: {
     margin: 10,
     padding: 10,
-    backgroundColor: '#5A8F91',
+    backgroundColor: '#e0b7ff',
     borderRadius: 20,
   },
 });
