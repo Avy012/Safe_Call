@@ -39,10 +39,12 @@ const _Layout = () => {
                         backgroundColor: '#0f0d23',
                         height: 52,
                         position: 'absolute',
+                        bottom: 0,
                         overflow: 'hidden',
                         borderWidth:1,
                         borderColor: '#0f0d23',
                     }
+
         }}>
             <Tabs.Screen
                 name = "index"
