@@ -6,7 +6,9 @@
       "@/*": [
         "./*"
       ]
-    }
+    },
+    "jsx": "react-jsx",         // JSX 문법을 사용하려면 이 옵션 추가
+    "esModuleInterop": true     // esModuleInterop을 활성화하여 React import가 제대로 작동하도록 함
   },
   "include": [
     "**/*.ts",
