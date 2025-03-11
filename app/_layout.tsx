@@ -1,4 +1,5 @@
 import { Stack } from "expo-router";
+import './globals.css';
 
 export default function RootLayout() {
   return <Stack>
@@ -6,9 +7,8 @@ export default function RootLayout() {
         name ="(tabs)"
         options = {{ headerShown: false }}
     />
-    <Stack.Screen
-        name ="movie/[id]"
-        options = {{ headerShown: false }}
-    />
+
+    {/*스택 하나라 오류 뜨는듯..?*/}
+
   </Stack>;
 }
