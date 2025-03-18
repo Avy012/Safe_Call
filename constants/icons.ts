@@ -4,6 +4,7 @@ import person from "@/assets/icons/person.png";
 import recents from "@/assets/icons/recents.png";
 import keypads from "@/assets/icons/keypads.png";
 import arrow from "@/assets/icons/arrow.png";
+import settings from "@/assets/icons/settings.png";
 
 export const icons = {
   home,
@@ -12,4 +13,5 @@ export const icons = {
   keypads,
   recents,
   arrow,
+  settings,
 };
