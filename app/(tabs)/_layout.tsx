@@ -106,7 +106,7 @@ const _Layout = () => {
                     tabBarIcon: ({ focused }) => (
                         <TabIcon
                             focused = {focused}
-                            icon={icons.search}
+                            icon={icons.settings}
                             title = "Settings"/>
                     )
                 }}
