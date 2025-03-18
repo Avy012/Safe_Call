@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet,  Linking
+import { View, Text, TouchableOpacity, StyleSheet,  Linking, ImageBackground
 
  } from 'react-native';
 
@@ -12,19 +12,18 @@ const Keypad: React.FC = () => {
     setPhoneNumber((prev) => prev + number);
   };
 
-  // 전화번호 초기화
-  const handleClear = (): void => {
-    setPhoneNumber('');
-  };
 
   // 마지막 숫자 삭제
   const handleDelete = (): void => {
     setPhoneNumber((prev) => prev.slice(0, -1));
   };
   // 전화 걸기
-  const handleCall = (): void => {
+  const handleCall = (): void => {if (phoneNumber) {
     const url = `tel:${phoneNumber}`;
     Linking.openURL(url).catch((err) => console.error('전화 걸기 실패', err));
+  } else {
+    console.error('전화번호가 비어있습니다.');
+  }
   };
 
 
@@ -43,15 +42,22 @@ const Keypad: React.FC = () => {
         ))}
       </View>
       <View style={styles.actions}>
-        <TouchableOpacity style={styles.actionButton} onPress={handleDelete}>
-          <Text style={styles.buttonText}>Del</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.actionButton} onPress={handleClear}>
-          <Text style={styles.buttonText}>Clear</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.actionButton} onPress={handleCall}>
-          <Text style={styles.buttonText}>Call</Text>
-        </TouchableOpacity>
+      
+        <ImageBackground
+            source={require('../../assets/images/callImage.png')} // 상대 경로로 수정
+            style={styles.action_call}
+          >
+          <TouchableOpacity onPress={handleCall} style={styles.action_call}>
+          </TouchableOpacity>
+        </ImageBackground>
+
+        <ImageBackground
+            source={require('../../assets/images/delete_number.png')} // 상대 경로로 수정
+            style={styles.action_delete}
+          >
+        <TouchableOpacity style={styles.action_delete} onPress={handleDelete}>
+         </TouchableOpacity>
+        </ImageBackground>
       </View>
     </View>
   );
@@ -60,41 +66,56 @@ const Keypad: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent:'flex-end',
     alignItems: 'center',
+    backgroundColor:'#FFFFFF',
   },
   phoneNumber: {
     fontSize: 32,
-    marginBottom: 20,
+    marginBottom: 150,
   },
   keypad: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    width: 300,
+    width: 330,
+    height: 220,
+    marginBottom : 10,
     justifyContent: 'space-between',
+    
   },
   button: {
-    width: 60,
-    height: 60,
+    width: 100,
+    height: 45,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 10,
-    backgroundColor: '#ffffff',
+    marginBottom: 9,
+    marginRight:0,
+    marginLeft:0,
+    backgroundColor: 'rgba(208, 205, 205, 100)',
     borderRadius: 30,
   },
   buttonText: {
-    fontSize: 24,
+    fontSize: 28,
   },
+  
   actions: {
     flexDirection: 'row',
-    marginTop: 20,
+    marginBottom: 70
   },
-  actionButton: {
+  action_delete: {
+    width:50,
+    height:50,
+    margin: 20,
+    padding: 10,
+    borderRadius: 15,
+  },
+  action_call: {
+    width:65,
+    height:65,
     margin: 10,
     padding: 10,
-    backgroundColor: '#e0b7ff',
-    borderRadius: 20,
-  },
+    borderRadius: 15,
+  }
 });
 
 export default Keypad;
