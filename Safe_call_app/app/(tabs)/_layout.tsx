@@ -11,7 +11,7 @@ const TabIcon = ({focused, icon,title} : any ) => {
             <ImageBackground
                 source={images.highlight}
                 className="flex flex-row w-full flex-1 min-w-[112] min-h-16 mt-4 justify-center items-center overflow-hidden">
-                <Image source={icon} tintColor="#151312" className="size-5"/>
+                <Image source={icon} tintColor="#1E3A5F" className="size-5"/>
                 <Text className=" text-secondary text-base font-semibold ml-2">{title}</Text>
 
             </ImageBackground>
@@ -36,13 +36,13 @@ const _Layout = () => {
                     alignItems: 'center',
                 },
                 tabBarStyle:{
-                        backgroundColor: '#0f0d23',
+                        backgroundColor: '#1E3A5F',
                         height: 52,
                         position: 'absolute',
                         bottom: 0,
                         overflow: 'hidden',
                         borderWidth:1,
-                        borderColor: '#0f0d23',
+                        borderColor: '#1E3A5F',
                     }
 
         }}>
@@ -80,7 +80,7 @@ const _Layout = () => {
                     tabBarIcon: ({ focused }) => (
                         <TabIcon
                             focused = {focused}
-                            icon={icons.calls}
+                            icon={icons.call}
                             title = "Calls"/>
                     )
                 }}
@@ -94,7 +94,7 @@ const _Layout = () => {
                     tabBarIcon: ({ focused }) => (
                         <TabIcon
                             focused = {focused}
-                            icon={icons.chats}
+                            icon={icons.chat}
                             title = "Chats"/>
                     )
                 }}
