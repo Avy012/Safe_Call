@@ -60,32 +60,6 @@ const _Layout = () => {
                 }}
             />
             <Tabs.Screen
-                name="recents"
-                options = {{
-                    title: 'Recents',
-                    headerShown: false,
-                    tabBarIcon: ({ focused }) => (
-                        <TabIcon
-                            focused = {focused}
-                            icon={icons.recents}
-                            title = "Recents"/>
-                    )
-                }}
-            />
-            <Tabs.Screen
-                name="keypad"
-                options = {{
-                    title: 'Keypad',
-                    headerShown: false,
-                    tabBarIcon: ({ focused }) => (
-                        <TabIcon
-                            focused = {focused}
-                            icon={icons.keypads}
-                            title = "Keypad"/>
-                    )
-                }}
-            />
-            <Tabs.Screen
                 name="contacts"
                 options = {{
                     title: 'Contacts',
@@ -99,15 +73,29 @@ const _Layout = () => {
                 }}
             />
             <Tabs.Screen
-                name="settings"
+                name="calls"
                 options = {{
-                    title: 'Settings',
+                    title: 'Calls',
                     headerShown: false,
                     tabBarIcon: ({ focused }) => (
                         <TabIcon
                             focused = {focused}
-                            icon={icons.search}
-                            title = "Settings"/>
+                            icon={icons.calls}
+                            title = "Calls"/>
+                    )
+                }}
+            />
+
+            <Tabs.Screen
+                name="chats"
+                options = {{
+                    title: 'Chats',
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => (
+                        <TabIcon
+                            focused = {focused}
+                            icon={icons.chats}
+                            title = "Chats"/>
                     )
                 }}
             />
