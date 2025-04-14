@@ -11,7 +11,7 @@ const TabIcon = ({focused, icon,title} : any ) => {
             <ImageBackground
                 source={images.highlight}
                 className="flex flex-row w-full flex-1 min-w-[112] min-h-16 mt-4 justify-center items-center overflow-hidden">
-                <Image source={icon} tintColor="#151312" className="size-5"/>
+                <Image source={icon} tintColor="#000000" className="size-5"/>
                 <Text className=" text-secondary text-base font-semibold ml-2">{title}</Text>
 
             </ImageBackground>
@@ -19,7 +19,7 @@ const TabIcon = ({focused, icon,title} : any ) => {
     }
     return(
         <View className="size-full justify-center items-center mt-4">
-            <Image source={icon} tintColor="#A8B5DB" className="size-5"/>
+            <Image source={icon} tintColor="#ffffff" className="size-5"/>
         </View>
     )
 }
@@ -36,13 +36,13 @@ const _Layout = () => {
                     alignItems: 'center',
                 },
                 tabBarStyle:{
-                        backgroundColor: '#0f0d23',
+                        backgroundColor: '#1E3A5F',
                         height: 52,
                         position: 'absolute',
                         bottom: 0,
                         overflow: 'hidden',
                         borderWidth:1,
-                        borderColor: '#0f0d23',
+                        borderColor: '#1E3A5F',
                     }
 
         }}>
@@ -60,32 +60,6 @@ const _Layout = () => {
                 }}
             />
             <Tabs.Screen
-                name="recents"
-                options = {{
-                    title: 'Recents',
-                    headerShown: false,
-                    tabBarIcon: ({ focused }) => (
-                        <TabIcon
-                            focused = {focused}
-                            icon={icons.recents}
-                            title = "Recents"/>
-                    )
-                }}
-            />
-            <Tabs.Screen
-                name="keypad"
-                options = {{
-                    title: 'Keypad',
-                    headerShown: false,
-                    tabBarIcon: ({ focused }) => (
-                        <TabIcon
-                            focused = {focused}
-                            icon={icons.keypads}
-                            title = "Keypad"/>
-                    )
-                }}
-            />
-            <Tabs.Screen
                 name="contacts"
                 options = {{
                     title: 'Contacts',
@@ -99,15 +73,34 @@ const _Layout = () => {
                 }}
             />
             <Tabs.Screen
-                name="settings"
+                name="calls"
                 options = {{
-                    title: 'Settings',
+                    title: 'Calls',
                     headerShown: false,
                     tabBarIcon: ({ focused }) => (
                         <TabIcon
                             focused = {focused}
+<<<<<<< HEAD:app/(tabs)/_layout.tsx
                             icon={icons.settings}
                             title = "Settings"/>
+=======
+                            icon={icons.call}
+                            title = "Calls"/>
+                    )
+                }}
+            />
+
+            <Tabs.Screen
+                name="chats"
+                options = {{
+                    title: 'Chats',
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => (
+                        <TabIcon
+                            focused = {focused}
+                            icon={icons.chat}
+                            title = "Chats"/>
+>>>>>>> 1269357665664017fcb820cad5e9b4795458b84b:Safe_call_app/app/(tabs)/_layout.tsx
                     )
                 }}
             />
