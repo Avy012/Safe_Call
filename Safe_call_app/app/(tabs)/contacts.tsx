@@ -61,14 +61,13 @@ const Contacts = () => {
                 </TouchableOpacity>
             </View>
 
-            {/* ➕ 버튼 눌렀을 때 나오는 선택지 */}
             {showOptions && (
                 <View style={styles.optionsContainer}>
                     <TouchableOpacity style={styles.optionButton} onPress={handleAddContact}>
-                        <Text style={styles.optionText}>연락처 추가</Text>
+                        <Text style={styles.optionText}>전화 걸기</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.optionButton} onPress={handleAddGroup}>
-                        <Text style={styles.optionText}>그룹 추가</Text>
+                        <Text style={styles.optionText}>연락처 추가</Text>
                     </TouchableOpacity>
                 </View>
             )}
@@ -79,7 +78,7 @@ const Contacts = () => {
                 renderItem={({ item }) => (
                     <TouchableOpacity
                         style={styles.contactItem}
-                        onPress={() => router.push({ pathname: "/contact/[id]", params: { id: item.name } })}
+                        onPress={() => router.push({ pathname: "/contact/[id]" as any, params: { id: item.name } })}
                     >
                         <Text style={styles.contactText}>{item.name}</Text>
                     </TouchableOpacity>
