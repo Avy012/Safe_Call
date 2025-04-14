@@ -1,6 +1,6 @@
 import { View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
-import { useRouter } from 'expo-router';
+// import { useRouter } from 'expo-router';  // 나중에 수정할 부분
 
 interface Contact {
     id: string;
@@ -8,7 +8,7 @@ interface Contact {
 }
 
 const Contacts = () => {
-    const router = useRouter();
+    // const router = useRouter();  // 나중에 수정할 부분
     const [search, setSearch] = useState('');
     const [showOptions, setShowOptions] = useState(false); // + 버튼 눌렀을 때 옵션 토글
 
@@ -27,22 +27,12 @@ const Contacts = () => {
         { id: '12', name: 'Bob Smith' },
         { id: '13', name: 'Charlie Brown' },
         { id: '14', name: 'David Williams' },
-        { id: '15', name: 'Emma Watson' },
+        { id: '15', name: 'Emma Watson' }
     ];
 
     const filteredContacts = contacts.filter(contact =>
         contact.name.toLowerCase().includes(search.toLowerCase())
     );
-
-    const handleAddContact = () => {
-        console.log('전화 걸기');
-        setShowOptions(false); // 옵션 닫기
-    };
-
-    const handleAddGroup = () => {
-        console.log('연락처 추가');
-        setShowOptions(false); // 옵션 닫기
-    };
 
     return (
         <View style={styles.container}>
@@ -63,10 +53,10 @@ const Contacts = () => {
 
             {showOptions && (
                 <View style={styles.optionsContainer}>
-                    <TouchableOpacity style={styles.optionButton} onPress={handleAddContact}>
+                    <TouchableOpacity style={styles.optionButton}>
                         <Text style={styles.optionText}>전화 걸기</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.optionButton} onPress={handleAddGroup}>
+                    <TouchableOpacity style={styles.optionButton}>
                         <Text style={styles.optionText}>연락처 추가</Text>
                     </TouchableOpacity>
                 </View>
@@ -78,7 +68,7 @@ const Contacts = () => {
                 renderItem={({ item }) => (
                     <TouchableOpacity
                         style={styles.contactItem}
-                        onPress={() => router.push({ pathname: "/contact/[id]" as any, params: { id: item.name } })}
+                        // onPress={() => router.push(`/contact/${item.id}`)}  // 나중에 수정할 부분
                     >
                         <Text style={styles.contactText}>{item.name}</Text>
                     </TouchableOpacity>
