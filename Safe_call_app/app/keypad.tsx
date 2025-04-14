@@ -44,7 +44,7 @@ const Keypad: React.FC = () => {
       <View style={styles.actions}>
       
         <ImageBackground
-            source={require('../../assets/images/callImage.png')} // 상대 경로로 수정
+            source={require('../assets/images/callImage.png')} // 상대 경로로 수정
             style={styles.action_call}
           >
           <TouchableOpacity onPress={handleCall} style={styles.action_call}>
@@ -52,7 +52,7 @@ const Keypad: React.FC = () => {
         </ImageBackground>
 
         <ImageBackground
-            source={require('../../assets/images/delete_number.png')} // 상대 경로로 수정
+            source={require('../assets/images/delete_number.png')} // 상대 경로로 수정
             style={styles.action_delete}
           >
         <TouchableOpacity style={styles.action_delete} onPress={handleDelete}>
