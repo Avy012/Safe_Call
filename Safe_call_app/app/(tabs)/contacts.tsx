@@ -1,5 +1,5 @@
-import { View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
+import { View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import { useRouter } from "expo-router";
 
 interface Contact {
@@ -8,10 +8,10 @@ interface Contact {
 }
 
 const Contacts = () => {
-    
     const router = useRouter();
     const [search, setSearch] = useState('');
     const [showOptions, setShowOptions] = useState(false);
+    const [showModal, setShowModal] = useState(false); // 모달 상태 추가
 
     const contacts: Contact[] = [
         { id: '1', name: 'Alice Johnson' },
@@ -62,7 +62,7 @@ const Contacts = () => {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.optionButton}
-                        onPress={() => router.push('/AddContact')}  
+                        onPress={() => setShowModal(true)}  // 모달 띄우기
                     >
                         <Text style={styles.optionText}>연락처 추가</Text>
                     </TouchableOpacity>
@@ -82,6 +82,57 @@ const Contacts = () => {
                 )}
                 contentContainerStyle={{ paddingTop: showOptions ? 120 : 80 }}
             />
+
+            {/* AddContact 모달 */}
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={showModal}
+                onRequestClose={() => setShowModal(false)}
+            >
+                <View style={styles.modalContainer}>
+                    <View style={styles.modalContent}>
+                        <AddContact closeModal={() => setShowModal(false)} />
+                    </View>
+                </View>
+            </Modal>
+        </View>
+    );
+};
+
+const AddContact = ({ closeModal }: { closeModal: () => void }) => {
+    const [name, setName] = useState('');
+    const [number, setNumber] = useState('');
+    const addContact = () => {
+        alert(`새 연락처 추가: ${name}`);
+        setName('');
+        setNumber('');
+        closeModal();  // 추가 후 모달 닫기
+    };
+
+    return (
+        <View style={styles.card}>
+            <Text style={styles.title}>연락처 추가</Text>
+            <Text style={styles.title2}>연락처명</Text>
+            <TextInput
+                style={styles.input}
+                placeholderTextColor="#aaa"
+                value={name}
+                onChangeText={setName}
+            />
+            <Text style={styles.title2}>전화번호</Text>
+            <TextInput
+                style={styles.input}
+                placeholderTextColor="#aaa"
+                value={number}
+                onChangeText={setNumber}
+            />
+            <TouchableOpacity style={styles.button} onPress={addContact}>
+                <Text style={styles.buttonText}>추가</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={closeModal}>
+                <Text style={styles.buttonText}>닫기</Text>
+            </TouchableOpacity>
         </View>
     );
 };
@@ -150,6 +201,71 @@ const styles = StyleSheet.create({
     },
     contactText: {
         fontSize: 16,
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContent: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        padding: 0,
+        borderRadius: 8,
+        width: 30,
+        height: 30,
+    },
+    card: {
+        width: 372,
+        height: 360,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 16,
+        elevation: 6,
+        opacity: 0.92,
+        padding: 20,
+        justifyContent: 'center',
+        borderWidth: 1,
+        borderColor: '#CCC',
+        marginBottom: 100,
+    },
+    title: {
+        fontSize: 22,
+        marginBottom: 16,
+        color: '#333',
+        textAlign: 'center',
+    },
+    title2: {
+        fontSize: 15,
+        marginBottom: 13,
+        color: '#333',
+        textAlign: 'left',
+        marginLeft: 20,
+    },
+    input: {
+        width: '90%',
+        height: 40,
+        borderColor: '#ccc',
+        borderWidth: 1,
+        borderRadius: 8,
+        paddingHorizontal: 10,
+        marginBottom: 16,
+        marginLeft: 20,
+    },
+    button: {
+        backgroundColor: '#1E3A5F',
+        width: 80,
+        height: 40,
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: '40%',
+        margin:7
+    },
+    buttonText: {
+        color: '#fff',
+        fontWeight: 'bold',
     },
 });
 
