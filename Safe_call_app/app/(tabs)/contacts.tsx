@@ -1,6 +1,6 @@
 import { View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
-// import { useRouter } from 'expo-router';  // 나중에 수정할 부분
+import { useRouter } from "expo-router";
 
 interface Contact {
     id: string;
@@ -8,9 +8,10 @@ interface Contact {
 }
 
 const Contacts = () => {
-    // const router = useRouter();  // 나중에 수정할 부분
+    
+    const router = useRouter();
     const [search, setSearch] = useState('');
-    const [showOptions, setShowOptions] = useState(false); // + 버튼 눌렀을 때 옵션 토글
+    const [showOptions, setShowOptions] = useState(false);
 
     const contacts: Contact[] = [
         { id: '1', name: 'Alice Johnson' },
@@ -53,10 +54,16 @@ const Contacts = () => {
 
             {showOptions && (
                 <View style={styles.optionsContainer}>
-                    <TouchableOpacity style={styles.optionButton}>
+                    <TouchableOpacity
+                        style={styles.optionButton}
+                        onPress={() => router.push('/keypad')}
+                    >
                         <Text style={styles.optionText}>전화 걸기</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.optionButton}>
+                    <TouchableOpacity
+                        style={styles.optionButton}
+                        onPress={() => router.push('/AddContact')}  
+                    >
                         <Text style={styles.optionText}>연락처 추가</Text>
                     </TouchableOpacity>
                 </View>
@@ -68,7 +75,7 @@ const Contacts = () => {
                 renderItem={({ item }) => (
                     <TouchableOpacity
                         style={styles.contactItem}
-                        // onPress={() => router.push(`/contact/${item.id}`)}  // 나중에 수정할 부분
+                        // onPress={() => router.push(`/contact/${item.id}`)} // 나중에 수정할 부분
                     >
                         <Text style={styles.contactText}>{item.name}</Text>
                     </TouchableOpacity>
