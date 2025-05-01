@@ -64,10 +64,10 @@ const RoomView: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <FlatList
+      <FlatList<TrackReferenceOrPlaceholder>
         data={tracks}
         renderItem={renderTrack}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(_, index) => index.toString()}
       />
     </View>
   );
