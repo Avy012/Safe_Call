@@ -1,4 +1,4 @@
-import { View, Text, TextInput, FlatList, StyleSheet } from 'react-native';
+import { View, Text, TextInput, FlatList, StyleSheet, Image } from 'react-native';
 import React, { useState } from 'react';
 
 const Contacts = () => {
@@ -33,6 +33,8 @@ const Contacts = () => {
 
     return (
         <View style={styles.container}>
+
+
             {/* Search Bar */}
             <View style={styles.searchContainer}>
                 <TextInput
@@ -52,7 +54,7 @@ const Contacts = () => {
                         <Text style={styles.contactText}>{item.name}</Text>
                     </View>
                 )}
-                contentContainerStyle={{ paddingTop: 60 }} // Prevents list from going under the search bar
+                contentContainerStyle={{ paddingTop: 120 }} // Prevents list from going under the search bar and logo
             />
         </View>
     );
@@ -63,9 +65,22 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
+    logoBar: {
+        height: 60,
+        backgroundColor: '#4CAF50',  // Green background (you can change this to your desired color)
+        justifyContent: 'center',
+        alignItems: 'center',
+        elevation: 3, // Adds shadow on Android
+        zIndex: 10,  // Ensures the bar stays above other components
+    },
+    logoText: {
+        fontSize: 24,
+        color: '#fff',
+        fontWeight: 'bold',
+    },
     searchContainer: {
         position: 'absolute',
-        top: 0,
+        top: 60,  // Adjust this value to avoid overlap with the logo bar
         left: 0,
         right: 0,
         height: 50,

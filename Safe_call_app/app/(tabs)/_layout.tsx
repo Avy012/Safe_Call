@@ -18,7 +18,7 @@ const TabIcon = ({focused, icon,title} : any ) => {
         )
     }
     return(
-        <View className="size-full justify-center items-center mt-4">
+        <View className="size-full justify-center items-center mt-4 primary">
             <Image source={icon} tintColor="#ffffff" className="size-5"/>
         </View>
     )
