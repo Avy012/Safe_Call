@@ -15,9 +15,15 @@ const TabIcon = ({ focused, icon, title }: any) => {
             </ImageBackground>
         );
     }
+<<<<<<< HEAD
     return (
         <View className="size-full justify-center items-center mt-4">
             <Image source={icon} tintColor="#ffffff" className="size-5" />
+=======
+    return(
+        <View className="size-full justify-center items-center mt-4 primary">
+            <Image source={icon} tintColor="#ffffff" className="size-5"/>
+>>>>>>> 37f020e (챗, 전화 목록 추가)
         </View>
     );
 };
