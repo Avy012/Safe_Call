@@ -1,66 +1,50 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-  SafeAreaView,
-} from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native';
+import { router } from 'expo-router';
 
-type ChatItem = {
-  id: string;
-  name: string;
-  lastMessage: string;
-};
-
-const chatListData: ChatItem[] = [
-  { id: '1', name: 'Emma', lastMessage: '뭐하고 있어?' },
-  { id: '2', name: 'John', lastMessage: '오늘 잘 지냈어?' },
-  { id: '3', name: 'Mina', lastMessage: '응~ 나중에 봐!' },
+const chatData = [
+  {
+    id: '1',
+    name: 'Alice Johnson',
+    lastMessage: 'See you tomorrow!',
+    profilePic: 'https://randomuser.me/api/portraits/women/1.jpg',
+  },
+  {
+    id: '2',
+    name: 'Bob Smith',
+    lastMessage: 'Got it, thanks!',
+    profilePic: 'https://randomuser.me/api/portraits/men/2.jpg',
+  },
 ];
 
-const Chats = ({ navigation }: any) => {
-  const renderItem = ({ item }: { item: ChatItem }) => (
-    <TouchableOpacity
-      style={styles.chatItem}
-      onPress={() => navigation.navigate('ChatsPers', { userId: item.id })}
-    >
-      <Text style={styles.name}>{item.name}</Text>
-      <Text style={styles.lastMessage}>{item.lastMessage}</Text>
-    </TouchableOpacity>
-  );
+export default function Chats() {
+  const handlePress = (chat) => {
+    router.push({ pathname: `/chats/${chat.id}`, params: { name: chat.name } });
+  };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={chatListData}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
-    </SafeAreaView>
+   <View className="flex-1 bg-white">
+      {/* Title */}
+      <View className="bg-primary px-4 py-4">
+        <Text className="text-white text-2xl font-bold">Chats</Text>
+      </View>
+
+
+    <FlatList
+      data={chatData}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => (
+        <TouchableOpacity
+          onPress={() => handlePress(item)}
+          className="flex-row items-center px-4 py-3 border-b border-gray-200"
+        >
+          <Image source={{ uri: item.profilePic }} className="w-12 h-12 rounded-full mr-4" />
+          <View>
+            <Text className="text-base font-semibold">{item.name}</Text>
+            <Text className="text-sm text-gray-500">{item.lastMessage}</Text>
+          </View>
+        </TouchableOpacity>
+      )}
+    />
+    </View>
   );
-};
-
-export default Chats;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  chatItem: {
-    padding: 15,
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1,
-  },
-  name: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  lastMessage: {
-    fontSize: 14,
-    color: '#666',
-    marginTop: 4,
-  },
-});
+}
