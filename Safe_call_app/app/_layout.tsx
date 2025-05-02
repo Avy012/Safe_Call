@@ -8,7 +8,17 @@ export default function RootLayout() {
         options = {{ headerShown: false }}
     />
 
+
     {/*스택 하나라 오류 뜨는듯..?*/}
+    {/* <Stack.Screen
+    name="AddContact"
+    options={{ headerShown: false }}
+  /> */}
+  <Stack.Screen
+    name="keypad"
+    options={{ headerShown: false }}
+  />
 
   </Stack>;
+  
 }
