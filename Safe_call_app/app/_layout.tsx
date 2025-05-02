@@ -14,6 +14,7 @@ export default function RootLayout() {
     name="AddContact"
     options={{ headerShown: false }}
   /> */}
+  
   <Stack.Screen
     name="keypad"
     options={{ headerShown: false }}

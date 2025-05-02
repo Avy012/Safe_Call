@@ -5,50 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b6578ae5-f28a-4cc3-8a16-424b5ed728ee" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/public/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/public/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/public/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/public/logo192.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/public/logo512.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/public/manifest.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/public/robots.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/src/Analytics.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/src/App.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/src/App.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/src/App.test.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/src/Blocks.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/src/Header.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/src/Login.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/src/Signup.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/src/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/src/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/src/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/src/logo.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/src/reportWebVitals.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/src/script.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/src/setupTests.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_admin/src/styles.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_app/app/chat_pers.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_app/assets/images/profile.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Safe_call_app/assets/images/setting.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/contact/[id].tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/_layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/contacts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/contacts.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Safe_call_app/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/_layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Safe_call_app/app/keypad.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/keypad.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/constants/icons.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/constants/icons.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

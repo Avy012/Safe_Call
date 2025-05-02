@@ -32,10 +32,9 @@ const Keypad: React.FC = () => {
   
       const { token } = await response.json();
   
-      // const room = new Room();
-      await room.connect('https://your-livekit-server-url', token);
-  
-      await room.localParticipant.enableMicrophone();
+      // // const room = new Room();
+      // await room.connect('https://your-livekit-server-url', token);
+      // await room.localParticipant.enableMicrophone();
   
       console.log('통화 연결됨!');
     } catch (error) {
