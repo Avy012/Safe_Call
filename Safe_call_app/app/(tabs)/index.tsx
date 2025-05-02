@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   },
   profileCard: {
     width: '90%',
-    height: '27%',
+    height: 180,
     backgroundColor: '#A3B5C9',
     borderRadius: 12,
     padding: 0,
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 5 },
     shadowRadius: 10,
     elevation: 1,
-    margin:10
+    marginTop:100
   },
 
 Card:{
@@ -164,7 +164,6 @@ Latest_Call_summary:{
     
   },
   userName2: {
-    marginLeft:0,
     fontSize: 23,
     fontWeight: '700',
     alignSelf: 'flex-start',
