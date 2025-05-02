@@ -16,15 +16,34 @@ const Keypad: React.FC = () => {
     setPhoneNumber((prev) => prev.slice(0, -1));
   };
 
-  // 전화 걸기
-  const handleCall = (): void => {
-    if (phoneNumber) {
-      const url = `tel:${phoneNumber}`;
-      Linking.openURL(url).catch((err) => console.error('전화 걸기 실패', err));
-    } else {
+  // 전화 걸기, livekit으로 전화
+  const handleCall = async () => {
+    if (!phoneNumber) {
       console.error('전화번호가 비어있습니다.');
+      return;
+    }
+  
+    try {
+      const response = await fetch('https://your-server.com/get-token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ identity: phoneNumber }),
+      });
+  
+      const { token } = await response.json();
+  
+      const room = new Room();
+      await room.connect('https://your-livekit-server-url', token);
+  
+      await room.localParticipant.enableMicrophone();
+  
+      console.log('통화 연결됨!');
+    } catch (error) {
+      console.error('전화 연결 실패', error);
     }
   };
+  
+  
 
   return (
     <View style={styles.container}>
@@ -115,9 +134,9 @@ const styles = StyleSheet.create({
     marginBottom: 70,
   },
   action_delete: {
-    width: 50,
-    height: 50,
-    margin: 20,
+    width: 70,
+    height: 65,
+    marginTop: 10,
     padding: 10,
     borderRadius: 15,
   },

@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6578ae5-f28a-4cc3-8a16-424b5ed728ee" name="Changes" comment="" />
+    <list default="true" id="b6578ae5-f28a-4cc3-8a16-424b5ed728ee" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/contacts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/contacts.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/tsconfig.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,6 +34,9 @@
     &quot;accountId&quot;: &quot;8c23e363-f5e7-4a60-b8ef-8794e345091f&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 0
@@ -44,7 +53,9 @@
     &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;ms&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;
   }
