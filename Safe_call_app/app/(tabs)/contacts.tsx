@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-import { View, Text, TextInput, FlatList, StyleSheet, Image } from 'react-native';
->>>>>>> 37f020e (챗, 전화 목록 추가)
 import React, { useState } from 'react';
 import { View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import { useRouter } from "expo-router";
@@ -41,12 +37,6 @@ const Contacts = () => {
 
     return (
         <View style={styles.container}>
-<<<<<<< HEAD
-=======
-
-
-            {/* Search Bar */}
->>>>>>> 37f020e (챗, 전화 목록 추가)
             <View style={styles.searchContainer}>
                 <TextInput
                     style={styles.searchInput}
@@ -90,11 +80,7 @@ const Contacts = () => {
                         <Text style={styles.contactText}>{item.name}</Text>
                     </TouchableOpacity>
                 )}
-<<<<<<< HEAD
                 contentContainerStyle={{ paddingTop: showOptions ? 120 : 80 }}
-=======
-                contentContainerStyle={{ paddingTop: 120 }} // Prevents list from going under the search bar and logo
->>>>>>> 37f020e (챗, 전화 목록 추가)
             />
 
             {/* AddContact 모달 */}
@@ -152,27 +138,7 @@ const AddContact = ({ closeModal }: { closeModal: () => void }) => {
 };
 
 const styles = StyleSheet.create({
-<<<<<<< HEAD
     container: { flex: 1, backgroundColor: '#fff' },
-=======
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-    },
-    logoBar: {
-        height: 60,
-        backgroundColor: '#4CAF50',  // Green background (you can change this to your desired color)
-        justifyContent: 'center',
-        alignItems: 'center',
-        elevation: 3, // Adds shadow on Android
-        zIndex: 10,  // Ensures the bar stays above other components
-    },
-    logoText: {
-        fontSize: 24,
-        color: '#fff',
-        fontWeight: 'bold',
-    },
->>>>>>> 37f020e (챗, 전화 목록 추가)
     searchContainer: {
         position: 'absolute',
         top: 60,  // Adjust this value to avoid overlap with the logo bar

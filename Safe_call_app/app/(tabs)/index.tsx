@@ -200,4 +200,9 @@ Latest_Call_summary:{
     color: '#B22222',
     marginTop: 8,
   },
+  blockedUserName:{
+    fontSize: 7,
+    color: '#B22222',
+    marginTop: 8,
+  }
 });
