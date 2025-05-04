@@ -82,7 +82,7 @@ const Contacts = () => {
                 renderItem={({ item }) => (
                     <TouchableOpacity
                         style={styles.contactItem}
-                        onPress={() => router.push(`/contacts/${item.id}?name=${item.name}`)} // 나중에 수정할 부분
+                        onPress={() => router.push(`/calls/${item.id}?name=${item.name}`)} // 나중에 수정할 부분
                     >
                         <Text style={styles.contactText}>{item.name}</Text>
                     </TouchableOpacity>

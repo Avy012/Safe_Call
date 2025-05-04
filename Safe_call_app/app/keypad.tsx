@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Linking, ImageBackground } from 'react-native';
 import { useRouter } from 'expo-router'; // 추가된 부분
+import { icons } from "@/constants/icons";
 
 const Keypad: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>('');
@@ -74,7 +75,7 @@ const Keypad: React.FC = () => {
         </ImageBackground>
 
         <ImageBackground
-          source={require('../assets/images/delete_number.png')}
+          source={icons.call}
           style={styles.action_delete}
         >
           <TouchableOpacity style={styles.action_delete} onPress={handleDelete} />

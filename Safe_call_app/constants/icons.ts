@@ -7,7 +7,6 @@ import arrow from "@/assets/icons/arrow.png";
 import call from "@/assets/icons/call.png";
 import chat from "@/assets/icons/chat.png";
 
-
 export const icons = {
   home,
   search,
