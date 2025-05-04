@@ -6,6 +6,8 @@ import keypads from "@/assets/icons/keypads.png";
 import arrow from "@/assets/icons/arrow.png";
 import call from "@/assets/icons/call.png";
 import chat from "@/assets/icons/chat.png";
+import backspace from "@/assets/icons/delete.png";
+import callbutton from "@/assets/icons/callButton.png"
 
 export const icons = {
   home,
@@ -16,5 +18,6 @@ export const icons = {
   arrow,
   call,
   chat,
-
+  backspace,
+  callbutton,
 };

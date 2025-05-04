@@ -1,152 +1,74 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Linking, ImageBackground } from 'react-native';
-import { useRouter } from 'expo-router'; // 추가된 부분
-import { icons } from "@/constants/icons";
+import { View, Text, TouchableOpacity, ImageBackground } from 'react-native';
+import { useRouter } from 'expo-router';
+import { icons } from '@/constants/icons';
 
 const Keypad: React.FC = () => {
-  const [phoneNumber, setPhoneNumber] = useState<string>('');
-  const router = useRouter(); // 추가된 부분
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const router = useRouter();
 
-  // 숫자 버튼 눌렀을 때 실행되는 함수
-  const handleButtonPress = (number: string): void => {
+  const handleButtonPress = (number: string) => {
     setPhoneNumber((prev) => prev + number);
   };
 
-  // 마지막 숫자 삭제
-  const handleDelete = (): void => {
+  const handleDelete = () => {
     setPhoneNumber((prev) => prev.slice(0, -1));
   };
 
-  // 전화 걸기, livekit으로 전화
   const handleCall = async () => {
-    if (!phoneNumber) {
-      console.error('전화번호가 비어있습니다.');
-      return;
-    }
-  
+    if (!phoneNumber) return console.error('전화번호가 비어있습니다.');
+
     try {
       const response = await fetch('https://your-server.com/get-token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ identity: phoneNumber }),
       });
-  
+
       const { token } = await response.json();
-  
-      // // const room = new Room();
-      // await room.connect('https://your-livekit-server-url', token);
-      // await room.localParticipant.enableMicrophone();
-  
-      console.log('통화 연결됨!');
+      console.log('통화 연결됨!', token);
     } catch (error) {
       console.error('전화 연결 실패', error);
     }
   };
-  
-  
 
   return (
-    <View style={styles.container}>
-      {/* 뒤로가기 버튼 */}
-      <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-        <Text style={styles.backText}>←</Text>
+    <View className="flex-1 items-center justify-end bg-white">
+      {/* Back Button */}
+      <TouchableOpacity onPress={() => router.back()} className="absolute top-4 left-4 p-2 bg-white rounded-lg z-10">
+        <Text className="text-5xl text-primary-1000">←</Text>
       </TouchableOpacity>
 
-      <Text style={styles.phoneNumber}>{phoneNumber}</Text>
+      {/* Phone Number */}
+      <Text className="text-3xl mb-36">{phoneNumber}</Text>
 
-      <View style={styles.keypad}>
-        {['1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '0', '#'].map((button) => (
+      {/* Keypad */}
+      <View className="flex-row flex-wrap w-[330px] h-[280px] justify-between mb-5">
+        {['1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '0', '#'].map((num) => (
           <TouchableOpacity
-            key={button}
-            style={styles.button}
-            onPress={() => handleButtonPress(button)}
+            key={num}
+            className="w-[100px] h-[55px] mb-4 rounded-full bg-white-350  items-center"
+            onPress={() => handleButtonPress(num)}
           >
-            <Text style={styles.buttonText}>{button}</Text>
+            <Text className="text-2xl">{num}</Text>
           </TouchableOpacity>
         ))}
       </View>
 
-      <View style={styles.actions}>
-        <ImageBackground
-          source={require('../assets/images/callImage.png')}
-          style={styles.action_call}
-        >
-          <TouchableOpacity onPress={handleCall} style={styles.action_call} />
+      {/* Actions */}
+      <View className="relative w-full items-center mb-16">
+        {/* Call Button */}
+        <ImageBackground source={icons.callbutton} className="w-[55px] h-[55px] mx-2 rounded-xl overflow-hidden absolute left-1/2 -translate-x-1/2">
+          <TouchableOpacity onPress={handleCall} className="w-full h-full" />
         </ImageBackground>
 
-        <ImageBackground
-          source={icons.call}
-          style={styles.action_delete}
-        >
-          <TouchableOpacity style={styles.action_delete} onPress={handleDelete} />
+        {/* Delete Button */}
+        <ImageBackground source={icons.backspace} className="w-[50px] h-[50px] rounded-xl overflow-hidden ml-60">
+          <TouchableOpacity onPress={handleDelete} className="w-full h-full" />
         </ImageBackground>
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-  },
-  backButton: {
-    position: 'absolute',
-    top: 0,
-    left: 10,
-    padding: 10,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 8,
-    zIndex: 10,
-  },
-  backText: {
-    fontSize: 40,
-    color: '#333',
-  },
-  phoneNumber: {
-    fontSize: 32,
-    marginBottom: 150,
-  },
-  keypad: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    width: 330,
-    height: 220,
-    marginBottom: 10,
-    justifyContent: 'space-between',
-  },
-  button: {
-    width: 100,
-    height: 45,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 9,
-    backgroundColor: 'rgba(208, 205, 205, 100)',
-    borderRadius: 30,
-  },
-  buttonText: {
-    fontSize: 28,
-  },
-  actions: {
-    flexDirection: 'row',
-    marginBottom: 70,
-  },
-  action_delete: {
-    width: 70,
-    height: 65,
-    marginTop: 10,
-    padding: 10,
-    borderRadius: 15,
-  },
-  action_call: {
-    width: 65,
-    height: 65,
-    margin: 10,
-    padding: 10,
-    borderRadius: 15,
-  },
-});
 
 export default Keypad;
