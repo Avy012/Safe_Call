@@ -15,27 +15,27 @@ export default function Index() {
     <ScrollView contentContainerStyle={styles.container}>
       {/* 프로필 카드 */}
       <View style={styles.profileCard}>
-        {/* 설정(Settings) 버튼 */}
-        <TouchableOpacity 
-          style={styles.settingsButton} 
-          onPress={() => router.push('/settings')}
-        >
-          <Image
-          source={require('../../assets/images/setting.png')}
-          style={styles.settingsImage}
-        />
-        </TouchableOpacity>
+        
         <View  style={styles.rowContainer}>
-
+  
         {/* 프로필 사진 */}
         <Image
-          source={require('../../assets/images/profile.png')}
+          source={{ uri: 'https://randomuser.me/api/portraits/men/75.jpg' }}
           style={styles.profileImage}
         />
-
+        
         {/* 사용자 이름 */}
         <Text style={styles.userName}>John Doe</Text>
-
+        {/* 설정(Settings) 버튼 */}
+        <TouchableOpacity 
+            style={styles.settingsButton} 
+            onPress={() => router.push('/settings')}
+          >
+            <Image
+            source={require('../../assets/images/setting.png')}
+            style={styles.settingsImage}
+          />
+          </TouchableOpacity>
         
         </View>
 
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   },
   profileCard: {
     width: '90%',
-    height: 180,
+    height: 185,
     backgroundColor: '#FFFFFF',
     borderColor: '#A3B5C9',
     borderRadius:12,
@@ -134,10 +134,8 @@ Latest_Call_summary:{
 
   },
   settingsButton: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
-    padding: 0,
+    paddingLeft: '26%',
+    paddingBottom:30,
     backgroundColor: '#FFFFFF',
     borderRadius: 20,
   },
@@ -160,7 +158,7 @@ Latest_Call_summary:{
     marginBottom: 15,
   },
   userName: {
-    marginLeft:20,
+    marginLeft:10,
     fontSize: 22,
     fontWeight: '700',
     color: '#222',

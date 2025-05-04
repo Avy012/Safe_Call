@@ -32,12 +32,14 @@ const Keypad: React.FC = () => {
   
       const { token } = await response.json();
   
-      const room = new Room();
-      await room.connect('https://your-livekit-server-url', token);
-  
-      await room.localParticipant.enableMicrophone();
-  
-      console.log('통화 연결됨!');
+      // ✅ 연결 전 token과 전화번호를 함께 전달
+      router.push({
+        pathname: '/call',
+        params: {
+          token,
+          identity: phoneNumber,
+        },
+      });
     } catch (error) {
       console.error('전화 연결 실패', error);
     }
