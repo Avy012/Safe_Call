@@ -10,14 +10,11 @@ export default function RootLayout() {
 
 
     {/*스택 하나라 오류 뜨는듯..?*/}
-    <Stack.Screen
+    {/* <Stack.Screen
     name="AddContact"
     options={{ headerShown: false }}
-  />
-  <Stack.Screen
-    name="keypad"
-    options={{ headerShown: false }}
-  />
+  /> */}
+  
 
   </Stack>;
   

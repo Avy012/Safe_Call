@@ -51,7 +51,7 @@ export default function ChatRoom() {
         : 'items-start';
     const bgColor =
       item.from === 'me'
-        ? 'bg-blue-500'
+        ? 'bg-light-100'
         : item.from === 'system'
         ? 'bg-yellow-200'
         : 'bg-gray-200';
@@ -83,7 +83,7 @@ export default function ChatRoom() {
         />
         <TouchableOpacity
           onPress={sendMessage}
-          className="bg-blue-500 px-4 py-2 rounded-full"
+          className="bg-primary px-4 py-2 rounded-full"
         >
           <Text className="text-white">Send</Text>
         </TouchableOpacity>
