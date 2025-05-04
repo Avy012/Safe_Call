@@ -17,33 +17,33 @@ const Keypad: React.FC = () => {
   };
 
   // 전화 걸기, livekit으로 전화
-  const handleCall = async () => {
-    if (!phoneNumber) {
-      console.error('전화번호가 비어있습니다.');
-      return;
-    }
+  // const handleCall = async () => {
+  //   if (!phoneNumber) {
+  //     console.error('전화번호가 비어있습니다.');
+  //     return;
+  //   }
   
-    try {
-      const response = await fetch('https://your-server.com/get-token', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ identity: phoneNumber }),
-      });
+  //   try {
+  //     const response = await fetch('https://your-server.com/get-token', {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({ identity: phoneNumber }),
+  //     });
   
-      const { token } = await response.json();
+  //     const { token } = await response.json();
   
-      // ✅ 연결 전 token과 전화번호를 함께 전달
-      router.push({
-        pathname: '/call',
-        params: {
-          token,
-          identity: phoneNumber,
-        },
-      });
-    } catch (error) {
-      console.error('전화 연결 실패', error);
-    }
-  };
+  //     // ✅ 연결 전 token과 전화번호를 함께 전달
+  //     router.push({
+  //       pathname: '/call',
+  //       params: {
+  //         token,
+  //         identity: phoneNumber,
+  //       },
+  //     });
+  //   } catch (error) {
+  //     console.error('전화 연결 실패', error);
+  //   }
+  // };
   
   
 
@@ -73,7 +73,7 @@ const Keypad: React.FC = () => {
           source={require('../assets/images/callImage.png')}
           style={styles.action_call}
         >
-          <TouchableOpacity onPress={handleCall} style={styles.action_call} />
+          {/* <TouchableOpacity onPress={handleCall} style={styles.action_call} /> */}
         </ImageBackground>
 
         <ImageBackground

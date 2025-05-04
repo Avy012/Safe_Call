@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     },
     optionsContainer: {
         position: 'absolute',
-        top: 60,
+        top: 130,
         right: 10,
         backgroundColor: '#ffffff',
         borderRadius: 8,

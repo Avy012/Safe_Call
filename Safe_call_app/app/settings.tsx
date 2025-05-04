@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
-
+import { useRouter } from "expo-router";
 export default function SettingsScreen() {
+  const router = useRouter(); 
   return (
+    
     <View style={styles.container}>
       {/* 사용자 정보 */}
       <View style={styles.profileContainer}>
@@ -14,15 +16,21 @@ export default function SettingsScreen() {
       </View>
 
       {/* 버튼들 */}
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button}
+      onPress={() => router.push('/account')}
+        >
         <Text style={styles.buttonText}>Account</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button}
+      onPress={() => router.push('/privacy')}
+      >
         <Text style={styles.buttonText}>Privacy</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button}
+      onPress={() => router.push('/notification')}
+      >
         <Text style={styles.buttonText}>Notification</Text>
       </TouchableOpacity>
     </View>

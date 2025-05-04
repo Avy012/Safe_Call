@@ -1,126 +1,122 @@
-import { Text, View, Image, StyleSheet, TouchableOpacity ,ScrollView} from "react-native";
-import { useRouter } from "expo-router"; // Expo Router 쓰니까 추가해
+import { Text, View, Image, StyleSheet, TouchableOpacity, FlatList } from "react-native";
+import { useRouter } from "expo-router"; // Expo Router 사용
 
 const blockedUsers = [
   { id: '1', name: 'User A' },
   { id: '2', name: 'User B' },
   { id: '3', name: 'User C' },
   { id: '4', name: 'User D' },
+  { id: '4', name: 'User E' },
+  { id: '4', name: 'User F' },
+  { id: '4', name: 'User G' }
 ];
 
 export default function Index() {
-  const router = useRouter(); // 이동하려면 useRouter() 필요
+  const router = useRouter();
+
+  // Blocked 유저 항목 렌더
+  const renderBlockedUser = ({ item }) => (
+    <View style={styles.Card}>
+      <Text style={styles.blockedUserName}>{item.name}</Text>
+    </View>
+  );
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {/* 프로필 카드 */}
-      <View style={styles.profileCard}>
-        
-        <View  style={styles.rowContainer}>
-  
-        {/* 프로필 사진 */}
-        <Image
-          source={{ uri: 'https://randomuser.me/api/portraits/men/75.jpg' }}
-          style={styles.profileImage}
-        />
-        
-        {/* 사용자 이름 */}
-        <Text style={styles.userName}>John Doe</Text>
-        {/* 설정(Settings) 버튼 */}
-        <TouchableOpacity 
-            style={styles.settingsButton} 
-            onPress={() => router.push('/settings')}
-          >
-            <Image
-            source={require('../../assets/images/setting.png')}
-            style={styles.settingsImage}
-          />
-          </TouchableOpacity>
-        
-        </View>
+    <FlatList
+      data={blockedUsers}
+      keyExtractor={(item) => item.id}
+      renderItem={renderBlockedUser}
+      ListHeaderComponent={
+        <>
+          {/* 프로필 카드 */}
+          <View style={styles.profileCard}>
+            <View style={styles.rowContainer}>
+              <Image
+                source={{ uri: 'https://randomuser.me/api/portraits/men/75.jpg' }}
+                style={styles.profileImage}
+              />
+              <Text style={styles.userName}>John Doe</Text>
+              <TouchableOpacity 
+                style={styles.settingsButton} 
+                onPress={() => router.push('/settings')}
+              >
+                <Image
+                  source={require('../../assets/images/setting.png')}
+                  style={styles.settingsImage}
+                />
+              </TouchableOpacity>
+            </View>
 
-        {/* 통계 영역 */}
-        <View style={styles.statsContainer}>
-          <View style={styles.statBox}>
-            <Text style={styles.statLabel}>Reported</Text>
-            <Text style={styles.statNumber}>5</Text>
+            {/* 통계 영역 */}
+            <View style={styles.statsContainer}>
+              <View style={styles.statBox}>
+                <Text style={styles.statLabel}>Reported</Text>
+                <Text style={styles.statNumber}>5</Text>
+              </View>
+              <View style={styles.statBox}>
+                <Text style={styles.statLabel}>Blocked</Text>
+                <Text style={styles.statNumber}>2</Text>
+              </View>
+            </View>
           </View>
-          <View style={styles.statBox}>
-            <Text style={styles.statLabel}>Blocked</Text>
-            <Text style={styles.statNumber}>2</Text>
+
+          {/* 콜 요약 */}
+          <Text style={styles.title}>Latest Call summary</Text>
+          <View style={styles.Latest_Call_summary}>
+            <Text>전화번호 예시</Text>
+            <Text>AI Summary</Text>
+            <Text>연락을 원하는 상대방과의 대화</Text>
           </View>
-        </View>
-      </View>
 
-
-      <Text style={styles.title}>Latest Call summary</Text>
-      <View style={styles.Latest_Call_summary}>
-        <Text>전화번호 예시</Text>
-        <Text>AI Summary</Text>
-        <Text>연락을 원하는 상대방과의 대화</Text>
-
-
-
-      </View>
-
-      <Text style={styles.title}>Blocked List</Text>
-
-      {/* Blocked 사용자 리스트 */}
-      {blockedUsers.map((user) => (
-        <View key={user.id} style={styles.Card}>
-          <Text style={styles.blockedUserName}>{user.name}</Text>
-        </View>
-      ))}
-
-    </ScrollView>
+          {/* Blocked 리스트 제목 */}
+          <Text style={styles.title}>Blocked List</Text>
+        </>
+      }
+      contentContainerStyle={[styles.container, { paddingBottom: 30 }]}
+    />
   );
 }
 
-// 스타일
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
-    justifyContent: 'center', // 중앙 배치
     alignItems: 'center',
     padding: 10,
   },
   profileCard: {
-    width: '90%',
+    width: 350,
     height: 185,
     backgroundColor: '#FFFFFF',
     borderColor: '#A3B5C9',
-    borderRadius:12,
+    borderRadius: 12,
     padding: 0,
     alignItems: 'flex-start',
     shadowColor: '#000',
     shadowOpacity: 1,
-    shadowOffset: { width: 7, height: 7},
+    shadowOffset: { width: 7, height: 7 },
     shadowRadius: 30,
     elevation: 4,
-    marginTop:10
+    marginTop: 10,
   },
-
-Card:{
-  width: '90%',
-  height: '10%',
-  backgroundColor: '#FFFFFF',
-  borderRadius: 12,
-  borderColor: '#A3B5C9',
-  padding: 10,
-  alignItems: 'flex-start',
-  shadowColor: '#000',
-  shadowOpacity: 1,
-  shadowOffset: { width: 7, height: 7 },
-  shadowRadius: 30,
-  elevation: 3,
-  margin:1
-}  ,
- 
-Latest_Call_summary:{
-    width: '90%',
-    height: '20%',
-   backgroundColor: '#F2F2F2',
+  Card: {
+    width: 350,
+    minHeight: 80,
+    alignSelf: 'center',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    borderColor: '#A3B5C9',
+    padding: 10,
+    alignItems: 'flex-start',
+    shadowColor: '#000',
+    shadowOpacity: 1,
+    shadowOffset: { width: 7, height: 7 },
+    shadowRadius: 30,
+    elevation: 3,
+    marginVertical: 5,
+  },
+  Latest_Call_summary: {
+    width:350,
+    backgroundColor: '#F2F2F2',
     borderColor: '#A3B5C9',
     borderRadius: 12,
     padding: 15,
@@ -130,74 +126,71 @@ Latest_Call_summary:{
     shadowOffset: { width: 0, height: 5 },
     shadowRadius: 10,
     elevation: 1,
-    marginTop:5
-
+    marginTop: 5,
   },
   settingsButton: {
     paddingLeft: '26%',
-    paddingBottom:30,
+    paddingBottom: 30,
     backgroundColor: '#FFFFFF',
     borderRadius: 20,
   },
   settingsImage: {
     width: 35,
     height: 35,
-    margin:0,
-    backgroundColor:'#FFFFFF'
+    margin: 0,
+    backgroundColor: '#FFFFFF',
   },
   rowContainer: {
-    flexDirection: 'row',  // 가로로 정렬
-    alignItems: 'center',  // 가운데 정렬
-    gap: 0, // 요소들 사이 간격 (또는 marginRight 사용해도 됨)
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 0,
   },
   profileImage: {
     width: 65,
     height: 65,
-    margin:20,
-    borderRadius: 50, // 동그란 프로필
+    margin: 15,
+    borderRadius: 50,
     marginBottom: 15,
   },
   userName: {
-    marginLeft:10,
+    marginLeft: 20,
     fontSize: 22,
-    fontWeight: '700',
+    fontWeight: '600',
     color: '#222',
-    
   },
   title: {
     fontSize: 23,
     fontWeight: '700',
     alignSelf: 'flex-start',
-    marginLeft: 30,
+    marginLeft: 10,
     color: '#222',
-    marginTop:15
-    
+    marginTop: 15,
   },
   statsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
     width: '100%',
   },
   statBox: {
-    marginTop:10,
-    flexDirection: 'row',  
-    alignItems: 'center',  
-    gap: 10, 
+    marginTop: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    paddingLeft:25
   },
   statNumber: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#333',
     backgroundColor: '#F2F2F2',
-    borderColor:'#A3B5C9',
+    borderColor: '#A3B5C9',
     borderRadius: 12,
-    elevation:3,
-    paddingVertical: 8, // 위아래 여백
-    paddingHorizontal: 14, // 좌우 여백
-    textAlign: 'center', // 텍스트 중앙 정렬
-    width:65,
-    height:45,
-  
+    elevation: 3,
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    textAlign: 'center',
+    width: 75,
+    height: 45,
+    margin:5
   },
   statLabel: {
     fontSize: 14,
@@ -205,9 +198,9 @@ Latest_Call_summary:{
     color: '#B22222',
     marginTop: 8,
   },
-  blockedUserName:{
+  blockedUserName: {
     fontSize: 18,
     color: '#B22222',
     marginTop: 8,
-  }
+  },
 });
