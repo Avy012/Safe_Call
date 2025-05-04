@@ -53,7 +53,7 @@ export default function Index() {
       </View>
 
 
-      <Text style={styles.userName2}>Latest Call summary</Text>
+      <Text style={styles.title}>Latest Call summary</Text>
       <View style={styles.Latest_Call_summary}>
         <Text>전화번호 예시</Text>
         <Text>AI Summary</Text>
@@ -63,7 +63,7 @@ export default function Index() {
 
       </View>
 
-      <Text style={styles.userName2}>Blocked List</Text>
+      <Text style={styles.title}>Blocked List</Text>
 
       {/* Blocked 사용자 리스트 */}
       {blockedUsers.map((user) => (
@@ -88,37 +88,40 @@ const styles = StyleSheet.create({
   profileCard: {
     width: '90%',
     height: 180,
-    backgroundColor: '#A3B5C9',
-    borderRadius: 12,
+    backgroundColor: '#FFFFFF',
+    borderColor: '#A3B5C9',
+    borderRadius:12,
     padding: 0,
     alignItems: 'flex-start',
     shadowColor: '#000',
-    shadowOpacity: 0.2,
-    shadowOffset: { width: 0, height: 5 },
-    shadowRadius: 10,
-    elevation: 1,
-    marginTop:100
+    shadowOpacity: 1,
+    shadowOffset: { width: 7, height: 7},
+    shadowRadius: 30,
+    elevation: 4,
+    marginTop:10
   },
 
 Card:{
   width: '90%',
   height: '10%',
-  backgroundColor: '#A3B5C9',
+  backgroundColor: '#FFFFFF',
   borderRadius: 12,
+  borderColor: '#A3B5C9',
   padding: 10,
   alignItems: 'flex-start',
   shadowColor: '#000',
-  shadowOpacity: 0.2,
-  shadowOffset: { width: 0, height: 5 },
-  shadowRadius: 10,
-  elevation: 1,
+  shadowOpacity: 1,
+  shadowOffset: { width: 7, height: 7 },
+  shadowRadius: 30,
+  elevation: 3,
   margin:1
 }  ,
  
 Latest_Call_summary:{
     width: '90%',
-    height: '27%',
-    backgroundColor: '#A3B5C9',
+    height: '20%',
+   backgroundColor: '#F2F2F2',
+    borderColor: '#A3B5C9',
     borderRadius: 12,
     padding: 15,
     alignItems: 'flex-start',
@@ -127,7 +130,7 @@ Latest_Call_summary:{
     shadowOffset: { width: 0, height: 5 },
     shadowRadius: 10,
     elevation: 1,
-    margin:10
+    marginTop:5
 
   },
   settingsButton: {
@@ -135,14 +138,14 @@ Latest_Call_summary:{
     top: 10,
     right: 10,
     padding: 0,
-    backgroundColor: '#EEE',
+    backgroundColor: '#FFFFFF',
     borderRadius: 20,
   },
   settingsImage: {
     width: 35,
     height: 35,
     margin:0,
-    backgroundColor:'#A3B5C9'
+    backgroundColor:'#FFFFFF'
   },
   rowContainer: {
     flexDirection: 'row',  // 가로로 정렬
@@ -163,12 +166,13 @@ Latest_Call_summary:{
     color: '#222',
     
   },
-  userName2: {
+  title: {
     fontSize: 23,
     fontWeight: '700',
     alignSelf: 'flex-start',
     marginLeft: 30,
     color: '#222',
+    marginTop:15
     
   },
   statsContainer: {
@@ -177,7 +181,7 @@ Latest_Call_summary:{
     width: '100%',
   },
   statBox: {
-    marginTop:0,
+    marginTop:10,
     flexDirection: 'row',  
     alignItems: 'center',  
     gap: 10, 
@@ -186,13 +190,16 @@ Latest_Call_summary:{
     fontSize: 20,
     fontWeight: 'bold',
     color: '#333',
-    backgroundColor: '#FFF',
+    backgroundColor: '#F2F2F2',
+    borderColor:'#A3B5C9',
     borderRadius: 12,
+    elevation:3,
     paddingVertical: 8, // 위아래 여백
     paddingHorizontal: 14, // 좌우 여백
     textAlign: 'center', // 텍스트 중앙 정렬
     width:65,
-    height:45
+    height:45,
+  
   },
   statLabel: {
     fontSize: 14,
@@ -201,7 +208,7 @@ Latest_Call_summary:{
     marginTop: 8,
   },
   blockedUserName:{
-    fontSize: 7,
+    fontSize: 18,
     color: '#B22222',
     marginTop: 8,
   }
