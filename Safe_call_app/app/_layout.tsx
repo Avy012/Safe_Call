@@ -15,10 +15,6 @@ export default function RootLayout() {
     options={{ headerShown: false }}
   /> */}
   
-  <Stack.Screen
-    name="keypad"
-    options={{ headerShown: false }}
-  />
 
   </Stack>;
   
