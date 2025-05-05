@@ -10,6 +10,11 @@ export default function RootLayout() {
 
 
     {/*스택 하나라 오류 뜨는듯..?*/}
+
+      <Stack.Screen
+      name="AddContact"
+      options={{ headerShown: false }}
+    />
     {/* <Stack.Screen
     name="AddContact"
     options={{ headerShown: false }}
@@ -24,6 +29,7 @@ export default function RootLayout() {
         options = {{ headerShown: false }}
     />
   
+
 
   </Stack>;
   

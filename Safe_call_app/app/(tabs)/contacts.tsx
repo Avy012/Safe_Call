@@ -118,6 +118,7 @@ const AddContact = ({ closeModal }: { closeModal: () => void }) => {
     };
 
     return (
+        
         <View style={styles.card}>
             <Text style={styles.title}>연락처 추가</Text>
             <Text style={styles.title2}>연락처명</Text>
@@ -147,11 +148,10 @@ const AddContact = ({ closeModal }: { closeModal: () => void }) => {
 const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: '#fff' },
     searchContainer: {
-        position: 'absolute',
-        top: 60,  // Adjust this value to avoid overlap with the logo bar
+        top: 70,  // Adjust this value to avoid overlap with the logo bar
         left: 0,
         right: 0,
-        height: 50,
+        height: 60,
         backgroundColor: '#f0f0f0',
         flexDirection: 'row',
         alignItems: 'center',
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     },
     optionsContainer: {
         position: 'absolute',
-        top: 60,
+        top: 130,
         right: 10,
         backgroundColor: '#ffffff',
         borderRadius: 8,
@@ -192,6 +192,7 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         paddingHorizontal: 10,
         zIndex: 20,
+
     },
     optionButton: {
         paddingVertical: 8,
@@ -202,6 +203,7 @@ const styles = StyleSheet.create({
         color: '#1E3A5F',
     },
     contactItem: {
+
         padding: 15,
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',

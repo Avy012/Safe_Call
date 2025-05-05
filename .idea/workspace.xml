@@ -5,8 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b6578ae5-f28a-4cc3-8a16-424b5ed728ee" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Safe_call_app/app/account.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Safe_call_app/app/notification.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Safe_call_app/app/privacy.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/token-server/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/contacts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/contacts.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/index.tsx" afterDir="false" />
+
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/call.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/call.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/keypad.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/keypad.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/settings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/settings.tsx" afterDir="false" />
 
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,6 +49,9 @@
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2uw0pEarMx08cCEIZFUOzNpo5Ik" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -69,5 +81,8 @@
       <updated>1743144513241</updated>
     </task>
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

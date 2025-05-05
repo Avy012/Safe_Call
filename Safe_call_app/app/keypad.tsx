@@ -60,6 +60,7 @@ const Keypad: React.FC = () => {
         {/* Call Button */}
         <ImageBackground source={icons.callbutton} className="w-[55px] h-[55px] mx-2 rounded-xl overflow-hidden absolute left-1/2 -translate-x-1/2">
           <TouchableOpacity onPress={() => router.push('./callScreen')} className="w-full h-full" />
+
         </ImageBackground>
 
         {/* Delete Button */}
