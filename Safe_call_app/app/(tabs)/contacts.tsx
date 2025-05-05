@@ -36,7 +36,14 @@ const Contacts = () => {
     );
 
     return (
-        <View style={styles.container}>
+        
+        <View className="flex-1 bg-white">
+              <View className="bg-primary px-4 py-4">
+                <Text className="text-white text-2xl font-bold">Contacts</Text>
+              </View> 
+
+
+            {/* Search Bar */}
             <View style={styles.searchContainer}>
                 <TextInput
                     style={styles.searchInput}
@@ -75,7 +82,7 @@ const Contacts = () => {
                 renderItem={({ item }) => (
                     <TouchableOpacity
                         style={styles.contactItem}
-                        // onPress={() => router.push(`/contact/${item.id}`)} // 나중에 수정할 부분
+                        onPress={() => router.push(`/calls/${item.id}?name=${item.name}`)} // 나중에 수정할 부분
                     >
                         <Text style={styles.contactText}>{item.name}</Text>
                     </TouchableOpacity>
