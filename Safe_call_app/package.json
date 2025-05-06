@@ -15,8 +15,11 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@config-plugins/react-native-webrtc": "^10.0.0",
     "@expo/vector-icons": "^14.0.2",
-    "@livekit/react-native": "^2.7.3",
+    "@livekit/react-native": "^2.7.4",
+    "@livekit/react-native-expo-plugin": "^1.0.1",
+    "@livekit/react-native-webrtc": "^125.0.9",
     "@react-navigation/bottom-tabs": "^7.2.0",
     "@react-navigation/core": "^7.8.5",
     "@react-navigation/native": "^7.1.6",
