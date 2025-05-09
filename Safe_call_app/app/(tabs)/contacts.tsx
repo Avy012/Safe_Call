@@ -87,7 +87,7 @@ const Contacts = () => {
                         <Text style={styles.contactText}>{item.name}</Text>
                     </TouchableOpacity>
                 )}
-                contentContainerStyle={{ paddingTop: showOptions ? 120 : 80 }}
+                
             />
 
             {/* AddContact 모달 */}
@@ -148,7 +148,7 @@ const AddContact = ({ closeModal }: { closeModal: () => void }) => {
 const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: '#fff' },
     searchContainer: {
-        top: 70,  // Adjust this value to avoid overlap with the logo bar
+        top: 0,  // Adjust this value to avoid overlap with the logo bar
         left: 0,
         right: 0,
         height: 60,
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     },
     optionsContainer: {
         position: 'absolute',
-        top: 130,
+        top: 110,
         right: 10,
         backgroundColor: '#ffffff',
         borderRadius: 8,
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     modalContainer: {
-        flex: 1,
+        flex: 0,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgba(0, 0, 0, 0.5)',

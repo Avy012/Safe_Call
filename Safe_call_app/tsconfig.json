@@ -3,17 +3,21 @@
   "compilerOptions": {
     "strict": true,
     "noImplicitAny": false,
+     "baseUrl": ".", 
     "paths": {
       "@/*": [
         "./*"
       ]
     },
     "jsx": "react-jsx",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     "nativewind-env.d.ts"
   ]
+  
 }
