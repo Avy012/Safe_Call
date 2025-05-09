@@ -6,9 +6,9 @@ const blockedUsers = [
   { id: '2', name: 'User B' },
   { id: '3', name: 'User C' },
   { id: '4', name: 'User D' },
-  { id: '4', name: 'User E' },
-  { id: '4', name: 'User F' },
-  { id: '4', name: 'User G' }
+  { id: '5', name: 'User E' },
+  { id: '6', name: 'User F' },
+  { id: '7', name: 'User G' }
 ];
 
 export default function Index() {
