@@ -1,3 +1,6 @@
+// 생성된 룸 입장하는 코드 
+// 토큰 생성한거 가져오는 코드 추가해야 함 
+
 import React, { useEffect } from 'react';
 import {
   StyleSheet,

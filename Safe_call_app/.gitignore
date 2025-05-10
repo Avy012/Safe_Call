@@ -35,7 +35,7 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
-# gpt
+# gpt, livekit
 .env
 
 app-example
