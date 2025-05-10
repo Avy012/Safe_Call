@@ -8,8 +8,9 @@
         "./*"
       ]
     },
-    "jsx": "react-jsx",
-    "esModuleInterop": true
+    "jsx": "react-native",  // Fixed from "react-jsx" to "react-native"
+    "esModuleInterop": true,
+    "types": ["react", "react-native"]  // Explicitly define the types
   },
   "include": [
     "**/*.ts",
