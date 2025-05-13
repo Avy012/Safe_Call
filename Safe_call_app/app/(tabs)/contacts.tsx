@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import { useRouter } from "expo-router";
+import { fetchToken, connectToRoom } from '../generate_room';
 
 interface Contact {
     id: string;
@@ -12,31 +13,73 @@ const Contacts = () => {
     const [search, setSearch] = useState('');
     const [showOptions, setShowOptions] = useState(false);
     const [showModal, setShowModal] = useState(false); // 모달 상태 추가
+    // const [contacts, setContacts] = useState<Contact[]>([
+    //     { id: '1', name: 'Alice Johnson' },
+    //     { id: '2', name: 'Bob Smith' },
+    //     { id: '3', name: 'Charlie Brown' },
+    //     { id: '4', name: 'David Williams' },
+    //     { id: '5', name: 'Emma Watson' }
+    // ]);
+    
+    const [contacts, setContacts] = useState<Contact[]>([]);
+    const [newContact, setNewContact] = useState({ name: '', contact: '' });
 
-    const contacts: Contact[] = [
-        { id: '1', name: 'Alice Johnson' },
-        { id: '2', name: 'Bob Smith' },
-        { id: '3', name: 'Charlie Brown' },
-        { id: '4', name: 'David Williams' },
-        { id: '5', name: 'Emma Watson' },
-        { id: '6', name: 'Alice Johnson' },
-        { id: '7', name: 'Bob Smith' },
-        { id: '8', name: 'Charlie Brown' },
-        { id: '9', name: 'David Williams' },
-        { id: '10', name: 'Emma Watson' },
-        { id: '11', name: 'Alice Johnson' },
-        { id: '12', name: 'Bob Smith' },
-        { id: '13', name: 'Charlie Brown' },
-        { id: '14', name: 'David Williams' },
-        { id: '15', name: 'Emma Watson' }
-    ];
+    // DB 초기 로드
+    useEffect(() => {
+        (async () => {
+            try {
+                console.log('fetching contacts from http://10.0.2.2:5000/added_contacts');
+                const res = await fetch('http://10.0.2.2:5000/added_contacts');
+
+                // 네트워크 응답 상태
+                if (!res.ok) {
+                    console.error('fetch contacts failed, status: ', res.status);
+                    throw new Error(`fetch contacts failed: ${res.status}`);
+                }
+                const list: Contact[] = await res.json();
+                console.log('fetched contacts: ', list);
+                setContacts(list);
+            } catch {
+                console.error('loading contacts failed', Error);
+            }
+        })();
+    }, []);
+    
+    // 새 연락처 추가 핸들러
+    const addNewContact = async () => {
+        try {
+            // 백엔드에 post 
+            const res = await fetch(`http://10.0.2.2:5000/added_contacts`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    user_uid: 'currentUserUid',
+                    contact_uid: 'newContactUidOrEmpty',
+                    name: newContact.name,
+                    contact: newContact.contact
+                }),
+            });
+            if (!res.ok) throw new Error('API error ' + res.status);
+
+            // 응답: 새로운 레코드
+            const saved: Contact = await res.json();
+
+            // 로컬 상태에 반영
+            setContacts(prev => [...prev, saved]);
+
+            // 모달 닫고 입력 초기화
+            setShowModal(false);
+            setNewContact({ name: '', contact: '' });
+        } catch (e) {
+        console.error('contact add failed');    
+        }
+    };
 
     const filteredContacts = contacts.filter(contact =>
         contact.name.toLowerCase().includes(search.toLowerCase())
     );
 
     return (
-        
         <View className="flex-1 bg-white">
               <View className="bg-primary px-4 py-4">
                 <Text className="text-white text-2xl font-bold">Contacts</Text>
@@ -105,7 +148,7 @@ const Contacts = () => {
             </Modal>
         </View>
     );
-};
+    }
 
 const AddContact = ({ closeModal }: { closeModal: () => void }) => {
     const [name, setName] = useState('');
