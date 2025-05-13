@@ -4,6 +4,7 @@ import { Tabs } from "expo-router";
 import { images } from "@/constants/images";
 import { icons } from "@/constants/icons";
 
+
 const TabIcon = ({ focused, icon, title }: any) => {
     if (focused) {
         return (
@@ -26,6 +27,7 @@ const _Layout = () => {
     return (
         <Tabs
             screenOptions={{
+                headerShown: false,
                 tabBarShowLabel: false,
                 tabBarItemStyle: {
                     width: '100%',
