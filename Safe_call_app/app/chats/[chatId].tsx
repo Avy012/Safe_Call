@@ -3,9 +3,8 @@ import { View, Text, TextInput, FlatList, TouchableOpacity, Alert } from 'react-
 import { useEffect, useState } from 'react';
 import { checkForScam } from '../../utils/gptScamCheck'; // Adjust path if needed
 
-
 export default function ChatRoom() {
-  const { chatId, name } = useLocalSearchParams();
+  const { chatId, name } = useLocalSearchParams(); // Assuming name comes from the route params
   const [messages, setMessages] = useState([
     { id: '1', from: 'them', text: 'Congratulations! You won an iPhone!' },
     { id: '2', from: 'me', text: 'Really? How do I get it?' },
@@ -67,6 +66,12 @@ export default function ChatRoom() {
 
   return (
     <View className="flex-1 bg-white p-4">
+      {/* Custom Header */}
+      <View className="p-4 bg-gray-800">
+        <Text className="text-white text-2xl font-semibold">{name || 'Chat'}</Text>
+      </View>
+
+      {/* Chat messages */}
       <FlatList
         data={messages}
         keyExtractor={(item) => item.id}
@@ -74,6 +79,7 @@ export default function ChatRoom() {
         contentContainerStyle={{ paddingBottom: 20 }}
       />
 
+      {/* Message input */}
       <View className="flex-row items-center mt-4">
         <TextInput
           value={input}
@@ -91,3 +97,7 @@ export default function ChatRoom() {
     </View>
   );
 }
+
+ChatRoom.options = {
+  headerShown: false, // This hides the default header
+};
