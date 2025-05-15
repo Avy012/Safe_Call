@@ -36,18 +36,28 @@ def createAddedContact():
   db.session.commit()
   return jsonify(new.to.dict()), 201
 
+@app.route('/added_contacts', methods=['GET'])
+def get_added_contacts():
+  try:
+    # 모든 연락처 목록을 DB에서 조회
+    contacts = AddedContact.query.all()
+    return jsonify([contact.to_dict() for contact in contacts]), 200  # 응답으로 JSON 반환
+  except Exception as e:
+    print(f"get_added_contacts Error: {e}")
+    return jsonify({"error": str(e)}), 500
+
 @app.route('/getToken')
 def getToken():
   # 클라이언트에서 보낸 룸 네임, 아이덴티티 받아오기
   roomName = request.args.get("room")
   identity = request.args.get("identity")
   
-  token = api.AccessToken(API_KEY, API_KEY_SECRET) \
-    .with_identity(identity) \
+  token = api.AccessToken("<APIWRUzrBrKXEF4>", "<d9XzewmREu5PvCEku9pvfYfkJZ5JkbfRfuwv7dWBLNsH>") \
+    .with_identity("tester") \
     .with_name("my name") \
     .with_grants(api.VideoGrants(
         room_join=True,
-        room=roomName,
+        room="roomName",
     ))
   # token을 json 형태로 반환
   return jsonify({"token": token.to_jwt()})

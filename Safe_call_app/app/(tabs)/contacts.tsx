@@ -13,16 +13,8 @@ const Contacts = () => {
     const [search, setSearch] = useState('');
     const [showOptions, setShowOptions] = useState(false);
     const [showModal, setShowModal] = useState(false); // 모달 상태 추가
-    // const [contacts, setContacts] = useState<Contact[]>([
-    //     { id: '1', name: 'Alice Johnson' },
-    //     { id: '2', name: 'Bob Smith' },
-    //     { id: '3', name: 'Charlie Brown' },
-    //     { id: '4', name: 'David Williams' },
-    //     { id: '5', name: 'Emma Watson' }
-    // ]);
-    
     const [contacts, setContacts] = useState<Contact[]>([]);
-    const [newContact, setNewContact] = useState({ name: '', contact: '' });
+    // const [newContact, setNewContact] = useState({ name: '', contact: '' });
 
     // DB 초기 로드
     useEffect(() => {
@@ -45,8 +37,10 @@ const Contacts = () => {
         })();
     }, []);
     
-    // 새 연락처 추가 핸들러
-    const addNewContact = async () => {
+    // 새 연락처 추가 핸들러 (추가 시 존재하는 유저인지 매핑 로직 필요)
+    // 핸들러 호출 잘 되나, users 테이블에서 외래키인 uid 매핑이 안 됨.
+    const addNewContact = async (newContact: { name: string; contact: string }) => {
+        console.log('add new contact handler called');
         try {
             // 백엔드에 post 
             const res = await fetch(`http://10.0.2.2:5000/added_contacts`, {
@@ -69,7 +63,7 @@ const Contacts = () => {
 
             // 모달 닫고 입력 초기화
             setShowModal(false);
-            setNewContact({ name: '', contact: '' });
+            // setNewContact({ name: '', contact: '' });
         } catch (e) {
         console.error('contact add failed');    
         }
@@ -142,7 +136,7 @@ const Contacts = () => {
             >
                 <View style={styles.modalContainer}>
                     <View style={styles.modalContent}>
-                        <AddContact closeModal={() => setShowModal(false)} />
+                    <AddContact closeModal={() => setShowModal(false)} addNewContact={addNewContact} />
                     </View>
                 </View>
             </Modal>
@@ -150,13 +144,19 @@ const Contacts = () => {
     );
     }
 
-const AddContact = ({ closeModal }: { closeModal: () => void }) => {
+const AddContact = ({ closeModal, addNewContact }: { closeModal: () => void, addNewContact: (newContact) => void }) => {
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
-    const addContact = () => {
-        alert(`새 연락처 추가: ${name}`);
+    // const [newContact, setNewContact] = useState({ name: '', contact: '' });
+    const addContact = async () => {
+        // alert(`새 연락처 추가: ${newContact.name}`);
+        // addNewContact(newContact);
         setName('');
         setNumber('');
+        // setNewContact({name: '', contact: ''});
+        // 토큰 발급도 확인
+        const token = await fetchToken('myRoom', name); // 예: 새 연락처 이름을 identity로
+        console.log('Fetched token for new contact:', token);
         closeModal();  // 추가 후 모달 닫기
     };
 
@@ -168,14 +168,18 @@ const AddContact = ({ closeModal }: { closeModal: () => void }) => {
             <TextInput
                 style={styles.input}
                 placeholderTextColor="#aaa"
+                // value={newContact.name}
                 value={name}
+                // onChangeText={(text) => setNewContact({ ...newContact, name: text })} // `name`만 업데이트
                 onChangeText={setName}
             />
             <Text style={styles.title2}>전화번호</Text>
             <TextInput
                 style={styles.input}
                 placeholderTextColor="#aaa"
+                // value={newContact.contact}
                 value={number}
+                // onChangeText={(text) => setNewContact({ ...newContact, contact: text })} // `name`만 업데이트
                 onChangeText={setNumber}
             />
             <TouchableOpacity style={styles.button} onPress={addContact}>
