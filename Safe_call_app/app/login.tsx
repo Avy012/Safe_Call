@@ -20,7 +20,7 @@ export default function Login() {
 
       if (user.emailVerified) {
         Alert.alert('로그인 성공!');
-        router.replace('/(tabs)'); // ✅ navigate to main tabs screen
+        router.replace('/(tabs)'); 
       } else {
         Alert.alert('이메일 인증이 필요합니다. 메일함을 확인해주세요.');
       }

@@ -39,3 +39,6 @@ yarn-error.*
 .env
 
 app-example
+
+# Firebase config
+android/app/google-services.json

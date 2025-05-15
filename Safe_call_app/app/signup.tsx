@@ -3,12 +3,16 @@ import { Alert, Text, TextInput, TouchableOpacity, View, Keyboard, TouchableWith
 import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../services/firebaseConfig';
-import { router } from 'expo-router';  // ✅ use router instead of navigation
+import { router } from 'expo-router'; 
+import { updateProfile } from 'firebase/auth';
 
 export default function Signup() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState(''); // 이메일
+  const [password, setPassword] = useState(''); // 비밀번호
+  const [phone, setPhone] = useState(''); // 전화번호
+  const [name, setName] = useState(''); // 유저 이름
+  const [profilePic, setProfilePic] = useState(''); // 프로필 사진
+
 
   const handleSignup = async () => {
     if (!email || !password || !phone) {
@@ -22,10 +26,17 @@ export default function Signup() {
 
       await setDoc(doc(db, 'users', user.uid), {
         uid: user.uid,
+        name,
+        profilePic,
         email,
         phone,
         created_at: new Date().toISOString(),
       });
+
+      await updateProfile(user,{
+        displayName : name,
+        photoURL: profilePic,
+      })
 
       await sendEmailVerification(user);
       Alert.alert('이메일 인증 메일이 발송되었습니다. 메일함을 확인해주세요.');
@@ -63,6 +74,20 @@ export default function Signup() {
           onChangeText={setPhone}
           keyboardType="phone-pad"
           className="w-full h-12 px-4 mb-6 border border-gray-300 rounded-md"
+        />
+        <TextInput
+          placeholder="Name"
+          value={name}
+          onChangeText={setName}
+          className="w-full h-12 px-4 mb-4 border border-gray-300 rounded-md"
+        />
+
+        <TextInput
+          placeholder="Profile Picture URL"
+          value={profilePic}
+          onChangeText={setProfilePic}
+          autoCapitalize="none"
+          className="w-full h-12 px-4 mb-4 border border-gray-300 rounded-md"
         />
 
         <TouchableOpacity

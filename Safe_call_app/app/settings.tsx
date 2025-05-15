@@ -1,6 +1,10 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { useRouter } from "expo-router";
+import { signOut } from "firebase/auth";
+import { auth } from "../services/firebaseConfig"; // adjust path if needed
+
+
 export default function SettingsScreen() {
   const router = useRouter(); 
   return (
@@ -33,6 +37,20 @@ export default function SettingsScreen() {
       >
         <Text style={styles.buttonText}>Notification</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.button, { backgroundColor: '#ff4d4f' }]}
+        onPress={async () => {
+          try {
+            await signOut(auth);
+            router.replace('/before_login'); // go back to login screen
+          } catch (error) {
+            console.log("Logout error:", error);
+          }
+        }}
+      >
+        <Text style={[styles.buttonText, { color: '#fff' }]}>Logout</Text>
+      </TouchableOpacity>
+
     </View>
   );
 }
