@@ -13,9 +13,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/favicon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.Safe_Call"
     },
     "web": {
       "bundler": "metro",
@@ -32,10 +33,19 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      ["@livekit/react-native-expo-plugin",
+      "@config-plugins/react-native-webrtc"]
     ],
-    "experiments": {
-      "typedRoutes": true
-    }
+    "experiments": {},
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "46a0025a-5165-4e9c-aca2-3b1924719ca6"
+      }
+    },
+    "owner": "ave12"
   }
 }

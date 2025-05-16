@@ -35,4 +35,10 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
+# gpt, livekit
+.env
+
 app-example
+
+# Firebase config
+android/app/google-services.json
