@@ -14,7 +14,7 @@ load_dotenv()
 def generate_token():
     token = api.AccessToken(os.getenv('LIVEKIT_API_KEY'), os.getenv('LIVEKIT_API_SECRET')) \
         .with_identity("identity") \
-        .with_name("my name") \
+        .with_name("dkim") \
         .with_grants(api.VideoGrants(
             room_join=True,
             room="my-room",
