@@ -24,7 +24,7 @@ registerGlobals();
 
 // Replace with your actual values   생성된 토큰 여기에 넣는걸로 하면 될 듯 
 const wsURL = "wss://safecall-ozn2xsg6.livekit.cloud";
-const token = "your_jwt_token_here";
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibXkgbmFtZSIsInZpZGVvIjp7InJvb21Kb2luIjp0cnVlLCJyb29tIjoibXktcm9vbSIsImNhblB1Ymxpc2giOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWV9LCJzdWIiOiJpZGVudGl0eSIsImlzcyI6IkFQSXE2Q1Y1ZTM3N2hteiIsIm5iZiI6MTc0NzM2NTEyOCwiZXhwIjoxNzQ3Mzg2NzI4fQ.LDg9XW7bwCnnJ81swrQDofOUloUgs3opwNv-CCD3294";
 
 const LiveKitRoomScreen: React.FC = () => {
   useEffect(() => {

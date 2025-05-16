@@ -27,6 +27,12 @@ const Keypad: React.FC = () => {
 
       const { token } = await response.json();
       console.log('통화 연결됨!', token);
+
+      // Navigate to CallScreen and pass token and phone number
+      router.push({
+        pathname: './generate_room',
+        params: { token, phoneNumber },
+      });
     } catch (error) {
       console.error('전화 연결 실패', error);
     }
@@ -59,8 +65,7 @@ const Keypad: React.FC = () => {
       <View className="relative w-full items-center mb-16">
         {/* Call Button */}
         <ImageBackground source={icons.callbutton} className="w-[55px] h-[55px] mx-2 rounded-xl overflow-hidden absolute left-1/2 -translate-x-1/2">
-          <TouchableOpacity onPress={() => router.push('./callScreen')} className="w-full h-full" />
-
+          <TouchableOpacity onPress={handleCall} className="w-full h-full" />
         </ImageBackground>
 
         {/* Delete Button */}
