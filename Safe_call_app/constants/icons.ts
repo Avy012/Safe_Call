@@ -8,6 +8,7 @@ import call from "@/assets/icons/call.png";
 import chat from "@/assets/icons/chat.png";
 import backspace from "@/assets/icons/delete.png";
 import callbutton from "@/assets/icons/callButton.png"
+import hangup from "@/assets/icons/hangUpCall.png"
 
 export const icons = {
   home,
@@ -20,4 +21,5 @@ export const icons = {
   chat,
   backspace,
   callbutton,
+  hangup,
 };
