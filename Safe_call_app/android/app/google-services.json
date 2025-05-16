@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1086704094001",
+    "firebase_url": "https://safe-call-f0276-default-rtdb.firebaseio.com",
+    "project_id": "safe-call-f0276",
+    "storage_bucket": "safe-call-f0276.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086704094001:android:20a41df94a209d0b0efe10",
+        "android_client_info": {
+          "package_name": "com.anonymous.Safe_Call"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086704094001-4llo17p98rqdquloi74esn7i1gp6o987.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDl1FGFqyw4qbEvGFOEu-HFUffWyGHywZQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086704094001-4llo17p98rqdquloi74esn7i1gp6o987.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
