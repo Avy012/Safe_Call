@@ -42,3 +42,6 @@ app-example
 
 # Firebase config
 android/app/google-services.json
+
+# token
+livekit_token.json
