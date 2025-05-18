@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import com.livekit.reactnative.LivekitReactNativePackage;
 // @livekit/react-native-webrtc
 import com.oney.WebRTCModule.WebRTCModulePackage;
+// @react-native-firebase/app
+import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
+// @react-native-firebase/auth
+import io.invertase.firebase.auth.ReactNativeFirebaseAuthPackage;
 // expo
 import expo.modules.ExpoModulesPackage;
 // react-native-gesture-handler
@@ -73,6 +77,8 @@ public class PackageList {
       new MainReactPackage(mConfig),
       new LivekitReactNativePackage(),
       new WebRTCModulePackage(),
+      new ReactNativeFirebaseAppPackage(),
+      new ReactNativeFirebaseAuthPackage(),
       new ExpoModulesPackage(),
       new RNGestureHandlerPackage(),
       new ReanimatedPackage(),

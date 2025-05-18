@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.anonymous.Safe_Call.app-mergeDebugResources-60:/values-v33/values-v33.xml",
+            "outputFile": "com.anonymous.Safe_Call.app-mergeDebugResources-68:/values-v33/values-v33.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\User\\.gradle\\caches\\8.10.2\\transforms\\f9d28ecb979a8f7575933ef6f5cf09fc\\transformed\\core-splashscreen-1.2.0-alpha02\\res\\values-v33\\values-v33.xml",
+                    "source": "C:\\Users\\User\\.gradle\\caches\\8.10.2\\transforms\\f7d069f7b29a00acab42a1886db7c7e8\\transformed\\core-splashscreen-1.2.0-alpha02\\res\\values-v33\\values-v33.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

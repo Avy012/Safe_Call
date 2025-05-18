@@ -16,8 +16,8 @@
   --ndk-version ^
   26 ^
   --output ^
-  "C:\\Users\\User\\AppData\\Local\\Temp\\agp-prefab-staging77532062705093383\\staged-cli-output" ^
-  "C:\\Users\\User\\.gradle\\caches\\8.10.2\\transforms\\d1ab2155b539508f564b7247055e2db0\\transformed\\react-android-0.76.7-debug\\prefab" ^
+  "C:\\Users\\User\\AppData\\Local\\Temp\\agp-prefab-staging6320072622808610903\\staged-cli-output" ^
+  "C:\\Users\\User\\.gradle\\caches\\8.10.2\\transforms\\0f839437195569227022e709030e837c\\transformed\\react-android-0.76.9-debug\\prefab" ^
   "C:\\Users\\User\\Documents\\GitHub\\Safe_Call\\Safe_call_app\\android\\app\\build\\intermediates\\cxx\\refs\\react-native-reanimated\\711w575w" ^
-  "C:\\Users\\User\\.gradle\\caches\\8.10.2\\transforms\\3a020dac8f88926bf9da4884aa08cf49\\transformed\\hermes-android-0.76.7-debug\\prefab" ^
-  "C:\\Users\\User\\.gradle\\caches\\8.10.2\\transforms\\14479106fc9c285034fe5188965917a6\\transformed\\fbjni-0.6.0\\prefab"
+  "C:\\Users\\User\\.gradle\\caches\\8.10.2\\transforms\\835c7fc77adcc806d35d2238e408e225\\transformed\\hermes-android-0.76.9-debug\\prefab" ^
+  "C:\\Users\\User\\.gradle\\caches\\8.10.2\\transforms\\1957b0db02baa50e26af4d5b92e700f6\\transformed\\fbjni-0.6.0\\prefab"

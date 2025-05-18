@@ -9,6 +9,8 @@ set(REACTNATIVE_MERGED_SO true)
 
 
 
+
+
 add_subdirectory("C:/Users/User/Documents/GitHub/Safe_Call/Safe_call_app/node_modules/react-native-gesture-handler/android/build/generated/source/codegen/jni/" rngesturehandler_codegen_autolinked_build)
 add_subdirectory("C:/Users/User/Documents/GitHub/Safe_Call/Safe_call_app/node_modules/react-native-reanimated/android/build/generated/source/codegen/jni/" rnreanimated_autolinked_build)
 add_subdirectory("C:/Users/User/Documents/GitHub/Safe_Call/Safe_call_app/node_modules/react-native-safe-area-context/android/src/main/jni/" safeareacontext_autolinked_build)
@@ -16,6 +18,8 @@ add_subdirectory("C:/Users/User/Documents/GitHub/Safe_Call/Safe_call_app/node_mo
 add_subdirectory("C:/Users/User/Documents/GitHub/Safe_Call/Safe_call_app/node_modules/react-native-webview/android/build/generated/source/codegen/jni/" RNCWebViewSpec_autolinked_build)
 
 set(AUTOLINKED_LIBRARIES
+  
+  
   
   
   

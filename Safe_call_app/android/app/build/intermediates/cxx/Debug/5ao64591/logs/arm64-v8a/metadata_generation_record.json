@@ -27,7 +27,7 @@
   },
   {
     "level_": 0,
-    "message_": "- a file changed",
+    "message_": "- no fingerprint file, will remove stale configuration folder",
     "file_": "C:\\Users\\User\\Documents\\GitHub\\Safe_Call\\Safe_call_app\\node_modules\\react-native\\ReactAndroid\\cmake-utils\\default-app-setup\\CMakeLists.txt",
     "tag_": "debug|arm64-v8a",
     "diagnosticCode_": 0,
@@ -40,59 +40,7 @@
   },
   {
     "level_": 0,
-    "message_": "  - C:\\Users\\User\\Documents\\GitHub\\Safe_Call\\Safe_call_app\\android\\app\\.cxx\\Debug\\5ao64591\\arm64-v8a\\prefab_config.json (LAST_MODIFIED_CHANGED)",
-    "file_": "C:\\Users\\User\\Documents\\GitHub\\Safe_Call\\Safe_call_app\\node_modules\\react-native\\ReactAndroid\\cmake-utils\\default-app-setup\\CMakeLists.txt",
-    "tag_": "debug|arm64-v8a",
-    "diagnosticCode_": 0,
-    "memoizedIsInitialized": 1,
-    "unknownFields": {
-      "fields": {}
-    },
-    "memoizedSize": -1,
-    "memoizedHashCode": 0
-  },
-  {
-    "level_": 0,
-    "message_": "  - C:\\Users\\User\\Documents\\GitHub\\Safe_Call\\Safe_call_app\\node_modules\\react-native-gesture-handler\\android\\build\\generated\\source\\codegen\\jni\\CMakeLists.txt (LAST_MODIFIED_CHANGED)",
-    "file_": "C:\\Users\\User\\Documents\\GitHub\\Safe_Call\\Safe_call_app\\node_modules\\react-native\\ReactAndroid\\cmake-utils\\default-app-setup\\CMakeLists.txt",
-    "tag_": "debug|arm64-v8a",
-    "diagnosticCode_": 0,
-    "memoizedIsInitialized": 1,
-    "unknownFields": {
-      "fields": {}
-    },
-    "memoizedSize": -1,
-    "memoizedHashCode": 0
-  },
-  {
-    "level_": 0,
-    "message_": "  - C:\\Users\\User\\Documents\\GitHub\\Safe_Call\\Safe_call_app\\node_modules\\react-native-reanimated\\android\\build\\generated\\source\\codegen\\jni\\CMakeLists.txt (LAST_MODIFIED_CHANGED)",
-    "file_": "C:\\Users\\User\\Documents\\GitHub\\Safe_Call\\Safe_call_app\\node_modules\\react-native\\ReactAndroid\\cmake-utils\\default-app-setup\\CMakeLists.txt",
-    "tag_": "debug|arm64-v8a",
-    "diagnosticCode_": 0,
-    "memoizedIsInitialized": 1,
-    "unknownFields": {
-      "fields": {}
-    },
-    "memoizedSize": -1,
-    "memoizedHashCode": 0
-  },
-  {
-    "level_": 0,
-    "message_": "  - C:\\Users\\User\\Documents\\GitHub\\Safe_Call\\Safe_call_app\\node_modules\\react-native-webview\\android\\build\\generated\\source\\codegen\\jni\\CMakeLists.txt (LAST_MODIFIED_CHANGED)",
-    "file_": "C:\\Users\\User\\Documents\\GitHub\\Safe_Call\\Safe_call_app\\node_modules\\react-native\\ReactAndroid\\cmake-utils\\default-app-setup\\CMakeLists.txt",
-    "tag_": "debug|arm64-v8a",
-    "diagnosticCode_": 0,
-    "memoizedIsInitialized": 1,
-    "unknownFields": {
-      "fields": {}
-    },
-    "memoizedSize": -1,
-    "memoizedHashCode": 0
-  },
-  {
-    "level_": 0,
-    "message_": "@echo off\n\"C:\\\\Program Files\\\\Eclipse Adoptium\\\\jdk-17.0.14.7-hotspot\\\\bin\\\\java\" ^\n  --class-path ^\n  \"C:\\\\Users\\\\User\\\\.gradle\\\\caches\\\\modules-2\\\\files-2.1\\\\com.google.prefab\\\\cli\\\\2.1.0\\\\aa32fec809c44fa531f01dcfb739b5b3304d3050\\\\cli-2.1.0-all.jar\" ^\n  com.google.prefab.cli.AppKt ^\n  --build-system ^\n  cmake ^\n  --platform ^\n  android ^\n  --abi ^\n  arm64-v8a ^\n  --os-version ^\n  24 ^\n  --stl ^\n  c++_shared ^\n  --ndk-version ^\n  26 ^\n  --output ^\n  \"C:\\\\Users\\\\User\\\\AppData\\\\Local\\\\Temp\\\\agp-prefab-staging77532062705093383\\\\staged-cli-output\" ^\n  \"C:\\\\Users\\\\User\\\\.gradle\\\\caches\\\\8.10.2\\\\transforms\\\\d1ab2155b539508f564b7247055e2db0\\\\transformed\\\\react-android-0.76.7-debug\\\\prefab\" ^\n  \"C:\\\\Users\\\\User\\\\Documents\\\\GitHub\\\\Safe_Call\\\\Safe_call_app\\\\android\\\\app\\\\build\\\\intermediates\\\\cxx\\\\refs\\\\react-native-reanimated\\\\711w575w\" ^\n  \"C:\\\\Users\\\\User\\\\.gradle\\\\caches\\\\8.10.2\\\\transforms\\\\3a020dac8f88926bf9da4884aa08cf49\\\\transformed\\\\hermes-android-0.76.7-debug\\\\prefab\" ^\n  \"C:\\\\Users\\\\User\\\\.gradle\\\\caches\\\\8.10.2\\\\transforms\\\\14479106fc9c285034fe5188965917a6\\\\transformed\\\\fbjni-0.6.0\\\\prefab\"\n",
+    "message_": "@echo off\n\"C:\\\\Program Files\\\\Eclipse Adoptium\\\\jdk-17.0.14.7-hotspot\\\\bin\\\\java\" ^\n  --class-path ^\n  \"C:\\\\Users\\\\User\\\\.gradle\\\\caches\\\\modules-2\\\\files-2.1\\\\com.google.prefab\\\\cli\\\\2.1.0\\\\aa32fec809c44fa531f01dcfb739b5b3304d3050\\\\cli-2.1.0-all.jar\" ^\n  com.google.prefab.cli.AppKt ^\n  --build-system ^\n  cmake ^\n  --platform ^\n  android ^\n  --abi ^\n  arm64-v8a ^\n  --os-version ^\n  24 ^\n  --stl ^\n  c++_shared ^\n  --ndk-version ^\n  26 ^\n  --output ^\n  \"C:\\\\Users\\\\User\\\\AppData\\\\Local\\\\Temp\\\\agp-prefab-staging6320072622808610903\\\\staged-cli-output\" ^\n  \"C:\\\\Users\\\\User\\\\.gradle\\\\caches\\\\8.10.2\\\\transforms\\\\0f839437195569227022e709030e837c\\\\transformed\\\\react-android-0.76.9-debug\\\\prefab\" ^\n  \"C:\\\\Users\\\\User\\\\Documents\\\\GitHub\\\\Safe_Call\\\\Safe_call_app\\\\android\\\\app\\\\build\\\\intermediates\\\\cxx\\\\refs\\\\react-native-reanimated\\\\711w575w\" ^\n  \"C:\\\\Users\\\\User\\\\.gradle\\\\caches\\\\8.10.2\\\\transforms\\\\835c7fc77adcc806d35d2238e408e225\\\\transformed\\\\hermes-android-0.76.9-debug\\\\prefab\" ^\n  \"C:\\\\Users\\\\User\\\\.gradle\\\\caches\\\\8.10.2\\\\transforms\\\\1957b0db02baa50e26af4d5b92e700f6\\\\transformed\\\\fbjni-0.6.0\\\\prefab\"\n",
     "file_": "C:\\Users\\User\\Documents\\GitHub\\Safe_Call\\Safe_call_app\\node_modules\\react-native\\ReactAndroid\\cmake-utils\\default-app-setup\\CMakeLists.txt",
     "tag_": "debug|arm64-v8a",
     "diagnosticCode_": 0,
@@ -118,7 +66,20 @@
   },
   {
     "level_": 0,
-    "message_": "keeping json folder \u0027C:\\Users\\User\\Documents\\GitHub\\Safe_Call\\Safe_call_app\\android\\app\\.cxx\\Debug\\5ao64591\\arm64-v8a\u0027 but regenerating project",
+    "message_": "removing stale contents from \u0027C:\\Users\\User\\Documents\\GitHub\\Safe_Call\\Safe_call_app\\android\\app\\.cxx\\Debug\\5ao64591\\arm64-v8a\u0027",
+    "file_": "C:\\Users\\User\\Documents\\GitHub\\Safe_Call\\Safe_call_app\\node_modules\\react-native\\ReactAndroid\\cmake-utils\\default-app-setup\\CMakeLists.txt",
+    "tag_": "debug|arm64-v8a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 0
+  },
+  {
+    "level_": 0,
+    "message_": "created folder \u0027C:\\Users\\User\\Documents\\GitHub\\Safe_Call\\Safe_call_app\\android\\app\\.cxx\\Debug\\5ao64591\\arm64-v8a\u0027",
     "file_": "C:\\Users\\User\\Documents\\GitHub\\Safe_Call\\Safe_call_app\\node_modules\\react-native\\ReactAndroid\\cmake-utils\\default-app-setup\\CMakeLists.txt",
     "tag_": "debug|arm64-v8a",
     "diagnosticCode_": 0,
