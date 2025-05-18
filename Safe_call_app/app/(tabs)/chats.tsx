@@ -25,7 +25,7 @@ export default function Chats() {
    <View className="flex-1 bg-white">
       {/* Title */}
       <View className="bg-primary px-4 py-4">
-        <Text className="text-white text-2xl font-bold">Chats</Text>
+        <Text className="text-white text-2xl font-bold">채팅</Text>
       </View>
 
 

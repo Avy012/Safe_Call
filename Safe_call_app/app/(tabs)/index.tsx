@@ -67,10 +67,7 @@ export default function Index() {
         </View>
         
         <View style={styles.statsContainer}>
-          <View style={styles.statBox}>
-            <Text style={styles.statLabel}>신고</Text>
-            <Text style={styles.statNumber}>5</Text>
-          </View>
+         
           <View style={styles.statBox}>
             <Text style={styles.statLabel}>차단</Text>
             <Text style={styles.statNumber}>2</Text>
@@ -176,7 +173,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: 35
+    paddingLeft: 100
   },
   statNumber: {
     fontSize: 20,
@@ -189,7 +186,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 14,
     textAlign: 'center',
-    width: 75,
+    width: 150,
     height: 45,
     margin: 10
   },
@@ -198,6 +195,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#B22222',
     marginTop: 8,
+    marginRight:13,
+    marginLeft:10
   },
   Latest_Call_summary: {
     width: 350,
