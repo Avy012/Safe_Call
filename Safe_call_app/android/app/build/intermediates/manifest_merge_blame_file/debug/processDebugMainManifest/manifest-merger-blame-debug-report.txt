@@ -23,55 +23,55 @@
 15    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 15-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:6:3-78
 15-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:6:20-76
-16
-17    <queries>
-17-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:7:3-13:13
-18        <intent>
-18-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:8:5-12:14
-19            <action android:name="android.intent.action.VIEW" />
-19-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:9:7-58
-19-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:9:15-56
-20
-21            <category android:name="android.intent.category.BROWSABLE" />
-21-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:10:7-67
-21-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:10:17-65
-22
-23            <data android:scheme="https" />
-23-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:11:7-37
-23-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:11:13-35
-24        </intent>
+16    <uses-permission android:name="android.permission.CAMERA" />
+16-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:7:3-63
+16-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:7:20-60
+17    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+17-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:8:3-69
+17-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:8:20-66
+18    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+18-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:9:3-78
+18-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:9:20-75
+19
+20    <queries>
+20-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:10:3-16:13
+21        <intent>
+21-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:11:5-15:14
+22            <action android:name="android.intent.action.VIEW" />
+22-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:12:7-58
+22-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:12:15-56
+23
+24            <category android:name="android.intent.category.BROWSABLE" />
+24-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:13:7-67
+24-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:13:17-65
 25
-26        <package android:name="host.exp.exponent" /> <!-- Query open documents -->
-26-->[:expo-dev-launcher] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-dev-launcher\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:9-53
-26-->[:expo-dev-launcher] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-dev-launcher\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:18-50
-27        <intent>
-27-->[:expo-file-system] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:9-17:18
-28            <action android:name="android.intent.action.OPEN_DOCUMENT_TREE" />
-28-->[:expo-file-system] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:16:13-79
-28-->[:expo-file-system] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:16:21-76
-29        </intent>
+26            <data android:scheme="https" />
+26-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:7-37
+26-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:13-35
+27        </intent>
+28
+29        <package android:name="host.exp.exponent" /> <!-- Query open documents -->
+29-->[:expo-dev-launcher] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-dev-launcher\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:9-53
+29-->[:expo-dev-launcher] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-dev-launcher\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:18-50
 30        <intent>
-30-->[:expo-web-browser] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-web-browser\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:9-12:18
-31
-32            <!-- Required for opening tabs if targeting API 30 -->
-33            <action android:name="android.support.customtabs.action.CustomTabsService" />
-33-->[:expo-web-browser] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-web-browser\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:13-90
-33-->[:expo-web-browser] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-web-browser\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:21-87
-34        </intent>
-35    </queries>
-36
-37    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-37-->[:livekit_react-native] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:5-79
-37-->[:livekit_react-native] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:22-76
-38    <uses-permission android:name="android.permission.CAMERA" />
-38-->[:livekit_react-native] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:5-65
-38-->[:livekit_react-native] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:22-62
-39    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-39-->[:livekit_react-native] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:10:5-80
-39-->[:livekit_react-native] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:10:22-77
-40    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-40-->[:livekit_react-native] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:5-71
-40-->[:livekit_react-native] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:22-68
+30-->[:expo-file-system] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:9-17:18
+31            <action android:name="android.intent.action.OPEN_DOCUMENT_TREE" />
+31-->[:expo-file-system] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:16:13-79
+31-->[:expo-file-system] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:16:21-76
+32        </intent>
+33        <intent>
+33-->[:expo-web-browser] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-web-browser\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:9-12:18
+34
+35            <!-- Required for opening tabs if targeting API 30 -->
+36            <action android:name="android.support.customtabs.action.CustomTabsService" />
+36-->[:expo-web-browser] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-web-browser\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:13-90
+36-->[:expo-web-browser] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-web-browser\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:21-87
+37        </intent>
+38    </queries>
+39
+40    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+40-->[:livekit_react-native] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:5-79
+40-->[:livekit_react-native] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:22-76
 41    <uses-permission android:name="android.permission.WAKE_LOCK" />
 41-->[:livekit_react-native] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:5-68
 41-->[:livekit_react-native] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:22-65
@@ -103,94 +103,94 @@
 53-->[androidx.core:core:1.13.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7a0941004ac45c50b486dd320a2bfc96\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
 54
 55    <application
-55-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:3-32:17
+55-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:17:3-35:17
 56        android:name="com.anonymous.Safe_Call.MainApplication"
-56-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:16-47
+56-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:17:16-47
 57        android:allowBackup="true"
-57-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:162-188
+57-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:17:162-188
 58        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 58-->[androidx.core:core:1.13.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7a0941004ac45c50b486dd320a2bfc96\transformed\core-1.13.1\AndroidManifest.xml:28:18-86
 59        android:debuggable="true"
 60        android:extractNativeLibs="false"
 61        android:icon="@mipmap/ic_launcher"
-61-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:81-115
+61-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:17:81-115
 62        android:label="@string/app_name"
-62-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:48-80
+62-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:17:48-80
 63        android:roundIcon="@mipmap/ic_launcher_round"
-63-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:116-161
+63-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:17:116-161
 64        android:supportsRtl="true"
-64-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:221-247
+64-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:17:221-247
 65        android:theme="@style/AppTheme"
-65-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:189-220
+65-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:17:189-220
 66        android:usesCleartextTraffic="true" >
 66-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\debug\AndroidManifest.xml:6:18-53
 67        <meta-data
-67-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:15:5-83
+67-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:18:5-83
 68            android:name="expo.modules.updates.ENABLED"
-68-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:15:16-59
+68-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:18:16-59
 69            android:value="false" />
-69-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:15:60-81
+69-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:18:60-81
 70        <meta-data
-70-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:16:5-105
+70-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:19:5-105
 71            android:name="expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH"
-71-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:16:16-80
+71-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:19:16-80
 72            android:value="ALWAYS" />
-72-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:16:81-103
+72-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:19:81-103
 73        <meta-data
-73-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:17:5-99
+73-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:20:5-99
 74            android:name="expo.modules.updates.EXPO_UPDATES_LAUNCH_WAIT_MS"
-74-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:17:16-79
+74-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:20:16-79
 75            android:value="0" />
-75-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:17:80-97
+75-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:20:80-97
 76
 77        <activity
-77-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:18:5-31:16
+77-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:21:5-34:16
 78            android:name="com.anonymous.Safe_Call.MainActivity"
-78-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:18:15-43
+78-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:21:15-43
 79            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|uiMode"
-79-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:18:44-134
+79-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:21:44-134
 80            android:exported="true"
-80-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:18:256-279
+80-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:21:256-279
 81            android:launchMode="singleTask"
-81-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:18:135-166
+81-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:21:135-166
 82            android:screenOrientation="portrait"
-82-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:18:280-316
+82-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:21:280-316
 83            android:theme="@style/Theme.App.SplashScreen"
-83-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:18:210-255
+83-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:21:210-255
 84            android:windowSoftInputMode="adjustResize" >
-84-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:18:167-209
+84-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:21:167-209
 85            <intent-filter>
-85-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:19:7-22:23
+85-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:22:7-25:23
 86                <action android:name="android.intent.action.MAIN" />
-86-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:20:9-60
-86-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:20:17-58
+86-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:23:9-60
+86-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:23:17-58
 87
 88                <category android:name="android.intent.category.LAUNCHER" />
-88-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:21:9-68
-88-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:21:19-66
+88-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:24:9-68
+88-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:24:19-66
 89            </intent-filter>
 90            <intent-filter>
-90-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:23:7-30:23
+90-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:26:7-33:23
 91                <action android:name="android.intent.action.VIEW" />
-91-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:9:7-58
-91-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:9:15-56
+91-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:12:7-58
+91-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:12:15-56
 92
 93                <category android:name="android.intent.category.DEFAULT" />
-93-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:25:9-67
-93-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:25:19-65
+93-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:28:9-67
+93-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:28:19-65
 94                <category android:name="android.intent.category.BROWSABLE" />
-94-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:10:7-67
-94-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:10:17-65
+94-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:13:7-67
+94-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:13:17-65
 95
 96                <data android:scheme="myapp" />
-96-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:11:7-37
-96-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:11:13-35
+96-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:7-37
+96-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:13-35
 97                <data android:scheme="com.anonymous.Safe_Call" />
-97-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:11:7-37
-97-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:11:13-35
+97-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:7-37
+97-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:13-35
 98                <data android:scheme="exp+safecall" />
-98-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:11:7-37
-98-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:11:13-35
+98-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:7-37
+98-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:13-35
 99            </intent-filter>
 100        </activity>
 101
@@ -285,19 +285,19 @@
 150            <intent-filter>
 150-->[:expo-dev-launcher] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-dev-launcher\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:17:13-24:29
 151                <action android:name="android.intent.action.VIEW" />
-151-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:9:7-58
-151-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:9:15-56
+151-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:12:7-58
+151-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:12:15-56
 152
 153                <category android:name="android.intent.category.DEFAULT" />
-153-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:25:9-67
-153-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:25:19-65
+153-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:28:9-67
+153-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:28:19-65
 154                <category android:name="android.intent.category.BROWSABLE" />
-154-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:10:7-67
-154-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:10:17-65
+154-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:13:7-67
+154-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:13:17-65
 155
 156                <data android:scheme="expo-dev-launcher" />
-156-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:11:7-37
-156-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:11:13-35
+156-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:7-37
+156-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:13-35
 157            </intent-filter>
 158        </activity>
 159        <activity
@@ -321,19 +321,19 @@
 168            <intent-filter>
 168-->[:expo-dev-menu] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-dev-menu\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:13-20:29
 169                <action android:name="android.intent.action.VIEW" />
-169-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:9:7-58
-169-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:9:15-56
+169-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:12:7-58
+169-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:12:15-56
 170
 171                <category android:name="android.intent.category.DEFAULT" />
-171-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:25:9-67
-171-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:25:19-65
+171-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:28:9-67
+171-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:28:19-65
 172                <category android:name="android.intent.category.BROWSABLE" />
-172-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:10:7-67
-172-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:10:17-65
+172-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:13:7-67
+172-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:13:17-65
 173
 174                <data android:scheme="expo-dev-menu" />
-174-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:11:7-37
-174-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:11:13-35
+174-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:7-37
+174-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:13-35
 175            </intent-filter>
 176        </activity>
 177
@@ -389,22 +389,22 @@
 204            <intent-filter>
 204-->[com.google.firebase:firebase-auth:23.2.0] C:\Users\User\.gradle\caches\8.10.2\transforms\c2ba1d0346fad379c65860087f1e64b6\transformed\firebase-auth-23.2.0\AndroidManifest.xml:35:13-45:29
 205                <action android:name="android.intent.action.VIEW" />
-205-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:9:7-58
-205-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:9:15-56
+205-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:12:7-58
+205-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:12:15-56
 206
 207                <category android:name="android.intent.category.DEFAULT" />
-207-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:25:9-67
-207-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:25:19-65
+207-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:28:9-67
+207-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:28:19-65
 208                <category android:name="android.intent.category.BROWSABLE" />
-208-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:10:7-67
-208-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:10:17-65
+208-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:13:7-67
+208-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:13:17-65
 209
 210                <data
-210-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:11:7-37
+210-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:7-37
 211                    android:host="firebase.auth"
 212                    android:path="/"
 213                    android:scheme="genericidp" />
-213-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:11:13-35
+213-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:13-35
 214            </intent-filter>
 215        </activity>
 216        <activity
@@ -422,22 +422,22 @@
 222            <intent-filter>
 222-->[com.google.firebase:firebase-auth:23.2.0] C:\Users\User\.gradle\caches\8.10.2\transforms\c2ba1d0346fad379c65860087f1e64b6\transformed\firebase-auth-23.2.0\AndroidManifest.xml:53:13-63:29
 223                <action android:name="android.intent.action.VIEW" />
-223-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:9:7-58
-223-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:9:15-56
+223-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:12:7-58
+223-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:12:15-56
 224
 225                <category android:name="android.intent.category.DEFAULT" />
-225-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:25:9-67
-225-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:25:19-65
+225-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:28:9-67
+225-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:28:19-65
 226                <category android:name="android.intent.category.BROWSABLE" />
-226-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:10:7-67
-226-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:10:17-65
+226-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:13:7-67
+226-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:13:17-65
 227
 228                <data
-228-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:11:7-37
+228-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:7-37
 229                    android:host="firebase.auth"
 230                    android:path="/"
 231                    android:scheme="recaptcha" />
-231-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:11:13-35
+231-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:13-35
 232            </intent-filter>
 233        </activity>
 234

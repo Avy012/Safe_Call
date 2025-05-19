@@ -22,7 +22,7 @@
           "action": "VIEW",
           "data": {
             "scheme": "exp+safecall",
-            "host": "*"
+            "host": "192.168.219.108"
           },
           "category": ["BROWSABLE", "DEFAULT"]
         }

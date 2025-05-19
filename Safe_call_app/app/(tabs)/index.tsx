@@ -78,7 +78,7 @@ export default function Index() {
       <View className="flex-1 justify-center items-center bg-white">
       <Text className="text-2xl font-bold mb-6">📱 Safe Call 메인</Text>
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         className="bg-green-600 px-6 py-3 rounded-full"
         onPress={() =>
           router.push({
@@ -91,7 +91,7 @@ export default function Index() {
         }
       >
         <Text className="text-white font-semibold text-base">📞 수신 화면 보기</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
 
       
