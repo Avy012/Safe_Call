@@ -72,10 +72,10 @@ const RoomView: React.FC = () => {
   const tracks = useTracks([Track.Source.Camera]);
 
   const [isMuted, setIsMuted] = useState(true);
-  const [isVideoOn, setIsVideoOn] = useState(true);
+  const [isVideoOn, setIsVideoOn] = useState(false);
 
   const toggleMute = async () => {
-    await localParticipant.setMicrophoneEnabled(isMuted);
+    await localParticipant.setMicrophoneEnabled(!isMuted);
     setIsMuted(!isMuted);
   };
 
