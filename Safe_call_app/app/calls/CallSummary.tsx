@@ -55,12 +55,11 @@ export default function CallSummary() {
 
 
       {/* 요약 */}
-      <View className="mt-0 mb-10 items-center">
-      <Text className="text-base text-blue-700 italic bg-blue-50 px-3 py-2 rounded-xl shadow-sm">
-  {summary}
-</Text>
-      </View>
-
+      {summary && (
+        <View className="bg-blue-50 px-4 py-3 mx-2 rounded-xl mb-10">
+          <Text className="text-base italic text-blue-800 text-center">{summary}</Text>
+        </View>
+      )}
       {/* 통화 정보 섹션 */}
       <View className="space-y-6">
         <View className="flex-row justify-between px-4 py-3 border-b border-gray-200">
