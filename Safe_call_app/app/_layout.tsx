@@ -6,7 +6,9 @@ import { registerGlobals } from '@livekit/react-native';
 import { UserProvider } from '@/context/UserContext'; // 이 줄 추가
 import './globals.css';
 
+
 registerGlobals();
+
 
 export default function RootLayout() {
   return (

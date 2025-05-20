@@ -3,9 +3,11 @@ import { View, Text } from 'react-native';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../services/firebaseConfig';
 import { router } from 'expo-router';
+import { registerFCMToken } from '@/services/firebaseSetup';
 
 export default function Index() {
   useEffect(() => {
+    registerFCMToken();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       console.log('✅ Firebase user:', user);
       if (user) {
