@@ -27,4 +27,11 @@ const before_login = ({ navigation }: any) => {
   );
 };
 
+before_login.options = {
+  headerShown: false,
+};
+
 export default before_login;
+
+
+
