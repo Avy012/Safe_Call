@@ -23,19 +23,19 @@ export default function SettingsScreen() {
       <TouchableOpacity style={styles.button}
       onPress={() => router.push('/account')}
         >
-        <Text style={styles.buttonText}>Account</Text>
+        <Text style={styles.buttonText}>계정</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.button}
       onPress={() => router.push('/privacy')}
       >
-        <Text style={styles.buttonText}>Privacy</Text>
+        <Text style={styles.buttonText}>개인 정보 보호</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.button}
       onPress={() => router.push('/notification')}
       >
-        <Text style={styles.buttonText}>Notification</Text>
+        <Text style={styles.buttonText}>알림 설정</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={[styles.button, { backgroundColor: '#ff4d4f' }]}
@@ -48,7 +48,7 @@ export default function SettingsScreen() {
           }
         }}
       >
-        <Text style={[styles.buttonText, { color: '#fff' }]}>Logout</Text>
+        <Text style={[styles.buttonText, { color: '#fff' }]}>로그아웃</Text>
       </TouchableOpacity>
 
     </View>
