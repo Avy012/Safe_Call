@@ -1,0 +1,605 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.anonymous.Safe_Call"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="34" />
+10
+11    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+11-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:4:3-75
+11-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:4:20-73
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:2:3-64
+12-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:2:20-62
+13    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+13-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:3:3-77
+13-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:3:20-75
+14    <uses-permission android:name="android.permission.VIBRATE" />
+14-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:5:3-63
+14-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:5:20-61
+15    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+15-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:6:3-78
+15-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:6:20-76
+16    <uses-permission android:name="android.permission.CAMERA" />
+16-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:7:3-63
+16-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:7:20-60
+17    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+17-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:8:3-69
+17-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:8:20-66
+18    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+18-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:9:3-78
+18-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:9:20-75
+19
+20    <queries>
+20-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:10:3-16:13
+21        <intent>
+21-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:11:5-15:14
+22            <action android:name="android.intent.action.VIEW" />
+22-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:12:7-58
+22-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:12:15-56
+23
+24            <category android:name="android.intent.category.BROWSABLE" />
+24-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:13:7-67
+24-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:13:17-65
+25
+26            <data android:scheme="https" />
+26-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:7-37
+26-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:13-35
+27        </intent>
+28
+29        <package android:name="host.exp.exponent" /> <!-- Query open documents -->
+29-->[:expo-dev-launcher] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-dev-launcher\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:9-53
+29-->[:expo-dev-launcher] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-dev-launcher\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:18-50
+30        <intent>
+30-->[:expo-file-system] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:9-17:18
+31            <action android:name="android.intent.action.OPEN_DOCUMENT_TREE" />
+31-->[:expo-file-system] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:16:13-79
+31-->[:expo-file-system] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:16:21-76
+32        </intent>
+33        <intent>
+33-->[:expo-web-browser] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-web-browser\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:9-12:18
+34
+35            <!-- Required for opening tabs if targeting API 30 -->
+36            <action android:name="android.support.customtabs.action.CustomTabsService" />
+36-->[:expo-web-browser] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-web-browser\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:13-90
+36-->[:expo-web-browser] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-web-browser\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:21-87
+37        </intent>
+38    </queries>
+39
+40    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+40-->[:livekit_react-native] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:5-79
+40-->[:livekit_react-native] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:22-76
+41    <uses-permission android:name="android.permission.WAKE_LOCK" />
+41-->[:livekit_react-native] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:5-68
+41-->[:livekit_react-native] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:22-65
+42    <uses-permission
+42-->[:livekit_react-native] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:14:5-68
+43        android:name="android.permission.BLUETOOTH"
+43-->[:livekit_react-native] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:14:22-65
+44        android:maxSdkVersion="30" />
+44-->[com.github.davidliu:audioswitch:89582c47c9a04c62f90aa5e57251af4800a62c9a] C:\Users\User\.gradle\caches\8.10.2\transforms\00ee08b96d4afc93faf12ef61fe6ec24\transformed\audioswitch-89582c47c9a04c62f90aa5e57251af4800a62c9a\AndroidManifest.xml:11:9-35
+45    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+45-->[:livekit_react-native] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:5-74
+45-->[:livekit_react-native] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:22-71
+46    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+46-->[:livekit_react-native] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:16:5-77
+46-->[:livekit_react-native] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:16:22-74
+47    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+47-->[com.google.android.recaptcha:recaptcha:18.6.1] C:\Users\User\.gradle\caches\8.10.2\transforms\72b0c2d34af43c0a1cad5c7ce7066b83\transformed\recaptcha-18.6.1\AndroidManifest.xml:9:5-98
+47-->[com.google.android.recaptcha:recaptcha:18.6.1] C:\Users\User\.gradle\caches\8.10.2\transforms\72b0c2d34af43c0a1cad5c7ce7066b83\transformed\recaptcha-18.6.1\AndroidManifest.xml:9:22-95
+48
+49    <permission
+49-->[androidx.core:core:1.13.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7a0941004ac45c50b486dd320a2bfc96\transformed\core-1.13.1\AndroidManifest.xml:22:5-24:47
+50        android:name="com.anonymous.Safe_Call.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+50-->[androidx.core:core:1.13.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7a0941004ac45c50b486dd320a2bfc96\transformed\core-1.13.1\AndroidManifest.xml:23:9-81
+51        android:protectionLevel="signature" />
+51-->[androidx.core:core:1.13.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7a0941004ac45c50b486dd320a2bfc96\transformed\core-1.13.1\AndroidManifest.xml:24:9-44
+52
+53    <uses-permission android:name="com.anonymous.Safe_Call.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+53-->[androidx.core:core:1.13.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7a0941004ac45c50b486dd320a2bfc96\transformed\core-1.13.1\AndroidManifest.xml:26:5-97
+53-->[androidx.core:core:1.13.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7a0941004ac45c50b486dd320a2bfc96\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
+54
+55    <application
+55-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:17:3-35:17
+56        android:name="com.anonymous.Safe_Call.MainApplication"
+56-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:17:16-47
+57        android:allowBackup="true"
+57-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:17:162-188
+58        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+58-->[androidx.core:core:1.13.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7a0941004ac45c50b486dd320a2bfc96\transformed\core-1.13.1\AndroidManifest.xml:28:18-86
+59        android:debuggable="true"
+60        android:extractNativeLibs="false"
+61        android:icon="@mipmap/ic_launcher"
+61-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:17:81-115
+62        android:label="@string/app_name"
+62-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:17:48-80
+63        android:roundIcon="@mipmap/ic_launcher_round"
+63-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:17:116-161
+64        android:supportsRtl="true"
+64-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:17:221-247
+65        android:theme="@style/AppTheme"
+65-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:17:189-220
+66        android:usesCleartextTraffic="true" >
+66-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\debug\AndroidManifest.xml:6:18-53
+67        <meta-data
+67-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:18:5-83
+68            android:name="expo.modules.updates.ENABLED"
+68-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:18:16-59
+69            android:value="false" />
+69-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:18:60-81
+70        <meta-data
+70-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:19:5-105
+71            android:name="expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH"
+71-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:19:16-80
+72            android:value="ALWAYS" />
+72-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:19:81-103
+73        <meta-data
+73-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:20:5-99
+74            android:name="expo.modules.updates.EXPO_UPDATES_LAUNCH_WAIT_MS"
+74-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:20:16-79
+75            android:value="0" />
+75-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:20:80-97
+76
+77        <activity
+77-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:21:5-34:16
+78            android:name="com.anonymous.Safe_Call.MainActivity"
+78-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:21:15-43
+79            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|uiMode"
+79-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:21:44-134
+80            android:exported="true"
+80-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:21:256-279
+81            android:launchMode="singleTask"
+81-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:21:135-166
+82            android:screenOrientation="portrait"
+82-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:21:280-316
+83            android:theme="@style/Theme.App.SplashScreen"
+83-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:21:210-255
+84            android:windowSoftInputMode="adjustResize" >
+84-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:21:167-209
+85            <intent-filter>
+85-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:22:7-25:23
+86                <action android:name="android.intent.action.MAIN" />
+86-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:23:9-60
+86-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:23:17-58
+87
+88                <category android:name="android.intent.category.LAUNCHER" />
+88-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:24:9-68
+88-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:24:19-66
+89            </intent-filter>
+90            <intent-filter>
+90-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:26:7-33:23
+91                <action android:name="android.intent.action.VIEW" />
+91-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:12:7-58
+91-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:12:15-56
+92
+93                <category android:name="android.intent.category.DEFAULT" />
+93-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:28:9-67
+93-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:28:19-65
+94                <category android:name="android.intent.category.BROWSABLE" />
+94-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:13:7-67
+94-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:13:17-65
+95
+96                <data android:scheme="myapp" />
+96-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:7-37
+96-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:13-35
+97                <data android:scheme="com.anonymous.Safe_Call" />
+97-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:7-37
+97-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:13-35
+98                <data android:scheme="exp+safecall" />
+98-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:7-37
+98-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:13-35
+99            </intent-filter>
+100        </activity>
+101
+102        <provider
+102-->[:react-native-webview] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:9-16:20
+103            android:name="com.reactnativecommunity.webview.RNCWebViewFileProvider"
+103-->[:react-native-webview] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:13-83
+104            android:authorities="com.anonymous.Safe_Call.fileprovider"
+104-->[:react-native-webview] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:10:13-64
+105            android:exported="false"
+105-->[:react-native-webview] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:13-37
+106            android:grantUriPermissions="true" >
+106-->[:react-native-webview] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:13-47
+107            <meta-data
+107-->[:react-native-webview] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:13-15:63
+108                android:name="android.support.FILE_PROVIDER_PATHS"
+108-->[:react-native-webview] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:14:17-67
+109                android:resource="@xml/file_provider_paths" />
+109-->[:react-native-webview] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:17-60
+110        </provider>
+111
+112        <service
+112-->[:livekit_react-native-webrtc] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native-webrtc\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:9-12:19
+113            android:name="com.oney.WebRTCModule.MediaProjectionService"
+113-->[:livekit_react-native-webrtc] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native-webrtc\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:10:13-72
+114            android:foregroundServiceType="mediaProjection" >
+114-->[:livekit_react-native-webrtc] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@livekit\react-native-webrtc\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:13-60
+115        </service>
+116
+117        <meta-data
+117-->[:react-native-firebase_app] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:9-11:36
+118            android:name="app_data_collection_default_enabled"
+118-->[:react-native-firebase_app] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:10:13-63
+119            android:value="true" />
+119-->[:react-native-firebase_app] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:13-33
+120
+121        <service
+121-->[:react-native-firebase_app] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:9-21:19
+122            android:name="com.google.firebase.components.ComponentDiscoveryService"
+122-->[:react-native-firebase_app] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:14:13-84
+123            android:directBootAware="true"
+123-->[:react-native-firebase_app] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:13-43
+124            android:exported="false" >
+124-->[:react-native-firebase_app] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:16:13-37
+125            <meta-data
+125-->[:react-native-firebase_app] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:18:13-20:85
+126                android:name="com.google.firebase.components:io.invertase.firebase.app.ReactNativeFirebaseAppRegistrar"
+126-->[:react-native-firebase_app] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:19:17-120
+127                android:value="com.google.firebase.components.ComponentRegistrar" />
+127-->[:react-native-firebase_app] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:20:17-82
+128            <meta-data
+128-->[com.google.firebase:firebase-auth:23.2.0] C:\Users\User\.gradle\caches\8.10.2\transforms\c2ba1d0346fad379c65860087f1e64b6\transformed\firebase-auth-23.2.0\AndroidManifest.xml:69:13-71:85
+129                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+129-->[com.google.firebase:firebase-auth:23.2.0] C:\Users\User\.gradle\caches\8.10.2\transforms\c2ba1d0346fad379c65860087f1e64b6\transformed\firebase-auth-23.2.0\AndroidManifest.xml:70:17-109
+130                android:value="com.google.firebase.components.ComponentRegistrar" />
+130-->[com.google.firebase:firebase-auth:23.2.0] C:\Users\User\.gradle\caches\8.10.2\transforms\c2ba1d0346fad379c65860087f1e64b6\transformed\firebase-auth-23.2.0\AndroidManifest.xml:71:17-82
+131            <meta-data
+131-->[com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\User\.gradle\caches\8.10.2\transforms\91477e5d6c9216b70ac507e0b5e1f66e\transformed\firebase-common-ktx-21.0.0\AndroidManifest.xml:12:13-14:85
+132                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
+132-->[com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\User\.gradle\caches\8.10.2\transforms\91477e5d6c9216b70ac507e0b5e1f66e\transformed\firebase-common-ktx-21.0.0\AndroidManifest.xml:13:17-116
+133                android:value="com.google.firebase.components.ComponentRegistrar" />
+133-->[com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\User\.gradle\caches\8.10.2\transforms\91477e5d6c9216b70ac507e0b5e1f66e\transformed\firebase-common-ktx-21.0.0\AndroidManifest.xml:14:17-82
+134            <meta-data
+134-->[com.google.firebase:firebase-common:21.0.0] C:\Users\User\.gradle\caches\8.10.2\transforms\6875a84b61b4ac85977fcfbac31feb84\transformed\firebase-common-21.0.0\AndroidManifest.xml:35:13-37:85
+135                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
+135-->[com.google.firebase:firebase-common:21.0.0] C:\Users\User\.gradle\caches\8.10.2\transforms\6875a84b61b4ac85977fcfbac31feb84\transformed\firebase-common-21.0.0\AndroidManifest.xml:36:17-109
+136                android:value="com.google.firebase.components.ComponentRegistrar" />
+136-->[com.google.firebase:firebase-common:21.0.0] C:\Users\User\.gradle\caches\8.10.2\transforms\6875a84b61b4ac85977fcfbac31feb84\transformed\firebase-common-21.0.0\AndroidManifest.xml:37:17-82
+137        </service>
+138
+139        <provider
+139-->[:react-native-firebase_app] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:23:9-27:38
+140            android:name="io.invertase.firebase.app.ReactNativeFirebaseAppInitProvider"
+140-->[:react-native-firebase_app] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:24:13-88
+141            android:authorities="com.anonymous.Safe_Call.reactnativefirebaseappinitprovider"
+141-->[:react-native-firebase_app] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:25:13-86
+142            android:exported="false"
+142-->[:react-native-firebase_app] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:26:13-37
+143            android:initOrder="99" />
+143-->[:react-native-firebase_app] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:27:13-35
+144
+145        <activity
+145-->[:expo-dev-launcher] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-dev-launcher\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:9-25:20
+146            android:name="expo.modules.devlauncher.launcher.DevLauncherActivity"
+146-->[:expo-dev-launcher] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-dev-launcher\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:13-81
+147            android:exported="true"
+147-->[:expo-dev-launcher] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-dev-launcher\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:14:13-36
+148            android:launchMode="singleTask"
+148-->[:expo-dev-launcher] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-dev-launcher\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:13-44
+149            android:theme="@style/Theme.DevLauncher.LauncherActivity" >
+149-->[:expo-dev-launcher] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-dev-launcher\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:16:13-70
+150            <intent-filter>
+150-->[:expo-dev-launcher] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-dev-launcher\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:17:13-24:29
+151                <action android:name="android.intent.action.VIEW" />
+151-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:12:7-58
+151-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:12:15-56
+152
+153                <category android:name="android.intent.category.DEFAULT" />
+153-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:28:9-67
+153-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:28:19-65
+154                <category android:name="android.intent.category.BROWSABLE" />
+154-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:13:7-67
+154-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:13:17-65
+155
+156                <data android:scheme="expo-dev-launcher" />
+156-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:7-37
+156-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:13-35
+157            </intent-filter>
+158        </activity>
+159        <activity
+159-->[:expo-dev-launcher] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-dev-launcher\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:26:9-29:70
+160            android:name="expo.modules.devlauncher.launcher.errors.DevLauncherErrorActivity"
+160-->[:expo-dev-launcher] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-dev-launcher\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:27:13-93
+161            android:screenOrientation="portrait"
+161-->[:expo-dev-launcher] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-dev-launcher\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:28:13-49
+162            android:theme="@style/Theme.DevLauncher.ErrorActivity" />
+162-->[:expo-dev-launcher] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-dev-launcher\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:29:13-67
+163        <activity
+163-->[:expo-dev-menu] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-dev-menu\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:9-21:20
+164            android:name="expo.modules.devmenu.DevMenuActivity"
+164-->[:expo-dev-menu] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-dev-menu\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:13-64
+165            android:exported="true"
+165-->[:expo-dev-menu] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-dev-menu\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:10:13-36
+166            android:launchMode="singleTask"
+166-->[:expo-dev-menu] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-dev-menu\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:13-44
+167            android:theme="@style/Theme.AppCompat.Transparent.NoActionBar" >
+167-->[:expo-dev-menu] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-dev-menu\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:13-75
+168            <intent-filter>
+168-->[:expo-dev-menu] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-dev-menu\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:13-20:29
+169                <action android:name="android.intent.action.VIEW" />
+169-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:12:7-58
+169-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:12:15-56
+170
+171                <category android:name="android.intent.category.DEFAULT" />
+171-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:28:9-67
+171-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:28:19-65
+172                <category android:name="android.intent.category.BROWSABLE" />
+172-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:13:7-67
+172-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:13:17-65
+173
+174                <data android:scheme="expo-dev-menu" />
+174-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:7-37
+174-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:13-35
+175            </intent-filter>
+176        </activity>
+177
+178        <provider
+178-->[:expo-file-system] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:21:9-30:20
+179            android:name="expo.modules.filesystem.FileSystemFileProvider"
+179-->[:expo-file-system] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:22:13-74
+180            android:authorities="com.anonymous.Safe_Call.FileSystemFileProvider"
+180-->[:expo-file-system] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:23:13-74
+181            android:exported="false"
+181-->[:expo-file-system] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:24:13-37
+182            android:grantUriPermissions="true" >
+182-->[:expo-file-system] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:25:13-47
+183            <meta-data
+183-->[:react-native-webview] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:13-15:63
+184                android:name="android.support.FILE_PROVIDER_PATHS"
+184-->[:react-native-webview] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:14:17-67
+185                android:resource="@xml/file_system_provider_paths" />
+185-->[:react-native-webview] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:17-60
+186        </provider>
+187
+188        <meta-data
+188-->[:expo-modules-core] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-modules-core\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:9-11:89
+189            android:name="org.unimodules.core.AppLoader#react-native-headless"
+189-->[:expo-modules-core] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-modules-core\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:10:13-79
+190            android:value="expo.modules.adapters.react.apploader.RNHeadlessAppLoader" />
+190-->[:expo-modules-core] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-modules-core\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:13-86
+191        <meta-data
+191-->[:expo-modules-core] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-modules-core\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:9-15:45
+192            android:name="com.facebook.soloader.enabled"
+192-->[:expo-modules-core] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-modules-core\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:13-57
+193            android:value="true" />
+193-->[:expo-modules-core] C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\node_modules\expo-modules-core\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:14:13-33
+194
+195        <activity
+195-->[com.facebook.react:react-android:0.76.9] C:\Users\User\.gradle\caches\8.10.2\transforms\0f839437195569227022e709030e837c\transformed\react-android-0.76.9-debug\AndroidManifest.xml:19:9-21:40
+196            android:name="com.facebook.react.devsupport.DevSettingsActivity"
+196-->[com.facebook.react:react-android:0.76.9] C:\Users\User\.gradle\caches\8.10.2\transforms\0f839437195569227022e709030e837c\transformed\react-android-0.76.9-debug\AndroidManifest.xml:20:13-77
+197            android:exported="false" />
+197-->[com.facebook.react:react-android:0.76.9] C:\Users\User\.gradle\caches\8.10.2\transforms\0f839437195569227022e709030e837c\transformed\react-android-0.76.9-debug\AndroidManifest.xml:21:13-37
+198        <activity
+198-->[com.google.firebase:firebase-auth:23.2.0] C:\Users\User\.gradle\caches\8.10.2\transforms\c2ba1d0346fad379c65860087f1e64b6\transformed\firebase-auth-23.2.0\AndroidManifest.xml:29:9-46:20
+199            android:name="com.google.firebase.auth.internal.GenericIdpActivity"
+199-->[com.google.firebase:firebase-auth:23.2.0] C:\Users\User\.gradle\caches\8.10.2\transforms\c2ba1d0346fad379c65860087f1e64b6\transformed\firebase-auth-23.2.0\AndroidManifest.xml:30:13-80
+200            android:excludeFromRecents="true"
+200-->[com.google.firebase:firebase-auth:23.2.0] C:\Users\User\.gradle\caches\8.10.2\transforms\c2ba1d0346fad379c65860087f1e64b6\transformed\firebase-auth-23.2.0\AndroidManifest.xml:31:13-46
+201            android:exported="true"
+201-->[com.google.firebase:firebase-auth:23.2.0] C:\Users\User\.gradle\caches\8.10.2\transforms\c2ba1d0346fad379c65860087f1e64b6\transformed\firebase-auth-23.2.0\AndroidManifest.xml:32:13-36
+202            android:launchMode="singleTask"
+202-->[com.google.firebase:firebase-auth:23.2.0] C:\Users\User\.gradle\caches\8.10.2\transforms\c2ba1d0346fad379c65860087f1e64b6\transformed\firebase-auth-23.2.0\AndroidManifest.xml:33:13-44
+203            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+203-->[com.google.firebase:firebase-auth:23.2.0] C:\Users\User\.gradle\caches\8.10.2\transforms\c2ba1d0346fad379c65860087f1e64b6\transformed\firebase-auth-23.2.0\AndroidManifest.xml:34:13-72
+204            <intent-filter>
+204-->[com.google.firebase:firebase-auth:23.2.0] C:\Users\User\.gradle\caches\8.10.2\transforms\c2ba1d0346fad379c65860087f1e64b6\transformed\firebase-auth-23.2.0\AndroidManifest.xml:35:13-45:29
+205                <action android:name="android.intent.action.VIEW" />
+205-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:12:7-58
+205-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:12:15-56
+206
+207                <category android:name="android.intent.category.DEFAULT" />
+207-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:28:9-67
+207-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:28:19-65
+208                <category android:name="android.intent.category.BROWSABLE" />
+208-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:13:7-67
+208-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:13:17-65
+209
+210                <data
+210-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:7-37
+211                    android:host="firebase.auth"
+212                    android:path="/"
+213                    android:scheme="genericidp" />
+213-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:13-35
+214            </intent-filter>
+215        </activity>
+216        <activity
+216-->[com.google.firebase:firebase-auth:23.2.0] C:\Users\User\.gradle\caches\8.10.2\transforms\c2ba1d0346fad379c65860087f1e64b6\transformed\firebase-auth-23.2.0\AndroidManifest.xml:47:9-64:20
+217            android:name="com.google.firebase.auth.internal.RecaptchaActivity"
+217-->[com.google.firebase:firebase-auth:23.2.0] C:\Users\User\.gradle\caches\8.10.2\transforms\c2ba1d0346fad379c65860087f1e64b6\transformed\firebase-auth-23.2.0\AndroidManifest.xml:48:13-79
+218            android:excludeFromRecents="true"
+218-->[com.google.firebase:firebase-auth:23.2.0] C:\Users\User\.gradle\caches\8.10.2\transforms\c2ba1d0346fad379c65860087f1e64b6\transformed\firebase-auth-23.2.0\AndroidManifest.xml:49:13-46
+219            android:exported="true"
+219-->[com.google.firebase:firebase-auth:23.2.0] C:\Users\User\.gradle\caches\8.10.2\transforms\c2ba1d0346fad379c65860087f1e64b6\transformed\firebase-auth-23.2.0\AndroidManifest.xml:50:13-36
+220            android:launchMode="singleTask"
+220-->[com.google.firebase:firebase-auth:23.2.0] C:\Users\User\.gradle\caches\8.10.2\transforms\c2ba1d0346fad379c65860087f1e64b6\transformed\firebase-auth-23.2.0\AndroidManifest.xml:51:13-44
+221            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+221-->[com.google.firebase:firebase-auth:23.2.0] C:\Users\User\.gradle\caches\8.10.2\transforms\c2ba1d0346fad379c65860087f1e64b6\transformed\firebase-auth-23.2.0\AndroidManifest.xml:52:13-72
+222            <intent-filter>
+222-->[com.google.firebase:firebase-auth:23.2.0] C:\Users\User\.gradle\caches\8.10.2\transforms\c2ba1d0346fad379c65860087f1e64b6\transformed\firebase-auth-23.2.0\AndroidManifest.xml:53:13-63:29
+223                <action android:name="android.intent.action.VIEW" />
+223-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:12:7-58
+223-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:12:15-56
+224
+225                <category android:name="android.intent.category.DEFAULT" />
+225-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:28:9-67
+225-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:28:19-65
+226                <category android:name="android.intent.category.BROWSABLE" />
+226-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:13:7-67
+226-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:13:17-65
+227
+228                <data
+228-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:7-37
+229                    android:host="firebase.auth"
+230                    android:path="/"
+231                    android:scheme="recaptcha" />
+231-->C:\Users\User\Documents\GitHub\Safe_Call\Safe_call_app\android\app\src\main\AndroidManifest.xml:14:13-35
+232            </intent-filter>
+233        </activity>
+234
+235        <service
+235-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\User\.gradle\caches\8.10.2\transforms\87b8667983712867ace37bf019401d4d\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:24:9-32:19
+236            android:name="androidx.credentials.playservices.CredentialProviderMetadataHolder"
+236-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\User\.gradle\caches\8.10.2\transforms\87b8667983712867ace37bf019401d4d\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:25:13-94
+237            android:enabled="true"
+237-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\User\.gradle\caches\8.10.2\transforms\87b8667983712867ace37bf019401d4d\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:26:13-35
+238            android:exported="false" >
+238-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\User\.gradle\caches\8.10.2\transforms\87b8667983712867ace37bf019401d4d\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:27:13-37
+239            <meta-data
+239-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\User\.gradle\caches\8.10.2\transforms\87b8667983712867ace37bf019401d4d\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:29:13-31:104
+240                android:name="androidx.credentials.CREDENTIAL_PROVIDER_KEY"
+240-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\User\.gradle\caches\8.10.2\transforms\87b8667983712867ace37bf019401d4d\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:30:17-76
+241                android:value="androidx.credentials.playservices.CredentialProviderPlayServicesImpl" />
+241-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\User\.gradle\caches\8.10.2\transforms\87b8667983712867ace37bf019401d4d\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:31:17-101
+242        </service>
+243
+244        <activity
+244-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\User\.gradle\caches\8.10.2\transforms\87b8667983712867ace37bf019401d4d\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:34:9-41:20
+245            android:name="androidx.credentials.playservices.HiddenActivity"
+245-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\User\.gradle\caches\8.10.2\transforms\87b8667983712867ace37bf019401d4d\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:35:13-76
+246            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+246-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\User\.gradle\caches\8.10.2\transforms\87b8667983712867ace37bf019401d4d\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:36:13-87
+247            android:enabled="true"
+247-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\User\.gradle\caches\8.10.2\transforms\87b8667983712867ace37bf019401d4d\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:37:13-35
+248            android:exported="false"
+248-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\User\.gradle\caches\8.10.2\transforms\87b8667983712867ace37bf019401d4d\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:38:13-37
+249            android:fitsSystemWindows="true"
+249-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\User\.gradle\caches\8.10.2\transforms\87b8667983712867ace37bf019401d4d\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:39:13-45
+250            android:theme="@style/Theme.Hidden" >
+250-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\User\.gradle\caches\8.10.2\transforms\87b8667983712867ace37bf019401d4d\transformed\credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:40:13-48
+251        </activity>
+252        <activity
+252-->[com.google.android.gms:play-services-auth:21.3.0] C:\Users\User\.gradle\caches\8.10.2\transforms\a0cd11b20c13dddf49bf5624bdbd833d\transformed\play-services-auth-21.3.0\AndroidManifest.xml:23:9-27:75
+253            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+253-->[com.google.android.gms:play-services-auth:21.3.0] C:\Users\User\.gradle\caches\8.10.2\transforms\a0cd11b20c13dddf49bf5624bdbd833d\transformed\play-services-auth-21.3.0\AndroidManifest.xml:24:13-93
+254            android:excludeFromRecents="true"
+254-->[com.google.android.gms:play-services-auth:21.3.0] C:\Users\User\.gradle\caches\8.10.2\transforms\a0cd11b20c13dddf49bf5624bdbd833d\transformed\play-services-auth-21.3.0\AndroidManifest.xml:25:13-46
+255            android:exported="false"
+255-->[com.google.android.gms:play-services-auth:21.3.0] C:\Users\User\.gradle\caches\8.10.2\transforms\a0cd11b20c13dddf49bf5624bdbd833d\transformed\play-services-auth-21.3.0\AndroidManifest.xml:26:13-37
+256            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+256-->[com.google.android.gms:play-services-auth:21.3.0] C:\Users\User\.gradle\caches\8.10.2\transforms\a0cd11b20c13dddf49bf5624bdbd833d\transformed\play-services-auth-21.3.0\AndroidManifest.xml:27:13-72
+257        <!--
+258            Service handling Google Sign-In user revocation. For apps that do not integrate with
+259            Google Sign-In, this service will never be started.
+260        -->
+261        <service
+261-->[com.google.android.gms:play-services-auth:21.3.0] C:\Users\User\.gradle\caches\8.10.2\transforms\a0cd11b20c13dddf49bf5624bdbd833d\transformed\play-services-auth-21.3.0\AndroidManifest.xml:33:9-37:51
+262            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+262-->[com.google.android.gms:play-services-auth:21.3.0] C:\Users\User\.gradle\caches\8.10.2\transforms\a0cd11b20c13dddf49bf5624bdbd833d\transformed\play-services-auth-21.3.0\AndroidManifest.xml:34:13-89
+263            android:exported="true"
+263-->[com.google.android.gms:play-services-auth:21.3.0] C:\Users\User\.gradle\caches\8.10.2\transforms\a0cd11b20c13dddf49bf5624bdbd833d\transformed\play-services-auth-21.3.0\AndroidManifest.xml:35:13-36
+264            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"
+264-->[com.google.android.gms:play-services-auth:21.3.0] C:\Users\User\.gradle\caches\8.10.2\transforms\a0cd11b20c13dddf49bf5624bdbd833d\transformed\play-services-auth-21.3.0\AndroidManifest.xml:36:13-107
+265            android:visibleToInstantApps="true" />
+265-->[com.google.android.gms:play-services-auth:21.3.0] C:\Users\User\.gradle\caches\8.10.2\transforms\a0cd11b20c13dddf49bf5624bdbd833d\transformed\play-services-auth-21.3.0\AndroidManifest.xml:37:13-48
+266
+267        <activity
+267-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\User\.gradle\caches\8.10.2\transforms\57f921b0c28bddabe68be40afbcc2733\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:9-173
+268            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+268-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\User\.gradle\caches\8.10.2\transforms\57f921b0c28bddabe68be40afbcc2733\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:19-85
+269            android:exported="false"
+269-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\User\.gradle\caches\8.10.2\transforms\57f921b0c28bddabe68be40afbcc2733\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:146-170
+270            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+270-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\User\.gradle\caches\8.10.2\transforms\57f921b0c28bddabe68be40afbcc2733\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:86-145
+271
+272        <provider
+272-->[com.google.firebase:firebase-common:21.0.0] C:\Users\User\.gradle\caches\8.10.2\transforms\6875a84b61b4ac85977fcfbac31feb84\transformed\firebase-common-21.0.0\AndroidManifest.xml:23:9-28:39
+273            android:name="com.google.firebase.provider.FirebaseInitProvider"
+273-->[com.google.firebase:firebase-common:21.0.0] C:\Users\User\.gradle\caches\8.10.2\transforms\6875a84b61b4ac85977fcfbac31feb84\transformed\firebase-common-21.0.0\AndroidManifest.xml:24:13-77
+274            android:authorities="com.anonymous.Safe_Call.firebaseinitprovider"
+274-->[com.google.firebase:firebase-common:21.0.0] C:\Users\User\.gradle\caches\8.10.2\transforms\6875a84b61b4ac85977fcfbac31feb84\transformed\firebase-common-21.0.0\AndroidManifest.xml:25:13-72
+275            android:directBootAware="true"
+275-->[com.google.firebase:firebase-common:21.0.0] C:\Users\User\.gradle\caches\8.10.2\transforms\6875a84b61b4ac85977fcfbac31feb84\transformed\firebase-common-21.0.0\AndroidManifest.xml:26:13-43
+276            android:exported="false"
+276-->[com.google.firebase:firebase-common:21.0.0] C:\Users\User\.gradle\caches\8.10.2\transforms\6875a84b61b4ac85977fcfbac31feb84\transformed\firebase-common-21.0.0\AndroidManifest.xml:27:13-37
+277            android:initOrder="100" />
+277-->[com.google.firebase:firebase-common:21.0.0] C:\Users\User\.gradle\caches\8.10.2\transforms\6875a84b61b4ac85977fcfbac31feb84\transformed\firebase-common-21.0.0\AndroidManifest.xml:28:13-36
+278        <provider
+278-->[androidx.emoji2:emoji2:1.3.0] C:\Users\User\.gradle\caches\8.10.2\transforms\867f28603a9adbd922e925087114cbc1\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+279            android:name="androidx.startup.InitializationProvider"
+279-->[androidx.emoji2:emoji2:1.3.0] C:\Users\User\.gradle\caches\8.10.2\transforms\867f28603a9adbd922e925087114cbc1\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
+280            android:authorities="com.anonymous.Safe_Call.androidx-startup"
+280-->[androidx.emoji2:emoji2:1.3.0] C:\Users\User\.gradle\caches\8.10.2\transforms\867f28603a9adbd922e925087114cbc1\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
+281            android:exported="false" >
+281-->[androidx.emoji2:emoji2:1.3.0] C:\Users\User\.gradle\caches\8.10.2\transforms\867f28603a9adbd922e925087114cbc1\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
+282            <meta-data
+282-->[androidx.emoji2:emoji2:1.3.0] C:\Users\User\.gradle\caches\8.10.2\transforms\867f28603a9adbd922e925087114cbc1\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+283                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+283-->[androidx.emoji2:emoji2:1.3.0] C:\Users\User\.gradle\caches\8.10.2\transforms\867f28603a9adbd922e925087114cbc1\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
+284                android:value="androidx.startup" />
+284-->[androidx.emoji2:emoji2:1.3.0] C:\Users\User\.gradle\caches\8.10.2\transforms\867f28603a9adbd922e925087114cbc1\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
+285            <meta-data
+285-->[androidx.lifecycle:lifecycle-process:2.8.3] C:\Users\User\.gradle\caches\8.10.2\transforms\ad10a3280ed9ff2393dd52d1764f5de6\transformed\lifecycle-process-2.8.3\AndroidManifest.xml:29:13-31:52
+286                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+286-->[androidx.lifecycle:lifecycle-process:2.8.3] C:\Users\User\.gradle\caches\8.10.2\transforms\ad10a3280ed9ff2393dd52d1764f5de6\transformed\lifecycle-process-2.8.3\AndroidManifest.xml:30:17-78
+287                android:value="androidx.startup" />
+287-->[androidx.lifecycle:lifecycle-process:2.8.3] C:\Users\User\.gradle\caches\8.10.2\transforms\ad10a3280ed9ff2393dd52d1764f5de6\transformed\lifecycle-process-2.8.3\AndroidManifest.xml:31:17-49
+288            <meta-data
+288-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7dcdac4df96419702de83328665f9a7f\transformed\profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+289                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+289-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7dcdac4df96419702de83328665f9a7f\transformed\profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+290                android:value="androidx.startup" />
+290-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7dcdac4df96419702de83328665f9a7f\transformed\profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+291        </provider>
+292
+293        <meta-data
+293-->[com.google.android.gms:play-services-basement:18.4.0] C:\Users\User\.gradle\caches\8.10.2\transforms\0309cb612008fa0a7f120a51a87e98c5\transformed\play-services-basement-18.4.0\AndroidManifest.xml:6:9-122
+294            android:name="com.google.android.gms.version"
+294-->[com.google.android.gms:play-services-basement:18.4.0] C:\Users\User\.gradle\caches\8.10.2\transforms\0309cb612008fa0a7f120a51a87e98c5\transformed\play-services-basement-18.4.0\AndroidManifest.xml:6:20-65
+295            android:value="@integer/google_play_services_version" />
+295-->[com.google.android.gms:play-services-basement:18.4.0] C:\Users\User\.gradle\caches\8.10.2\transforms\0309cb612008fa0a7f120a51a87e98c5\transformed\play-services-basement-18.4.0\AndroidManifest.xml:6:66-119
+296
+297        <receiver
+297-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7dcdac4df96419702de83328665f9a7f\transformed\profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+298            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+298-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7dcdac4df96419702de83328665f9a7f\transformed\profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+299            android:directBootAware="false"
+299-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7dcdac4df96419702de83328665f9a7f\transformed\profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+300            android:enabled="true"
+300-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7dcdac4df96419702de83328665f9a7f\transformed\profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+301            android:exported="true"
+301-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7dcdac4df96419702de83328665f9a7f\transformed\profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+302            android:permission="android.permission.DUMP" >
+302-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7dcdac4df96419702de83328665f9a7f\transformed\profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+303            <intent-filter>
+303-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7dcdac4df96419702de83328665f9a7f\transformed\profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+304                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+304-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7dcdac4df96419702de83328665f9a7f\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+304-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7dcdac4df96419702de83328665f9a7f\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+305            </intent-filter>
+306            <intent-filter>
+306-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7dcdac4df96419702de83328665f9a7f\transformed\profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+307                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+307-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7dcdac4df96419702de83328665f9a7f\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+307-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7dcdac4df96419702de83328665f9a7f\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+308            </intent-filter>
+309            <intent-filter>
+309-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7dcdac4df96419702de83328665f9a7f\transformed\profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+310                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+310-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7dcdac4df96419702de83328665f9a7f\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+310-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7dcdac4df96419702de83328665f9a7f\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+311            </intent-filter>
+312            <intent-filter>
+312-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7dcdac4df96419702de83328665f9a7f\transformed\profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+313                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+313-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7dcdac4df96419702de83328665f9a7f\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+313-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\User\.gradle\caches\8.10.2\transforms\7dcdac4df96419702de83328665f9a7f\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+314            </intent-filter>
+315        </receiver> <!-- The activities will be merged into the manifest of the hosting app. -->
+316        <activity
+316-->[com.google.android.play:core-common:2.0.3] C:\Users\User\.gradle\caches\8.10.2\transforms\7a9fc97b6a7d8d9a7580b95594070e51\transformed\core-common-2.0.3\AndroidManifest.xml:14:9-18:65
+317            android:name="com.google.android.play.core.common.PlayCoreDialogWrapperActivity"
+317-->[com.google.android.play:core-common:2.0.3] C:\Users\User\.gradle\caches\8.10.2\transforms\7a9fc97b6a7d8d9a7580b95594070e51\transformed\core-common-2.0.3\AndroidManifest.xml:15:13-93
+318            android:exported="false"
+318-->[com.google.android.play:core-common:2.0.3] C:\Users\User\.gradle\caches\8.10.2\transforms\7a9fc97b6a7d8d9a7580b95594070e51\transformed\core-common-2.0.3\AndroidManifest.xml:16:13-37
+319            android:stateNotNeeded="true"
+319-->[com.google.android.play:core-common:2.0.3] C:\Users\User\.gradle\caches\8.10.2\transforms\7a9fc97b6a7d8d9a7580b95594070e51\transformed\core-common-2.0.3\AndroidManifest.xml:17:13-42
+320            android:theme="@style/Theme.PlayCore.Transparent" />
+320-->[com.google.android.play:core-common:2.0.3] C:\Users\User\.gradle\caches\8.10.2\transforms\7a9fc97b6a7d8d9a7580b95594070e51\transformed\core-common-2.0.3\AndroidManifest.xml:18:13-62
+321    </application>
+322
+323</manifest>

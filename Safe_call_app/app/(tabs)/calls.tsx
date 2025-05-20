@@ -23,7 +23,7 @@ export default function Calls() {
   return (
     <View className="flex-1 bg-white">
       <View className="bg-primary px-4 py-4">
-        <Text className="text-white text-2xl font-bold">Recent Calls</Text>
+        <Text className="text-white text-2xl font-bold">통화 기록</Text>
       </View>
 
       <FlatList

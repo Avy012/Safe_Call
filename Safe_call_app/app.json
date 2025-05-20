@@ -5,18 +5,28 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "safecall",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true
     },
     "android": {
+      "package": "com.anonymous.Safe_Call",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/favicon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.Safe_Call"
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": {
+            "scheme": "exp+safecall",
+            "host": "192.168.219.108"
+          },
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -34,8 +44,10 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      ["@livekit/react-native-expo-plugin",
-      "@config-plugins/react-native-webrtc"]
+      [
+        "@livekit/react-native-expo-plugin",
+        "@config-plugins/react-native-webrtc"
+      ]
     ],
     "experiments": {},
     "extra": {

@@ -5,45 +5,52 @@ import { useRouter } from "expo-router";
 interface Contact {
     id: string;
     name: string;
+    phone: string;
 }
 
 const Contacts = () => {
     const router = useRouter();
     const [search, setSearch] = useState('');
     const [showOptions, setShowOptions] = useState(false);
-    const [showModal, setShowModal] = useState(false); // 모달 상태 추가
+    const [showModal, setShowModal] = useState(false);
+    const [contacts, setContacts] = useState<Contact[]>([
+  { id: '1', name: 'Alice Johnson', phone: '010-1234-0001' },
+  { id: '2', name: 'Bob Smith', phone: '010-1234-0002' },
+  { id: '3', name: 'Charlie Brown', phone: '010-1234-0003' },
+  { id: '4', name: 'David Williams', phone: '010-1234-0004' },
+  { id: '5', name: 'Emma Watson', phone: '010-1234-0005' },
+  { id: '6', name: 'Olivia Davis', phone: '010-1234-0006' },
+  { id: '7', name: 'Liam Thompson', phone: '010-1234-0007' },
+  { id: '8', name: 'Sophia Miller', phone: '010-1234-0008' },
+  { id: '9', name: 'James Anderson', phone: '010-1234-0009' },
+  { id: '10', name: 'Isabella Moore', phone: '010-1234-0010' },
+  { id: '11', name: 'Noah Taylor', phone: '010-1234-0011' },
+  { id: '12', name: 'Mia Clark', phone: '010-1234-0012' },
+  { id: '13', name: 'Elijah Lewis', phone: '010-1234-0013' },
+  { id: '14', name: 'Ava Hall', phone: '010-1234-0014' },
+  { id: '15', name: 'Lucas Young', phone: '010-1234-0015' },
+]);
 
-    const contacts: Contact[] = [
-        { id: '1', name: 'Alice Johnson' },
-        { id: '2', name: 'Bob Smith' },
-        { id: '3', name: 'Charlie Brown' },
-        { id: '4', name: 'David Williams' },
-        { id: '5', name: 'Emma Watson' },
-        { id: '6', name: 'Alice Johnson' },
-        { id: '7', name: 'Bob Smith' },
-        { id: '8', name: 'Charlie Brown' },
-        { id: '9', name: 'David Williams' },
-        { id: '10', name: 'Emma Watson' },
-        { id: '11', name: 'Alice Johnson' },
-        { id: '12', name: 'Bob Smith' },
-        { id: '13', name: 'Charlie Brown' },
-        { id: '14', name: 'David Williams' },
-        { id: '15', name: 'Emma Watson' }
-    ];
 
     const filteredContacts = contacts.filter(contact =>
         contact.name.toLowerCase().includes(search.toLowerCase())
     );
 
+    const addContactToDatabase = async (contact: Contact) => {
+        try {
+            // TODO: Replace with actual DB call
+            console.log("Saving to DB:", contact);
+        } catch (error) {
+            console.error("DB Save Failed:", error);
+        }
+    };
+
     return (
-        
         <View className="flex-1 bg-white">
-              <View className="bg-primary px-4 py-4">
-                <Text className="text-white text-2xl font-bold">Contacts</Text>
-              </View> 
+            <View className="bg-primary px-4 py-4">
+                <Text className="text-white text-2xl font-bold">연락처</Text>
+            </View>
 
-
-            {/* Search Bar */}
             <View style={styles.searchContainer}>
                 <TextInput
                     style={styles.searchInput}
@@ -69,7 +76,7 @@ const Contacts = () => {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.optionButton}
-                        onPress={() => setShowModal(true)}  // 모달 띄우기
+                        onPress={() => setShowModal(true)}
                     >
                         <Text style={styles.optionText}>연락처 추가</Text>
                     </TouchableOpacity>
@@ -82,15 +89,13 @@ const Contacts = () => {
                 renderItem={({ item }) => (
                     <TouchableOpacity
                         style={styles.contactItem}
-                        onPress={() => router.push(`/calls/${item.id}?name=${item.name}`)} // 나중에 수정할 부분
+                        onPress={() => router.push(`/calls/${item.id}?name=${item.name}&phone=${item.phone}`)}
                     >
                         <Text style={styles.contactText}>{item.name}</Text>
                     </TouchableOpacity>
                 )}
-                contentContainerStyle={{ paddingTop: showOptions ? 120 : 80 }}
             />
 
-            {/* AddContact 모달 */}
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -99,7 +104,13 @@ const Contacts = () => {
             >
                 <View style={styles.modalContainer}>
                     <View style={styles.modalContent}>
-                        <AddContact closeModal={() => setShowModal(false)} />
+                        <AddContact 
+                            closeModal={() => setShowModal(false)}
+                            onAddContact={(newContact) => {
+                                setContacts(prev => [...prev, newContact]);
+                                addContactToDatabase(newContact);
+                            }} 
+                        />
                     </View>
                 </View>
             </Modal>
@@ -107,18 +118,23 @@ const Contacts = () => {
     );
 };
 
-const AddContact = ({ closeModal }: { closeModal: () => void }) => {
+const AddContact = ({ closeModal, onAddContact }: { closeModal: () => void, onAddContact: (contact: Contact) => void }) => {
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
-    const addContact = () => {
-        alert(`새 연락처 추가: ${name}`);
+
+    const add = () => {
+        const newContact: Contact = {
+            id: String(Date.now()),
+            name,
+            phone: number,
+        };
+        onAddContact(newContact);
         setName('');
         setNumber('');
-        closeModal();  // 추가 후 모달 닫기
+        closeModal();
     };
 
     return (
-        
         <View style={styles.card}>
             <Text style={styles.title}>연락처 추가</Text>
             <Text style={styles.title2}>연락처명</Text>
@@ -135,7 +151,7 @@ const AddContact = ({ closeModal }: { closeModal: () => void }) => {
                 value={number}
                 onChangeText={setNumber}
             />
-            <TouchableOpacity style={styles.button} onPress={addContact}>
+            <TouchableOpacity style={styles.button} onPress={add}>
                 <Text style={styles.buttonText}>추가</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={closeModal}>
@@ -148,16 +164,12 @@ const AddContact = ({ closeModal }: { closeModal: () => void }) => {
 const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: '#fff' },
     searchContainer: {
-        top: 70,  // Adjust this value to avoid overlap with the logo bar
-        left: 0,
-        right: 0,
         height: 60,
         backgroundColor: '#f0f0f0',
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 10,
         elevation: 3,
-        zIndex: 10,
     },
     searchInput: {
         flex: 1,
@@ -192,7 +204,6 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         paddingHorizontal: 10,
         zIndex: 20,
-
     },
     optionButton: {
         paddingVertical: 8,
@@ -203,7 +214,6 @@ const styles = StyleSheet.create({
         color: '#1E3A5F',
     },
     contactItem: {
-
         padding: 15,
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
@@ -218,26 +228,18 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     modalContent: {
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: '#fff',
-        padding: 0,
         borderRadius: 8,
-        width: 30,
-        height: 30,
+        width: 320,
+        padding: 20,
     },
     card: {
-        width: 372,
-        height: 360,
         backgroundColor: '#FFFFFF',
         borderRadius: 16,
         elevation: 6,
-        opacity: 0.92,
         padding: 20,
-        justifyContent: 'center',
         borderWidth: 1,
         borderColor: '#CCC',
-        marginBottom: 100,
     },
     title: {
         fontSize: 22,
@@ -249,28 +251,25 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginBottom: 13,
         color: '#333',
-        textAlign: 'left',
-        marginLeft: 20,
+        marginLeft: 10,
     },
     input: {
-        width: '90%',
+        width: '100%',
         height: 40,
         borderColor: '#ccc',
         borderWidth: 1,
         borderRadius: 8,
         paddingHorizontal: 10,
         marginBottom: 16,
-        marginLeft: 20,
     },
     button: {
         backgroundColor: '#1E3A5F',
-        width: 80,
+        width: '100%',
         height: 40,
         borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
-        marginLeft: '40%',
-        margin:7
+        marginBottom: 10,
     },
     buttonText: {
         color: '#fff',
