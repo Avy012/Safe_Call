@@ -20,31 +20,27 @@ export default function SettingsScreen() {
 
       {/* 버튼들 */}
       <TouchableOpacity style={styles.button}
-      onPress={() => router.push('/account')}
-        >
+      onPress={() => router.push('/account')}>
           <Image
-            source={require('../assets/icons/account.png')} // ← 본인 아이콘 이미지 경로
-            style={styles.icon2}
-          />
+            source={require('../assets/icons/account.png')} 
+            style={styles.icon2}/>
         <Text style={styles.buttonText}>계정</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.button}
       onPress={() => router.push('/privacy')}
-      >////////////
+      >
         <Image
-            source={require('../assets/icons/unlock.png')} // ← 본인 아이콘 이미지 경로
+            source={require('../assets/icons/unlock.png')} 
             style={styles.icon}
           />
         <Text style={styles.buttonText}>개인정보 보호</Text>
       </TouchableOpacity>
   
-      <TouchableOpacity style={styles.button}
-      
-      onPress={() => router.push('/notification')}
+      <TouchableOpacity style={styles.button} onPress={() => router.push('/notification')}
       >
         <Image
-            source={require('../assets/icons/notification.png')} // ← 본인 아이콘 이미지 경로
+            source={require('../assets/icons/notification.png')} 
             style={styles.icon}
           />
         <Text style={styles.buttonText}>알림 설정</Text>
@@ -91,19 +87,21 @@ const styles = StyleSheet.create({
    button: {
     backgroundColor: '#f0f0f0',
     paddingVertical: 14,
-    paddingHorizontal: 16,
+    paddingHorizontal: 15,
     borderRadius: 10,
     marginBottom: 12,
+    flexDirection: 'row',
+    elevation: 4,
   },
   buttonText: {
-    marginLeft:13,
-    marginBottom:5,
+    marginLeft:10,
+    marginBottom:0,
     fontSize: 16,
     color: '#333',
   },
   icon:{
-    width: 20,
-    height: 20,
+    width: 25,
+    height: 25,
     marginRight: 12,
   },
   icon2:{

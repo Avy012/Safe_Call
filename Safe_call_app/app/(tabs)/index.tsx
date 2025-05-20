@@ -4,6 +4,8 @@ import { Text, View, Image, StyleSheet, TouchableOpacity, ScrollView } from "rea
 import { useRouter } from "expo-router";
 import { UserContext } from '../../context/UserContext';
 
+
+
 const blockedUsers = [
   { id: '1', name: 'User A' },
   { id: '2', name: 'User B' },
@@ -47,9 +49,13 @@ export default function Index() {
   // }, []);
 
   return (
-    
+    <View className="flex-1 bg-white">
+       <View className="bg-primary px-4 py-3">
+                      <Text className="text-white text-3xl font-bold">                      Safe Call</Text>
+                  </View>
     <ScrollView contentContainerStyle={[styles.container, { paddingBottom: 20 }]}>
       {/* 프로필 카드 */}
+      
       <View style={styles.profileCard}>
         <View style={styles.rowContainer}>
           <Image source={{ uri: user.imageUri }} style={styles.profileImage} />
@@ -67,7 +73,6 @@ export default function Index() {
         </View>
         
         <View style={styles.statsContainer}>
-         
           <View style={styles.statBox}>
             <Text style={styles.statLabel}>차단</Text>
             <Text style={styles.statNumber}>2</Text>
@@ -76,29 +81,15 @@ export default function Index() {
       </View>
       <View style={styles.separator} />
       <View className="flex-1 justify-center items-center bg-white">
-      <Text className="text-2xl font-bold mb-6">📱 Safe Call 메인</Text>
+      <Text className="text-2xl font-bold mb-6"> Safe Call 메인</Text>
 
-      {/* <TouchableOpacity
-        className="bg-green-600 px-6 py-3 rounded-full"
-        onPress={() =>
-          router.push({
-            pathname: '/IncomingCallScreen',
-            params: {
-              name: 'Emma Watson',
-              phone: '010-1234-0005',
-            },
-          })
-        }
-      >
-        <Text className="text-white font-semibold text-base">📞 수신 화면 보기</Text>
-      </TouchableOpacity> */}
+    
 
-
-      
     </View>
+    <Text style={styles.title}>AI Summary</Text>
       {/* 콜 요약 */}
       <View style={styles.Latest_Call_summary}>
-        <Text style={styles.title_summary}>AI Summary</Text>
+        
         <Text style={styles.number}>{summaryData.phoneNumber}</Text>
         <Text>{summaryData.summaryText}</Text>
       </View>
@@ -111,6 +102,7 @@ export default function Index() {
         </View>
       ))}
     </ScrollView>
+    </View>
   );
 }
 
@@ -124,7 +116,6 @@ const styles = StyleSheet.create({
     width: 350,
     height: 175,
     backgroundColor: '#FFFFFF',
-    borderColor: '#A3B5C9',
     borderRadius: 12,
     alignItems: 'flex-start',
     shadowColor: '#000',
@@ -132,7 +123,8 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 7, height: 7 },
     shadowRadius: 30,
     elevation: 4,
-    marginTop: 10,
+    marginTop: 20,
+    borderColor:'#F2F2F2'
   },
   rowContainer: {
     flexDirection: 'row',
@@ -140,22 +132,26 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   profileImage: {
-    width: 65,
-    height: 65,
-    margin: 15,
-    borderRadius: 50
+    width: 70,
+    height: 70,
+    margin: 10,
+    marginLeft:35,
+    borderRadius: 50,
+    borderColor:'#d1d5db',
+    borderWidth:3
   },
   userName: {
-    marginLeft: 10,
+
     fontSize: 23,
-    fontWeight: '600',
+    fontWeight: '700',
     color: '#222',
     maxWidth: 200,
+    marginLeft:30
   },
   settingsButton: {
     position: 'absolute',
-    top: 0,              // 상단에서 거리
-    left:300,
+    top: 10,              // 상단에서 거리
+    left:290,
     zIndex: 10, 
     backgroundColor: '#FFFFFF',
     borderRadius: 20,
@@ -167,19 +163,21 @@ const styles = StyleSheet.create({
   },
   statsContainer: {
     flexDirection: 'row',
-    height: 40
+    height: 50,
+   
   },
   statBox: {
     marginTop: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: 100
+    paddingLeft: 70
+    
   },
   statNumber: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#333',
-    backgroundColor: '#F2F2F2',
+    backgroundColor: '#f3f4f6',
     borderColor: '#A3B5C9',
     borderRadius: 12,
     elevation: 3,
@@ -188,10 +186,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     width: 150,
     height: 45,
-    margin: 10
+    margin: 10,
+    marginTop:20
   },
   statLabel: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#B22222',
     marginTop: 8,
@@ -201,7 +200,7 @@ const styles = StyleSheet.create({
   Latest_Call_summary: {
     width: 350,
     height: '20%',
-    backgroundColor: '#F2F2F2',
+    backgroundColor: '#f3f4f6',
     borderColor: '#A3B5C9',
     borderRadius: 12,
     padding: 15,
@@ -210,7 +209,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowOffset: { width: 0, height: 5 },
     shadowRadius: 10,
-    elevation: 1,
+    elevation: 3,
     marginTop: 5,
     marginBottom: 15,
   },
@@ -220,7 +219,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: '#FFFFFF',
     borderRadius: 12,
-    borderColor: '#A3B5C9',
+    borderColor:'#F2F2F2',
     padding: 10,
     alignItems: 'flex-start',
     shadowColor: '#000',
