@@ -9,6 +9,12 @@ import chat from "@/assets/icons/chat.png";
 import backspace from "@/assets/icons/delete.png";
 import callbutton from "@/assets/icons/callButton.png"
 import hangup from "@/assets/icons/hangUpCall.png"
+import video_off from "@/assets/icons/on_off/video_off.png"
+import video_on from "@/assets/icons/on_off/video_on.png"
+import speaker_off from "@/assets/icons/on_off/speaker_off.png"
+import speaker_on from "@/assets/icons/on_off/speaker_on.png"
+import mute_off from "@/assets/icons/on_off/mute_off.png"
+import mute_on from "@/assets/icons/on_off/mute_on.png"
 
 export const icons = {
   home,
@@ -22,4 +28,10 @@ export const icons = {
   backspace,
   callbutton,
   hangup,
+  video_off,
+  video_on,
+  speaker_off,
+  speaker_on,
+  mute_off,
+  mute_on,
 };

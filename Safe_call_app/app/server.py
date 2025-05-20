@@ -13,8 +13,8 @@ load_dotenv()
 # Generate the LiveKit token
 def generate_token():
     token = api.AccessToken(os.getenv('LIVEKIT_API_KEY'), os.getenv('LIVEKIT_API_SECRET')) \
-        .with_identity("identity") \
-        .with_name("dkim") \
+        .with_identity("identity1") \
+        .with_name("dkim1") \
         .with_grants(api.VideoGrants(
             room_join=True,
             room="my-room",
