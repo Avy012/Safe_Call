@@ -51,8 +51,8 @@ export default function Index() {
   return (
     <View className="flex-1 bg-white">
        <View className="bg-primary px-4 py-3">
-                      <Text className="text-white text-3xl font-bold">                      Safe Call</Text>
-                  </View>
+          <Text className="text-white text-3xl font-bold">Safe Call</Text>
+        </View>
     <ScrollView contentContainerStyle={[styles.container, { paddingBottom: 20 }]}>
       {/* 프로필 카드 */}
       
@@ -81,10 +81,7 @@ export default function Index() {
       </View>
       <View style={styles.separator} />
       <View className="flex-1 justify-center items-center bg-white">
-      <Text className="text-2xl font-bold mb-6"> Safe Call 메인</Text>
-
-    
-
+      <Text className="text-2xl font-bold mb-6">Safe Call 메인</Text>
     </View>
     <Text style={styles.title}>AI Summary</Text>
       {/* 콜 요약 */}

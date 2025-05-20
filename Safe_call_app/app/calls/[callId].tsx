@@ -53,8 +53,8 @@ export default function CallDetail() {
   return (
     <View className="flex-1 bg-white px-6 pt-12 pb-6 justify-between">
       <TouchableOpacity onPress={() => router.back()} className="absolute top-4 left-4 p-2 bg-white rounded-lg z-10">
-                                      <Text className="text-5xl text-primary-1000">←</Text>
-                                    </TouchableOpacity>
+        <Text className="text-5xl text-primary-1000">←</Text>
+      </TouchableOpacity>
       {/* 프로필 이미지 + 이름  */}
       <View className="items-center pt-20 mb-4">
         <Image
