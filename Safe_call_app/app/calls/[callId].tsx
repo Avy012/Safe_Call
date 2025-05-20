@@ -33,16 +33,7 @@ export default function CallDetail() {
     }
   };
 
-  const handleChat = () => {
-    router.push({
-      pathname: '/chats/chatRoom',
-      params: {
-        name,
-        phone,
-        profileImage,
-      },
-    });
-  };
+  
 
    // 예시: summary를 문자열 대신 배열로 받도록 수정 (실제 데이터 연결 시 여기를 props나 API로 대체)
   const callHistory: { date: string; type: string; duration: string }[] = [
@@ -94,10 +85,9 @@ export default function CallDetail() {
         >
           <Text className="text-white font-semibold text-lg">전화 걸기</Text>
         </TouchableOpacity>
-
         <TouchableOpacity
           className="bg-red-500 py-4 rounded-full mb-4 items-center w-1/2"
-          onPress={handleChat}
+          
         >
           <Text className="text-white font-semibold text-lg"> 차단하기</Text>
         </TouchableOpacity>

@@ -22,6 +22,7 @@ export default function RootLayout() {
         <Stack.Screen name="notification" options={{ headerShown: false }} />
         <Stack.Screen name="IncomingCallScreen" options={{ headerShown: false }} />
         <Stack.Screen name="calls/[callId]" options={{ headerShown: false }} />
+        <Stack.Screen name="calls/CallSummary" options={{ headerShown: false }} />
       </Stack>
     </UserProvider>
   );
