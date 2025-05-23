@@ -1,9 +1,8 @@
+// EditProfile.tsx
 import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { UserContext } from '@/context/UserContext';
-import * as ImagePicker from 'expo-image-picker';
-
 
 const EditProfile = () => {
   const { user, setUser } = useContext(UserContext);
@@ -18,38 +17,16 @@ const EditProfile = () => {
     router.back();
   };
 
-  const handleImageUpdate = async () => {
-  try {
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (status !== 'granted') {
-      Alert.alert('권한 필요', '갤러리 접근 권한이 필요합니다.');
-      return;
-    }
-
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-    });
-
-    if (!result.canceled && result.assets && result.assets.length > 0) {
-      const selectedImage = result.assets[0].uri;
-      setImageUri(selectedImage);
-    }
-  } catch (error) {
-    console.error('이미지 선택 오류:', error);
-    Alert.alert('오류 발생', '이미지를 불러오는 도중 문제가 발생했습니다.');
-  }
-};
-
-
+  const handleImageUpdate = () => {
+    const newImage = 'https://randomuser.me/api/portraits/women/65.jpg';
+    setImageUri(newImage);
+  };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => router.back()} className="absolute top-2 left-4 p-2 bg-white rounded-lg z-10">
-       <Text className="text-5xl text-primary-1000">←</Text>
-    </TouchableOpacity>
+         <TouchableOpacity onPress={() => router.back()} className="absolute top-2 left-4 p-2 bg-white rounded-lg z-10">
+              <Text className="text-5xl text-primary-1000">←</Text>
+            </TouchableOpacity>
 
       <Text style={styles.title}>계정 정보 수정</Text>
 
@@ -85,11 +62,10 @@ const styles = StyleSheet.create({
   },
 
   title: {
-      fontSize: 20,
-      fontWeight: '300',
-      marginBottom: 30,
-      alignSelf: 'center',
-    },
+    fontSize: 20,
+    fontWeight: '700',
+    marginVertical: 20,
+  },
   profileImage: {
     width: 120,
     height: 120,
