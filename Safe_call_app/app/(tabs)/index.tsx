@@ -65,7 +65,10 @@ export default function Index() {
               {/* 이름 + 설정 버튼 */}
               <View style={styles.nameRow}>
                 <Text style={styles.userName} numberOfLines={1} ellipsizeMode="tail">{user.name}</Text>
-                
+                {/* 통화 화면으로 이동 버튼 */}
+        <TouchableOpacity onPress={() => router.push(`/callScreen?name=최근통화&phone=${summaryData.phoneNumber}`)}>
+          <Text>통화 화면으로 이동</Text>
+        </TouchableOpacity>
               </View>
 
               {/* 차단 정보 */}
