@@ -24,15 +24,15 @@ const EditProfile = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-        <Text style={{ fontSize: 30 }}>←</Text>
-      </TouchableOpacity>
+         <TouchableOpacity onPress={() => router.back()} className="absolute top-2 left-4 p-2 bg-white rounded-lg z-10">
+              <Text className="text-5xl text-primary-1000">←</Text>
+            </TouchableOpacity>
 
       <Text style={styles.title}>계정 정보 수정</Text>
 
       <Image source={{ uri: imageUri }} style={styles.profileImage} />
       <TouchableOpacity style={styles.button} onPress={handleImageUpdate}>
-        <Text style={styles.buttonText}>프로필 사진 수정</Text>
+        <Text style={styles.buttonText}>사진 수정</Text>
       </TouchableOpacity>
 
       <Text style={styles.label}>계정 이름</Text>
@@ -47,7 +47,7 @@ const EditProfile = () => {
       />
 
       <TouchableOpacity style={styles.button} onPress={handleSaveAndExit}>
-        <Text style={styles.buttonText}>저장하고 나가기</Text>
+        <Text style={styles.buttonText}>저장 </Text>
       </TouchableOpacity>
     </View>
   );
@@ -60,14 +60,9 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: 'center',
   },
-  backButton: {
-    position: 'absolute',
-    top: 40,
-    left: 20,
-    zIndex: 10,
-  },
+
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: '700',
     marginVertical: 20,
   },

@@ -15,7 +15,8 @@ export default function CallScreen() {
   return (
     <View className="flex-1 bg-black justify-between items-center pt-16 pb-10 px-4">
       {/* 프로필 이미지 자리 */}
-      {isScam && <ScamAlertBanner />}
+      {isScam &&<ScamAlertBanner phoneNumber="010-1234-5678" />
+}
       <View className="items-center">
         <View className="w-28 h-28 rounded-full bg-gray-700 mb-4" />
         <Text className="text-white text-2xl font-semibold">{displayName}</Text>

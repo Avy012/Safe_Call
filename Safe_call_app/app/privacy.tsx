@@ -9,9 +9,9 @@ const Privacy = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => router.back()} className="absolute top-4 left-4 p-2 bg-white rounded-lg z-10">
-                                      <Text className="text-5xl text-primary-1000">←</Text>
-                                    </TouchableOpacity>
+      <TouchableOpacity onPress={() => router.back()} className="absolute top-2 left-4 p-2 bg-white rounded-lg z-10">
+        <Text className="text-5xl text-primary-1000">←</Text>
+      </TouchableOpacity>
       <Text style={styles.title}>개인정보 보호 설정</Text>
 
       <View style={styles.optionRow}>
@@ -47,8 +47,8 @@ const styles = StyleSheet.create({
       padding: 20,
     },
     title: {
-      fontSize: 24,
-      fontWeight: '700',
+      fontSize: 20,
+      fontWeight: '300',
       marginBottom: 30,
       alignSelf: 'center',
     },
