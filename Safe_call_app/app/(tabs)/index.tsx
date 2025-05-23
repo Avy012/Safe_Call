@@ -50,8 +50,8 @@ export default function Index() {
 
   return (
     <View className="flex-1 bg-white">
-       <View className="bg-primary px-4 py-3">
-          <Text className="text-white text-3xl font-bold">Safe Call</Text>
+       <View className="bg-primary px-4 py-4">
+          <Text className="text-white text-2xl font-bold">                            Safe Call</Text>
         </View>
     <ScrollView contentContainerStyle={[styles.container, { paddingBottom: 20 }]}>
       {/* 프로필 카드 */}
@@ -59,7 +59,7 @@ export default function Index() {
       <View style={styles.profileCard}>
         <View style={styles.rowContainer}>
           <Image source={{ uri: user.imageUri }} style={styles.profileImage} />
-          <Text style={styles.userName} numberOfLines={1}             // 👉 한 줄로 제한
+          <Text style={styles.userName} numberOfLines={1}             
           ellipsizeMode="tail" >{user.name}</Text>
           <TouchableOpacity
             style={styles.settingsButton}

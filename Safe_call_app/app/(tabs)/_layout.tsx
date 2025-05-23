@@ -56,7 +56,7 @@ const _Layout = () => {
                         <TabIcon
                             focused={focused}
                             icon={icons.home}
-                            title="Home"
+                            title="메인"
                         />
                     ),
                 }}
@@ -70,7 +70,7 @@ const _Layout = () => {
                         <TabIcon
                             focused={focused}
                             icon={icons.person}
-                            title="Contacts"
+                            title="연락처"
                         />
                     ),
                 }}
@@ -84,7 +84,7 @@ const _Layout = () => {
                         <TabIcon
                             focused={focused}
                             icon={icons.call}
-                            title="Calls"
+                            title="통화 기록"
                         />
                     ),
                 }}
@@ -98,7 +98,7 @@ const _Layout = () => {
                         <TabIcon
                             focused={focused}
                             icon={icons.settings}
-                            title="Settings"
+                            title="설정"
                         />
                     ),
                 }}
