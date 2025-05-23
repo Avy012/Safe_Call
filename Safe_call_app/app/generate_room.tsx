@@ -9,6 +9,7 @@ import {
   ListRenderItem,
   TouchableOpacity,
   ImageBackground,
+  Text,
 } from 'react-native';
 import {
   AudioSession,
@@ -29,7 +30,7 @@ registerGlobals();
 
 // Replace with your actual values   생성된 토큰 여기에 넣는걸로 하면 될 듯 
 const wsURL = "wss://safecall-ozn2xsg6.livekit.cloud";
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZGtpbSIsInZpZGVvIjp7InJvb21Kb2luIjp0cnVlLCJyb29tIjoibXktcm9vbSIsImNhblB1Ymxpc2giOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWV9LCJzdWIiOiJpZGVudGl0eSIsImlzcyI6IkFQSXE2Q1Y1ZTM3N2hteiIsIm5iZiI6MTc0NzcxMDU4NSwiZXhwIjoxNzQ3NzMyMTg1fQ.9FjRVKI7v-sDRPJsAcN3eC95dtZbZfr8w2PW9-k2FFE";
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZGtpbTEiLCJ2aWRlbyI6eyJyb29tSm9pbiI6dHJ1ZSwicm9vbSI6Im15LXJvb20iLCJjYW5QdWJsaXNoIjp0cnVlLCJjYW5TdWJzY3JpYmUiOnRydWUsImNhblB1Ymxpc2hEYXRhIjp0cnVlfSwic3ViIjoiaWRlbnRpdHkxIiwiaXNzIjoiQVBJcTZDVjVlMzc3aG16IiwibmJmIjoxNzQ3NzQzNTgxLCJleHAiOjE3NDc3NjUxODF9.KbsWltf08yUA0usuRlLAyJvxRN5_JiCp2dqXf0v-jC4";
 
 const LiveKitRoomScreen: React.FC = () => {
   // const roomRef = useRef<typeof LiveKitRoom | null>(null);  // Use ref to store room instance
@@ -119,8 +120,15 @@ const RoomView: React.FC = () => {
         </View>
       )}
 
-      {/* Toggle Video Button */}
-      <View className="absolute bottom-80 left-0 right-0 items-center">
+      
+      <View className={isVideoOn ? "absolute top-10 left-0 right-0 items-center" : "absolute top-20 left-0 right-0 items-center"}>
+        <Text className="text-white text-lg font-bold">사용자 이름</Text>
+      </View>
+
+
+
+      {/* 영상통화 버튼 */}
+      <View className={isVideoOn ? "absolute bottom-10 left-10 items-center" : "absolute bottom-60 left-10 items-center"}>
         <ImageBackground
           source={isVideoOn ? icons.video_on : icons.video_off}
           className="w-[70px] h-[70px] mx-2 rounded-xl overflow-hidden"
@@ -129,16 +137,16 @@ const RoomView: React.FC = () => {
         </ImageBackground>
       </View>
 
-      {/* Mute Button */}
+      {/* 음소거 버튼 */}
       <ImageBackground
         source={isMuted ? icons.mute_off : icons.mute_on}
-        className="w-[70px] h-[70px] mx-2 rounded-xl overflow-hidden absolute right-10 bottom-80"
+        className={isVideoOn ? "w-[70px] h-[70px] mx-2 rounded-xl overflow-hidden absolute right-10 bottom-10" : "w-[70px] h-[70px] mx-2 rounded-xl overflow-hidden absolute right-10 bottom-60"}
       >
         <TouchableOpacity onPress={toggleMute} className="w-full h-full" />
       </ImageBackground>
 
-      {/* Hangup Button */}
-      <View className="absolute bottom-40 left-0 right-0 items-center">
+      {/* 전화 끊기버튼 */}
+      <View className={isVideoOn ? "absolute bottom-10 left-0 right-0 items-center" : "absolute bottom-60 left-0 right-0 items-center"}>
         <ImageBackground
           source={icons.hangup}
           className="w-[70px] h-[70px] mx-2 rounded-xl overflow-hidden"
@@ -161,7 +169,6 @@ const styles = StyleSheet.create({
     backgroundColor : '#000000'
   },
   participantView: {
-    flex: 1,
     alignItems: 'stretch',
     justifyContent: 'center',
   },

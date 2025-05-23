@@ -1,21 +1,20 @@
 import React, { useContext, useCallback, useState,useEffect  } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import { Text, View, Image, StyleSheet, TouchableOpacity, ScrollView,FlatList } from "react-native";
+import { Text, View, Image, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
 import { UserContext } from '../../context/UserContext';
 
 
 
 const blockedUsers = [
-  { id: '1', name: 'User A', number: '010-1111-1111' },
-  { id: '2', name: 'User B', number: '010-2222-2222' },
-  { id: '3', name: 'User C', number: '010-3333-3333' },
-  { id: '4', name: 'User D', number: '010-4444-4444' },
-  { id: '5', name: 'User E', number: '010-5555-5555' },
-  { id: '6', name: 'User F', number: '010-6666-6666' },
-  { id: '7', name: 'User G', number: '010-7777-7777' }
+  { id: '1', name: 'User A' },
+  { id: '2', name: 'User B' },
+  { id: '3', name: 'User C' },
+  { id: '4', name: 'User D' },
+  { id: '5', name: 'User E' },
+  { id: '6', name: 'User F' },
+  { id: '7', name: 'User G' }
 ];
-
 
 
 export default function Index() {
@@ -51,9 +50,8 @@ export default function Index() {
 
   return (
     <View className="flex-1 bg-white">
-      
-       <View className="bg-primary px-4 py-4 ">
-          <Text className="text-white text-2xl font-bold">                            Safe Call</Text>
+       <View className="bg-primary px-4 py-4">
+          <Text className="text-white text-2xl font-bold">Safe Call</Text>
         </View>
     <ScrollView contentContainerStyle={[styles.container, { paddingBottom: 20 }]}>
       {/* 프로필 카드 */}
@@ -75,7 +73,6 @@ export default function Index() {
         </View>
         
         <View style={styles.statsContainer}>
-          
           <View style={styles.statBox}>
             <Text style={styles.statLabel}>차단</Text>
             <Text style={styles.statNumber}>2</Text>
@@ -83,45 +80,24 @@ export default function Index() {
         </View>
       </View>
       <View style={styles.separator} />
-  
-
-   
-    
+      <View className="flex-1 justify-center items-center bg-white">
+      <Text className="text-2xl font-bold mb-6">Safe Call</Text>
+    </View>
     <Text style={styles.title}>AI Summary</Text>
       {/* 콜 요약 */}
       <View style={styles.Latest_Call_summary}>
-        <View style={styles.Latest_Call_summary}>
-        <Text style={styles.number}>{summaryData.phoneNumber}</Text>
-        <Text>{summaryData.summaryText}</Text>
-
-        {/* 통화 화면으로 이동 버튼 */}
-        <TouchableOpacity onPress={() => router.push(`/callScreen?name=최근통화&phone=${summaryData.phoneNumber}`)}>
-          <Text>통화 화면으로 이동</Text>
-        </TouchableOpacity>
-      </View>
-
+        
         <Text style={styles.number}>{summaryData.phoneNumber}</Text>
         <Text>{summaryData.summaryText}</Text>
       </View>
       <View style={styles.separator} /> 
       {/* Blocked 리스트 제목 */}
       <Text style={styles.title}>차단 된 목록</Text>
-      <FlatList
-        data={blockedUsers}
-        keyExtractor={(item) => item.id}
-        scrollEnabled={false}
-        renderItem={({ item }) => (
-          <View style={styles.blockedCard}>
-      <Text style={styles.blockedUserName}>
-        {item.name}  ·  <Text style={styles.blockedUserNumber}>{item.number}</Text>
-</Text>
-
-      <TouchableOpacity style={styles.unblockButton}>
-        <Text style={styles.unblockText}>해제</Text>
-      </TouchableOpacity>
-    </View>
-  )}
-/>
+      {blockedUsers.map(item => (
+        <View key={item.id} style={styles.Card}>
+          <Text style={styles.blockedUserName}>{item.name}</Text>
+        </View>
+      ))}
     </ScrollView>
     </View>
   );
@@ -250,7 +226,11 @@ const styles = StyleSheet.create({
     elevation: 3,
     marginVertical: 5,
   },
-
+  blockedUserName: {
+    fontSize: 17,
+    color: '#B22222',
+    marginTop: 8,
+  },
   title: {
     fontSize: 20,
     fontWeight: '700',
@@ -275,61 +255,10 @@ const styles = StyleSheet.create({
   },
   
   separator: {
-    width: '100%',
-    height: 2, // 디바이스가 표현할 수 있는 가장 얇은 선
-    backgroundColor: '#F2F2F2',
-    marginVertical: 30
+    width: '95%',
+    height: 1, // 디바이스가 표현할 수 있는 가장 얇은 선
+    backgroundColor: '#ccc',
+    marginVertical: 35
   },
-  blockedCard: {
-  flexDirection: 'row',
-  alignItems: 'center',
-  backgroundColor: '#fff',
-  borderRadius: 12,
-  padding: 12,
-  marginVertical: 6,
-  width: 350,
-  alignSelf: 'center',
-  shadowColor: '#000',
-  shadowOpacity: 0.1,
-  shadowOffset: { width: 0, height: 2 },
-  shadowRadius: 5,
-  elevation: 3,
-  borderWidth: 1,
-  borderColor: '#eee',
-},
-
-blockedProfileImage: {
-  width: 50,
-  height: 50,
-  borderRadius: 25,
-  marginRight: 15,
-  backgroundColor: '#f3f3f3',
-},
-
-blockedUserName: {
-  fontSize: 20,
-  fontWeight: '600',
-  color: '#333',
-  flex: 1,
-},
-
-unblockButton: {
-  backgroundColor: '#B22222',
-  paddingVertical: 6,
-  paddingHorizontal: 12,
-  borderRadius: 8,
-},
-
-unblockText: {
-  color: '#fff',
-  fontSize: 14,
-  fontWeight: 'bold',
-},
-blockedUserNumber: {
-  fontSize: 14,
-  color: '#888',
-  fontWeight: '400',
-},
-
 
 })

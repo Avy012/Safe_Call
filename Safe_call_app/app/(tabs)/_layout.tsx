@@ -56,7 +56,7 @@ const _Layout = () => {
                         <TabIcon
                             focused={focused}
                             icon={icons.home}
-                            title="메인"
+                            title="홈"
                         />
                     ),
                 }}
