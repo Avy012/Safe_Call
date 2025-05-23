@@ -81,7 +81,7 @@ export default function Index() {
       </View>
       <View style={styles.separator} />
       <View className="flex-1 justify-center items-center bg-white">
-      <Text className="text-2xl font-bold mb-6">Safe Call 메인</Text>
+      <Text className="text-2xl font-bold mb-6">Safe Call</Text>
     </View>
     <Text style={styles.title}>AI Summary</Text>
       {/* 콜 요약 */}
