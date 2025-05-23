@@ -51,6 +51,7 @@ export default function Index() {
 
   return (
     <View className="flex-1 bg-white">
+      
        <View className="bg-primary px-4 py-4 ">
           <Text className="text-white text-2xl font-bold">                            Safe Call</Text>
         </View>
@@ -74,6 +75,7 @@ export default function Index() {
         </View>
         
         <View style={styles.statsContainer}>
+          
           <View style={styles.statBox}>
             <Text style={styles.statLabel}>차단</Text>
             <Text style={styles.statNumber}>2</Text>
@@ -88,7 +90,16 @@ export default function Index() {
     <Text style={styles.title}>AI Summary</Text>
       {/* 콜 요약 */}
       <View style={styles.Latest_Call_summary}>
-        
+        <View style={styles.Latest_Call_summary}>
+        <Text style={styles.number}>{summaryData.phoneNumber}</Text>
+        <Text>{summaryData.summaryText}</Text>
+
+        {/* 통화 화면으로 이동 버튼 */}
+        <TouchableOpacity onPress={() => router.push(`/callScreen?name=최근통화&phone=${summaryData.phoneNumber}`)}>
+          <Text>통화 화면으로 이동</Text>
+        </TouchableOpacity>
+      </View>
+
         <Text style={styles.number}>{summaryData.phoneNumber}</Text>
         <Text>{summaryData.summaryText}</Text>
       </View>
