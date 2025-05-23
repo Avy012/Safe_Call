@@ -53,21 +53,22 @@ export default function CallDetail() {
 
   return (
     <View className="flex-1 bg-white px-6 pt-12 pb-6 justify-between">
+       <View className="flex-row items-center justify-between ">
       {/* 뒤로 가기 버튼 */}
-      <TouchableOpacity onPress={() => router.back()} className="absolute top-4 left-4 p-2 bg-white rounded-lg z-10">
+      <TouchableOpacity onPress={() => router.back()} className="absolute top-0 left-2 p-2 bg-white rounded-lg z-10">
         <Text className="text-5xl text-primary-1000">←</Text>
       </TouchableOpacity>
-
-      {/* 삭제 버튼 */}
-      <View className="items-end mt-4">
-        <TouchableOpacity
-          className="bg-gray-0 py-2 px-4 rounded-full mb-2 items-center w-auto"
-          onPress={handleDelete}
-        >
-          <Text className="text-black font-semibold text-lg">❌</Text>
-        </TouchableOpacity>
+      
+          {/* 삭제 버튼 */}
+          <View className="items-end mt-0">
+            <TouchableOpacity
+              className="absolute top-0 right-2 p-2 mt-4 bg-white rounded-lg z-10"
+              onPress={handleDelete}
+            >
+              <Text className="text-black font-semibold text-lg">❌</Text>
+            </TouchableOpacity>
+          </View>
       </View>
-
       {/* 프로필 */}
       <View className="items-center pt-0 mb-4">
         <Image source={{ uri: profileImage }} className="w-28 h-28 rounded-full mb-5" />
@@ -75,7 +76,7 @@ export default function CallDetail() {
         {phone && (
           <Text className="text-lg font-medium text-blue-700 mt-3">{phone}</Text>
         )}
-
+        
         {/* summary 출력 */}
         {summary && (
           <View className="px-4 py-2 bg-blue-50 mt-4 rounded-xl w-full">
