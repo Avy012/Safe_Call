@@ -52,16 +52,10 @@ export default function Index() {
     <View className="flex-1 bg-white">
        <View className="bg-primary px-4 py-4">
           <Text className="text-white text-2xl font-bold">Safe Call</Text>
-        </View><View className="flex-row items-end mb-2 px-0 w-auto">
-      <Image
-              source={require('../../assets/images/profileTitle.png')}
-              style={styles.profileTitle}
-            />
         </View>
     <ScrollView contentContainerStyle={[styles.container, { paddingBottom: 20 }]}>
       {/* 프로필 카드 */}
       
-
             <View style={styles.profileCard}>
           <View style={styles.profileRow}>
             {/* 프로필 이미지 */}
@@ -134,7 +128,7 @@ const styles = StyleSheet.create({
   shadowOffset: { width: 0, height: 5 },
   shadowRadius: 10,
   elevation: 2,
-  marginTop: 25,
+  marginTop: 20,
   marginBottom: 10,
   borderColor: '#F2F2F2',
   justifyContent: 'center',
@@ -175,7 +169,7 @@ statBox: {
   marginTop: 4,
   flexDirection: 'row',
   alignItems: 'center',
-  marginLeft:25
+  marginLeft:2
 },
 statLabel: {
   fontSize: 16,
@@ -276,17 +270,6 @@ statNumber: {
     resizeMode: 'contain',
     marginBottom:10,
     marginTop:10,
-  },
- profileTitle: {
-  position: 'absolute',
-  top: 20,
-  left: '50%',                         // 화면의 정확한 절반에 기준점 설정
-  transform: [{ translateX: -57.5 }],  // width의 절반만큼 왼쪽으로 이동 (115 / 2)
-  width: 115,
-  height: 36,
-  resizeMode: 'contain',
-  zIndex: 10,
-},
-
+  }
 
 })
