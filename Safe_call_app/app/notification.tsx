@@ -4,14 +4,14 @@ import { useRouter } from "expo-router";
 const Notification = () => {
   const router = useRouter(); 
   const [callAlerts, setCallAlerts] = useState(true);
-  const [chatMessages, setChatMessages] = useState(true);[]
+  const [spamBlockAlerts, setSpamBlockAlerts] = useState(true);
   const [appUpdates, setAppUpdates] = useState(false);
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => router.back()} className="absolute top-4 left-4 p-2 bg-white rounded-lg z-10">
-                                            <Text className="text-5xl text-primary-1000">←</Text>
-                                          </TouchableOpacity>
+      <TouchableOpacity onPress={() => router.back()} className="absolute top-2 left-4 p-2 bg-white rounded-lg z-10">
+        <Text className="text-5xl text-primary-1000">←</Text>
+      </TouchableOpacity>
       <Text style={styles.title}>알림 설정</Text>
 
       <View style={styles.optionRow}>
@@ -23,12 +23,14 @@ const Notification = () => {
       </View>
 
       <View style={styles.optionRow}>
-        <Text style={styles.optionText}>채팅 메시지 알림</Text>
+        <Text style={styles.optionText}>차단 전화 수신시 알림</Text>
         <Switch
-          value={chatMessages}
-          onValueChange={setChatMessages}
+          value={spamBlockAlerts}
+          onValueChange={setSpamBlockAlerts}
         />
       </View>
+
+
 
       <View style={styles.optionRow}>
         <Text style={styles.optionText}>앱 업데이트 소식</Text>
@@ -47,8 +49,8 @@ const styles = StyleSheet.create({
       padding: 20,
     },
     title: {
-      fontSize: 24,
-      fontWeight: '700',
+      fontSize: 20,
+      fontWeight: '300',
       marginBottom: 30,
       alignSelf: 'center',
     },

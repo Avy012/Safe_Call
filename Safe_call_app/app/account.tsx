@@ -1,8 +1,9 @@
-// EditProfile.tsx
 import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { UserContext } from '@/context/UserContext';
+import * as ImagePicker from 'expo-image-picker';
+
 
 const EditProfile = () => {
   const { user, setUser } = useContext(UserContext);
@@ -17,22 +18,44 @@ const EditProfile = () => {
     router.back();
   };
 
-  const handleImageUpdate = () => {
-    const newImage = 'https://randomuser.me/api/portraits/women/65.jpg';
-    setImageUri(newImage);
-  };
+  const handleImageUpdate = async () => {
+  try {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== 'granted') {
+      Alert.alert('권한 필요', '갤러리 접근 권한이 필요합니다.');
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.canceled && result.assets && result.assets.length > 0) {
+      const selectedImage = result.assets[0].uri;
+      setImageUri(selectedImage);
+    }
+  } catch (error) {
+    console.error('이미지 선택 오류:', error);
+    Alert.alert('오류 발생', '이미지를 불러오는 도중 문제가 발생했습니다.');
+  }
+};
+
+
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-        <Text style={{ fontSize: 30 }}>←</Text>
-      </TouchableOpacity>
+      <TouchableOpacity onPress={() => router.back()} className="absolute top-2 left-4 p-2 bg-white rounded-lg z-10">
+       <Text className="text-5xl text-primary-1000">←</Text>
+    </TouchableOpacity>
 
       <Text style={styles.title}>계정 정보 수정</Text>
 
       <Image source={{ uri: imageUri }} style={styles.profileImage} />
       <TouchableOpacity style={styles.button} onPress={handleImageUpdate}>
-        <Text style={styles.buttonText}>프로필 사진 수정</Text>
+        <Text style={styles.buttonText}>사진 수정</Text>
       </TouchableOpacity>
 
       <Text style={styles.label}>계정 이름</Text>
@@ -47,7 +70,7 @@ const EditProfile = () => {
       />
 
       <TouchableOpacity style={styles.button} onPress={handleSaveAndExit}>
-        <Text style={styles.buttonText}>저장하고 나가기</Text>
+        <Text style={styles.buttonText}>저장 </Text>
       </TouchableOpacity>
     </View>
   );
@@ -60,17 +83,13 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: 'center',
   },
-  backButton: {
-    position: 'absolute',
-    top: 40,
-    left: 20,
-    zIndex: 10,
-  },
+
   title: {
-    fontSize: 24,
-    fontWeight: '700',
-    marginVertical: 20,
-  },
+      fontSize: 20,
+      fontWeight: '300',
+      marginBottom: 30,
+      alignSelf: 'center',
+    },
   profileImage: {
     width: 120,
     height: 120,

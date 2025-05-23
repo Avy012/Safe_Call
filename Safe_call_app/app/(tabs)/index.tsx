@@ -1,6 +1,6 @@
 import React, { useContext, useCallback, useState,useEffect  } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import { Text, View, Image, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
+import { Text, View, Image, StyleSheet, TouchableOpacity, ScrollView,ImageBackground } from "react-native";
 import { useRouter } from "expo-router";
 import { UserContext } from '../../context/UserContext';
 
@@ -56,43 +56,53 @@ export default function Index() {
     <ScrollView contentContainerStyle={[styles.container, { paddingBottom: 20 }]}>
       {/* 프로필 카드 */}
       
-      <View style={styles.profileCard}>
-        <View style={styles.rowContainer}>
-          <Image source={{ uri: user.imageUri }} style={styles.profileImage} />
-          <Text style={styles.userName} numberOfLines={1}             
-          ellipsizeMode="tail" >{user.name}</Text>
-          <TouchableOpacity
-            style={styles.settingsButton}
-            onPress={() => router.push('/settings')}
-          >
-            <Image
-              source={require('../../assets/images/setting.png')}
-              style={styles.settingsImage}
-            />
-          </TouchableOpacity>
-        </View>
-        
-        <View style={styles.statsContainer}>
-          <View style={styles.statBox}>
-            <Text style={styles.statLabel}>차단</Text>
-            <Text style={styles.statNumber}>2</Text>
+            <View style={styles.profileCard}>
+          <View style={styles.profileRow}>
+            {/* 프로필 이미지 */}
+            <Image source={{ uri: user.imageUri }} style={styles.profileImage} />
+
+            <View style={styles.profileInfo}>
+              {/* 이름 + 설정 버튼 */}
+              <View style={styles.nameRow}>
+                <Text style={styles.userName} numberOfLines={1} ellipsizeMode="tail">{user.name}</Text>
+                <TouchableOpacity style={styles.settingsButton} onPress={() => router.push('/settings')}>
+                  <Image source={require('../../assets/images/setting.png')} style={styles.settingsImage} />
+                </TouchableOpacity>
+              </View>
+
+              {/* 차단 정보 */}
+              <View style={styles.statBox}>
+                <Text style={styles.statLabel}>차단</Text>
+                <Text style={styles.statNumber}>7</Text>
+              </View>
+            </View>
           </View>
         </View>
-      </View>
-      <View style={styles.separator} />
+
+      
       <View className="flex-1 justify-center items-center bg-white">
       <Text className="text-2xl font-bold mb-6">Safe Call</Text>
     </View>
-    <Text style={styles.title}>AI Summary</Text>
+      <View className="flex-row items-end mb-2 px-0 w-auto">
+      <Image
+              source={require('../../assets/images/aisummary.png')}
+              style={styles.aisumarryImage}
+            />
+        </View>
+
       {/* 콜 요약 */}
       <View style={styles.Latest_Call_summary}>
         
         <Text style={styles.number}>{summaryData.phoneNumber}</Text>
         <Text>{summaryData.summaryText}</Text>
       </View>
-      <View style={styles.separator} /> 
+     
       {/* Blocked 리스트 제목 */}
-      <Text style={styles.title}>차단 된 목록</Text>
+       <Image
+              source={require('../../assets/images/blocked_list.png')}
+              style={styles.Blocked_listImage}
+              
+            />
       {blockedUsers.map(item => (
         <View key={item.id} style={styles.Card}>
           <Text style={styles.blockedUserName}>{item.name}</Text>
@@ -105,99 +115,89 @@ export default function Index() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: '#FFF',
     alignItems: 'center',
     padding: 10,
   },
   profileCard: {
-    width: 350,
-    height: 175,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    alignItems: 'flex-start',
-    shadowColor: '#000',
-    shadowOpacity: 1,
-    shadowOffset: { width: 7, height: 7 },
-    shadowRadius: 30,
-    elevation: 4,
-    marginTop: 20,
-    borderColor:'#F2F2F2'
-  },
-  rowContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  profileImage: {
-    width: 70,
-    height: 70,
-    margin: 10,
-    marginLeft:35,
-    borderRadius: 50,
-    borderColor:'#d1d5db',
-    borderWidth:3
-  },
-  userName: {
+  width: 350,
+  height: 120,
+  backgroundColor: '#FFFFFF',
+  borderRadius: 12,
+  padding: 15,
+  shadowColor: '#000',
+  shadowOpacity: 0.2,
+  shadowOffset: { width: 0, height: 5 },
+  shadowRadius: 10,
+  elevation: 2,
+  marginTop: 20,
+  marginBottom: 10,
+  borderColor: '#F2F2F2',
+  justifyContent: 'center',
+},
+profileRow: {
+  flexDirection: 'row',
+  alignItems: 'center',
+},
+profileImage: {
+  width: 70,
+  height: 70,
+  borderRadius: 50,
+  borderWidth: 2,
+  borderColor: '#ddd',
+  marginRight: 15,
+},
+profileInfo: {
+  flex: 1,
+  justifyContent: 'center',
+},
+nameRow: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+},
+userName: {
+  fontSize: 20,
+  fontWeight: 'bold',
+  color: '#222',
+  flexShrink: 1,
+},
+settingsButton: {
+  padding: 6,
+  borderRadius: 20,
+  backgroundColor: '#fff',
+},
+settingsImage: {
+  width: 24,
+  height: 24,
+},
+statBox: {
+  marginTop: 4,
+  flexDirection: 'row',
+  alignItems: 'center',
+},
+statLabel: {
+  fontSize: 16,
+  fontWeight: 'bold',
+  color: '#B22222',
+  marginRight: 10,
+},
+statNumber: {
+  fontSize: 16,
+  fontWeight: 'bold',
+  color: '#333',
+  backgroundColor: '#f3f4f6',
+  borderRadius: 8,
+  paddingVertical: 4,
+  paddingHorizontal: 12,
+  overflow: 'hidden',
+  elevation:2
+},
 
-    fontSize: 23,
-    fontWeight: '700',
-    color: '#222',
-    maxWidth: 200,
-    marginLeft:30
-  },
-  settingsButton: {
-    position: 'absolute',
-    top: 10,              // 상단에서 거리
-    left:290,
-    zIndex: 10, 
-    backgroundColor: '#FFFFFF',
-    borderRadius: 20,
-  },
-  settingsImage: {
-    width: 35,
-    height: 35,
-    backgroundColor: '#FFFFFF',
-  },
-  statsContainer: {
-    flexDirection: 'row',
-    height: 50,
-   
-  },
-  statBox: {
-    marginTop: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingLeft: 70
-    
-  },
-  statNumber: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
-    backgroundColor: '#f3f4f6',
-    borderColor: '#A3B5C9',
-    borderRadius: 12,
-    elevation: 3,
-    paddingVertical: 8,
-    paddingHorizontal: 14,
-    textAlign: 'center',
-    width: 150,
-    height: 45,
-    margin: 10,
-    marginTop:20
-  },
-  statLabel: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#B22222',
-    marginTop: 8,
-    marginRight:13,
-    marginLeft:10
-  },
   Latest_Call_summary: {
     width: 350,
     height: '20%',
-    backgroundColor: '#f3f4f6',
+    backgroundColor: '#FFFFFF',
     borderColor: '#A3B5C9',
     borderRadius: 12,
     padding: 15,
@@ -206,25 +206,26 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowOffset: { width: 0, height: 5 },
     shadowRadius: 10,
-    elevation: 3,
+    elevation: 2,
     marginTop: 5,
-    marginBottom: 15,
+    marginBottom: 20,
   },
   Card: {
     width: 350,
     minHeight: 65,
     alignSelf: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#FAFAFA',
     borderRadius: 12,
-    borderColor:'#F2F2F2',
+    borderColor:'#A3B5C9',
     padding: 10,
     alignItems: 'flex-start',
     shadowColor: '#000',
     shadowOpacity: 1,
     shadowOffset: { width: 7, height: 7 },
     shadowRadius: 30,
-    elevation: 3,
+    elevation: 2,
     marginVertical: 5,
+    
   },
   blockedUserName: {
     fontSize: 17,
@@ -260,5 +261,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#ccc',
     marginVertical: 35
   },
+  aisumarryImage:{
+    right:100,
+    width:155,
+    height: 50,
+    resizeMode: 'contain' ,
+    marginTop:20
+  }, 
+  Blocked_listImage:{
+    right:120,
+    width:115,
+    height: 40,
+    resizeMode: 'contain',
+    marginBottom:10,
+    marginTop:10,
+  }
 
 })

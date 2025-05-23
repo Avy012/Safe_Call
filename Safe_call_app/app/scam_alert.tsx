@@ -4,7 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 const ScamAlertBanner = ({ phoneNumber }: { phoneNumber: string }) => {
   const handleBlock = () => {
-    // 여기에 차단 처리 로직을 넣을 수 있어요 (예: DB 저장, 상태 업데이트 등)
+  
     Alert.alert('번호 차단됨', `${phoneNumber} 이(가) 차단되었습니다.`);
   };
 
