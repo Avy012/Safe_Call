@@ -169,7 +169,7 @@ statBox: {
   marginTop: 4,
   flexDirection: 'row',
   alignItems: 'center',
-  marginLeft:2
+  marginLeft:20
 },
 statLabel: {
   fontSize: 16,
