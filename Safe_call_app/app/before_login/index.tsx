@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { router } from 'expo-router'; 
 
-const before_login = ({ navigation }: any) => {
+const Before_Login = ({ navigation }: any) => {
   return (
     <View className="flex-1 items-center justify-center bg-white px-6">
       <Image source={require('../../assets/images/logo.png')} className="w-24 h-24 mb-6" />
@@ -27,11 +27,11 @@ const before_login = ({ navigation }: any) => {
   );
 };
 
-before_login.options = {
+Before_Login.options = {
   headerShown: false,
 };
 
-export default before_login;
+export default Before_Login;
 
 
 
