@@ -3,6 +3,8 @@ import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { UserContext } from '@/context/UserContext';
+import * as ImagePicker from 'expo-image-picker';
+
 
 const EditProfile = () => {
   const { user, setUser } = useContext(UserContext);
@@ -17,10 +19,24 @@ const EditProfile = () => {
     router.back();
   };
 
-  const handleImageUpdate = () => {
-    const newImage = 'https://randomuser.me/api/portraits/women/65.jpg';
-    setImageUri(newImage);
-  };
+  const handleImageUpdate = async () => {
+  const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+  if (status !== 'granted') {
+    Alert.alert('권한 필요', '갤러리 접근 권한이 필요합니다.');
+    return;
+  }
+
+  const result = await ImagePicker.launchImageLibraryAsync({
+    mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    allowsEditing: true,
+    aspect: [1, 1],
+    quality: 1,
+  });
+
+  if (!result.canceled && result.assets && result.assets.length > 0) {
+    setImageUri(result.assets[0].uri);
+  }
+};
 
   return (
     <View style={styles.container}>

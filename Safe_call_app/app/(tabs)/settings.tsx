@@ -15,9 +15,10 @@ export default function SettingsScreen() {
     <View style={styles.container}>
       {/* 사용자 정보 카드 */}
       <View style={styles.profileContainer}>
-        <Image source={{ uri: user.imageUri }} style={styles.profileImage} />
-        <Text>{user.name}</Text>
-      </View>
+          <Image source={{ uri: user.imageUri }} style={styles.profileImage} />
+          <Text style={styles.username}>{user.name}</Text>
+        </View>
+
 
       
 
@@ -101,6 +102,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     flexDirection: 'row',
     alignItems: 'center',
+    elevation:2
   },
   icon: {
     marginRight: 10,
@@ -111,5 +113,6 @@ const styles = StyleSheet.create({
   },
   logoutButton: {
     backgroundColor: '#ff4d4f',
+    elevation:2
   },
 });

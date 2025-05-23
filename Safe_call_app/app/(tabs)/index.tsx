@@ -258,14 +258,14 @@ statNumber: {
   },
   aisumarryImage:{
     right:100,
-    width:155,
+    width:170,
     height: 50,
     resizeMode: 'contain' ,
     marginTop:20
   }, 
   Blocked_listImage:{
     right:120,
-    width:115,
+    width:130,
     height: 40,
     resizeMode: 'contain',
     marginBottom:10,
