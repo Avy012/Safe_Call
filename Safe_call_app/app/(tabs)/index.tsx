@@ -51,7 +51,7 @@ export default function Index() {
   return (
     <View className="flex-1 bg-white">
        <View className="bg-primary px-4 py-4">
-          <Text className="text-white text-2xl font-bold">                            Safe Call</Text>
+          <Text className="text-white text-2xl font-bold">Safe Call</Text>
         </View>
     <ScrollView contentContainerStyle={[styles.container, { paddingBottom: 20 }]}>
       {/* 프로필 카드 */}
