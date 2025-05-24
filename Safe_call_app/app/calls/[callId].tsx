@@ -11,6 +11,10 @@ import {
 import React, { useState, useEffect } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../services/firebaseConfig';
+import { getLiveKitToken } from '@/services/livekit';
+import { connectToRoom } from '@/services/livekitConnect';
+import { auth } from '../../services/firebaseConfig';
+
 
 interface Contact {
   id: string;
@@ -42,10 +46,12 @@ export default function CallDetail() {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-          setContact(docSnap.data() as Contact);
+            const data = docSnap.data() as Contact;
+            setContact({ ...data, id: callId }); 
         } else {
           console.warn('❌ Contact not found in Firestore for ID:', callId);
         }
+
       } catch (err) {
         console.error('🔥 Firestore error:', err);
       } finally {
@@ -67,14 +73,51 @@ export default function CallDetail() {
     return () => clearTimeout(timeout);
   }, [loading]);
 
-  const handleCall = () => {
-    if (contact?.phone) {
-      router.push({
-        pathname: '/keypad',
-        params: { phone: contact.phone },
-      });
-    }
-  };
+  const handleCall = async () => {
+  if (!contact?.id) {
+    Alert.alert('Error', '잘못된 연락처입니다.');
+    return;
+  }
+
+  const callerId = auth.currentUser?.uid;
+  const receiverId = contact.id;
+  console.log('👤 Caller:', callerId);
+  console.log('👤 Receiver:', receiverId);
+
+  if (!callerId) {
+    Alert.alert('Error', '로그인 정보가 없습니다.');
+    return;
+  }
+
+  try {
+    const token = await getLiveKitToken(contact.phone); 
+    if (!token) throw new Error('토큰 생성 실패');
+    router.push({
+      pathname: '/generate_room',
+      params: { 
+        token,
+        name: contact.name,
+        profilePic: contact.profilePic,
+      },
+    });
+    await connectToRoom(token);
+
+    await fetch('http://192.168.219.105:8000/send-notification', { // 여기에 사용 네트워크 ip 넣기! 
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        caller_uid: callerId,
+        receiver_uid: receiverId,
+      }),
+    });
+
+    // Alert.alert('☎️ 호출 중...', `${contact.name}에게 전화를 거는 중입니다.`);
+  } catch (error) {
+    console.error('📞 Call failed:', error);
+    Alert.alert('통화 오류', '전화 연결에 실패했습니다.');
+  }
+};
+
 
   const handleBlock = () => {
     setBlocked(true);

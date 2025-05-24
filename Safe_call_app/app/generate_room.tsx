@@ -1,15 +1,11 @@
-// 생성된 룸 입장하는 코드 
-// 토큰 생성한거 가져오는 코드 추가해야 함 
-
 import React, { useEffect, useState } from 'react';
 import {
-  StyleSheet,
   View,
-  FlatList,
-  ListRenderItem,
+  Text,
   TouchableOpacity,
   ImageBackground,
-  Text,
+  StyleSheet,
+  Image,
 } from 'react-native';
 import {
   AudioSession,
@@ -18,56 +14,58 @@ import {
   TrackReferenceOrPlaceholder,
   VideoTrack,
   isTrackReference,
-  registerGlobals,
   useLocalParticipant,
+  registerGlobals,
 } from '@livekit/react-native';
 import { Track } from 'livekit-client';
-import { useRouter,} from 'expo-router';
-import { icons } from '@/constants/icons';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { icons } from '@/constants/icons'; // Adjust this path to your icons location
 
-// Setup LiveKit WebRTC support
-registerGlobals();
 
-// Replace with your actual values   생성된 토큰 여기에 넣는걸로 하면 될 듯 
-const wsURL = "wss://safecall-ozn2xsg6.livekit.cloud";
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZGtpbTEiLCJ2aWRlbyI6eyJyb29tSm9pbiI6dHJ1ZSwicm9vbSI6Im15LXJvb20iLCJjYW5QdWJsaXNoIjp0cnVlLCJjYW5TdWJzY3JpYmUiOnRydWUsImNhblB1Ymxpc2hEYXRhIjp0cnVlfSwic3ViIjoiaWRlbnRpdHkxIiwiaXNzIjoiQVBJcTZDVjVlMzc3aG16IiwibmJmIjoxNzQ3NzQzNTgxLCJleHAiOjE3NDc3NjUxODF9.KbsWltf08yUA0usuRlLAyJvxRN5_JiCp2dqXf0v-jC4";
+registerGlobals(); // Setup LiveKit for WebRTC
 
-const LiveKitRoomScreen: React.FC = () => {
-  // const roomRef = useRef<typeof LiveKitRoom | null>(null);  // Use ref to store room instance
+const wsURL = 'wss://safecall-ozn2xsg6.livekit.cloud';
+
+const GenerateRoomScreen: React.FC = () => {
+  const { token, name, profilePic } = useLocalSearchParams();
+  const [roomToken, setRoomToken] = useState<string | null>(null);
+
   useEffect(() => {
-    const start = async () => {
-      await AudioSession.startAudioSession();
-    };
+    if (typeof token === 'string') {
+      setRoomToken(token);
+    }
+  }, [token]);
 
-    start();
+  useEffect(() => {
+    AudioSession.startAudioSession();
     return () => {
       AudioSession.stopAudioSession();
-      console.log(token)
     };
-
-    
   }, []);
+
+  if (!roomToken) {
+    return (
+      <View className="flex-1 justify-center items-center bg-black">
+        <Text className="text-white">📡 Connecting...</Text>
+      </View>
+    );
+  }
 
   return (
     <LiveKitRoom
       serverUrl={wsURL}
-      token={token}
+      token={roomToken}
       connect={true}
-      options={{
-        adaptiveStream: { pixelDensity: 'screen' },
-      }}
+      options={{ adaptiveStream: { pixelDensity: 'screen' } }}
       audio={true}
       video={true}
     >
-      <RoomView />
+      <RoomView name={name as string} profilePic={profilePic as string} />
     </LiveKitRoom>
   );
 };
 
-
-
-
-const RoomView: React.FC = () => {
+const RoomView: React.FC<{ name: string; profilePic: string }> = ({ name, profilePic }) => {
   const router = useRouter();
   const { localParticipant } = useLocalParticipant();
   const tracks = useTracks([Track.Source.Camera]);
@@ -98,12 +96,12 @@ const RoomView: React.FC = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: 'black' }}>
-      {/* Remote video (full screen) */}
+      {/* Remote video */}
       {remoteTrack && isTrackReference(remoteTrack) && isVideoOn && (
         <VideoTrack trackRef={remoteTrack} style={{ flex: 1 }} />
       )}
 
-      {/* Local video (small floating window) */}
+      {/* Local video */}
       {localTrack && isTrackReference(localTrack) && isVideoOn && (
         <View
           style={{
@@ -120,14 +118,25 @@ const RoomView: React.FC = () => {
         </View>
       )}
 
-      
-      <View className={isVideoOn ? "absolute top-10 left-0 right-0 items-center" : "absolute top-20 left-0 right-0 items-center"}>
-        <Text className="text-white text-lg font-bold">사용자 이름</Text>
+      {/* User name (optional) */}
+      <View
+        style={{ position: 'absolute', top: isVideoOn ? 100 : 150, left: 0, right: 0, alignItems: 'center',}}>
+        {!isVideoOn && (
+          <Image
+            source={
+              typeof profilePic === 'string' && profilePic.startsWith('http')
+                ? { uri: profilePic }
+                : require('@/assets/images/default_profile.jpg') // fallback image
+            }
+            onError={() => console.warn('❌ Failed to load profilePic:', profilePic)}
+            style={{ width: 130, height: 130, borderRadius: 999, marginBottom: 12, backgroundColor: 'gray', }} />
+        )}
+        <Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>{name}</Text>
       </View>
 
 
 
-      {/* 영상통화 버튼 */}
+      {/* Toggle video */}
       <View className={isVideoOn ? "absolute bottom-10 left-10 items-center" : "absolute bottom-60 left-10 items-center"}>
         <ImageBackground
           source={isVideoOn ? icons.video_on : icons.video_off}
@@ -137,7 +146,7 @@ const RoomView: React.FC = () => {
         </ImageBackground>
       </View>
 
-      {/* 음소거 버튼 */}
+      {/* Mute/unmute */}
       <ImageBackground
         source={isMuted ? icons.mute_off : icons.mute_on}
         className={isVideoOn ? "w-[70px] h-[70px] mx-2 rounded-xl overflow-hidden absolute right-10 bottom-10" : "w-[70px] h-[70px] mx-2 rounded-xl overflow-hidden absolute right-10 bottom-60"}
@@ -145,7 +154,7 @@ const RoomView: React.FC = () => {
         <TouchableOpacity onPress={toggleMute} className="w-full h-full" />
       </ImageBackground>
 
-      {/* 전화 끊기버튼 */}
+      {/* Hang up */}
       <View className={isVideoOn ? "absolute bottom-10 left-0 right-0 items-center" : "absolute bottom-60 left-0 right-0 items-center"}>
         <ImageBackground
           source={icons.hangup}
@@ -158,18 +167,4 @@ const RoomView: React.FC = () => {
   );
 };
 
-
-export default LiveKitRoomScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'stretch',
-    justifyContent: 'center',
-    backgroundColor : '#000000'
-  },
-  participantView: {
-    alignItems: 'stretch',
-    justifyContent: 'center',
-  },
-});
+export default GenerateRoomScreen;

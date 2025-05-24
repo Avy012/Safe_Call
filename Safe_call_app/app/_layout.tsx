@@ -9,6 +9,19 @@ import { useFonts } from 'expo-font';
 
 registerGlobals();
 
+const originalConsoleError = console.error;
+
+console.error = (...args: unknown[]) => {
+  const firstArg = args[0];
+
+  if (typeof firstArg === 'string' && firstArg.includes('unable to set answer')) {
+    return; // suppress
+  }
+
+  originalConsoleError(...args); // keep other logs
+};
+
+
 export default function RootLayout() {
   return (
     <UserProvider>
