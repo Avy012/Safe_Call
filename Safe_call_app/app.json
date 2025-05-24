@@ -2,10 +2,10 @@
   "expo": {
     "name": "Safe_Call",
     "slug": "Safe_Call",
+    "scheme": "safecall",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "safecall",
+    "icon": "./assets/images/logo_no_text.png",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -14,15 +14,14 @@
     "android": {
       "package": "com.anonymous.Safe_Call",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/favicon.png",
+        "foregroundImage": "./assets/images/logo_no_text.png",
         "backgroundColor": "#ffffff"
       },
       "intentFilters": [
         {
           "action": "VIEW",
           "data": {
-            "scheme": "exp+safecall",
-            "host": "223.194.132.110"
+            "scheme": "exp+safecall"
           },
           "category": ["BROWSABLE", "DEFAULT"]
         }

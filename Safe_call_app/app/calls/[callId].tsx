@@ -2,30 +2,21 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { View, Text, Image, TouchableOpacity, FlatList, Alert } from 'react-native';
 import React, { useState } from 'react';
 
-const profileImages: Record<string, string> = {
-  'Alice Johnson': 'https://randomuser.me/api/portraits/women/10.jpg',
-  'Bob Smith': 'https://randomuser.me/api/portraits/men/11.jpg',
-  'Charlie Brown': 'https://randomuser.me/api/portraits/men/12.jpg',
-  'David Williams': 'https://randomuser.me/api/portraits/men/13.jpg',
-  'Emma Watson': 'https://randomuser.me/api/portraits/women/14.jpg',
-  'Olivia Davis': 'https://randomuser.me/api/portraits/women/15.jpg',
-  'Liam Thompson': 'https://randomuser.me/api/portraits/men/16.jpg',
-  'Sophia Miller': 'https://randomuser.me/api/portraits/women/17.jpg',
-  'James Anderson': 'https://randomuser.me/api/portraits/men/18.jpg',
-  'Isabella Moore': 'https://randomuser.me/api/portraits/women/19.jpg',
-  'Noah Taylor': 'https://randomuser.me/api/portraits/men/20.jpg',
-  'Mia Clark': 'https://randomuser.me/api/portraits/women/21.jpg',
-  'Elijah Lewis': 'https://randomuser.me/api/portraits/men/22.jpg',
-  'Ava Hall': 'https://randomuser.me/api/portraits/women/23.jpg',
-  'Lucas Young': 'https://randomuser.me/api/portraits/men/24.jpg'
-};
-
 export default function CallDetail() {
-  const { name, summary, phone } = useLocalSearchParams();
+  const { name, summary, phone, profilePic } = useLocalSearchParams();
   const router = useRouter();
   const [blocked, setBlocked] = useState(false);
 
-  const profileImage = profileImages[String(name)] || 'https://randomuser.me/api/portraits/lego/1.jpg';
+
+  const profileImage =
+    typeof profilePic === 'string'
+      ? profilePic
+      : Array.isArray(profilePic) && profilePic.length > 0
+      ? profilePic[0]
+      : 'https://i.pravatar.cc/150?img=65'; // fallback placeholder
+
+
+
 
   const handleCall = () => {
     if (phone) {

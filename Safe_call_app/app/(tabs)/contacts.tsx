@@ -1,40 +1,48 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity, Modal } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity, Modal, Image  } from 'react-native';
 import { useRouter } from "expo-router";
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../../services/firebaseConfig';
 
 interface Contact {
-    id: string;
-    name: string;
-    phone: string;
+  id: string;
+  name: string;
+  phone: string;
+  profilePic: string;
 }
+
+
+
 
 const Contacts = () => {
     const router = useRouter();
     const [search, setSearch] = useState('');
     const [showOptions, setShowOptions] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const [contacts, setContacts] = useState<Contact[]>([
-  { id: '1', name: 'Alice Johnson', phone: '010-1234-0001' },
-  { id: '2', name: 'Bob Smith', phone: '010-1234-0002' },
-  { id: '3', name: 'Charlie Brown', phone: '010-1234-0003' },
-  { id: '4', name: 'David Williams', phone: '010-1234-0004' },
-  { id: '5', name: 'Emma Watson', phone: '010-1234-0005' },
-  { id: '6', name: 'Olivia Davis', phone: '010-1234-0006' },
-  { id: '7', name: 'Liam Thompson', phone: '010-1234-0007' },
-  { id: '8', name: 'Sophia Miller', phone: '010-1234-0008' },
-  { id: '9', name: 'James Anderson', phone: '010-1234-0009' },
-  { id: '10', name: 'Isabella Moore', phone: '010-1234-0010' },
-  { id: '11', name: 'Noah Taylor', phone: '010-1234-0011' },
-  { id: '12', name: 'Mia Clark', phone: '010-1234-0012' },
-  { id: '13', name: 'Elijah Lewis', phone: '010-1234-0013' },
-  { id: '14', name: 'Ava Hall', phone: '010-1234-0014' },
-  { id: '15', name: 'Lucas Young', phone: '010-1234-0015' },
-]);
+    const [contacts, setContacts] = useState<Contact[]>([]);
+
+    useEffect(() => {
+        const fetchContacts = async () => {
+            try {
+            const snapshot = await getDocs(collection(db, 'users'));
+            const contactList = snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data(),
+            })) as Contact[];
+            setContacts(contactList);
+            } catch (error) {
+            console.error('Failed to load contacts:', error);
+            }
+        };
+
+        fetchContacts();
+    }, []);
 
 
     const filteredContacts = contacts.filter(contact =>
-        contact.name.toLowerCase().includes(search.toLowerCase())
+        (contact.name?.toLowerCase?.() ?? '').includes(search.toLowerCase())
     );
+
 
     const addContactToDatabase = async (contact: Contact) => {
         try {
@@ -89,10 +97,22 @@ const Contacts = () => {
                 renderItem={({ item }) => (
                     <TouchableOpacity
                         style={styles.contactItem}
-                        onPress={() => router.push(`/calls/${item.id}?name=${item.name}&phone=${item.phone}`)}
+                        onPress={() =>
+                            router.push({
+                                pathname: `/calls/${item.id}`,
+                                params: {
+                                name: item.name,
+                                phone: item.phone,
+                                profilePic: item.profilePic,
+                                },
+                            })
+                         }
                     >
+                        <Image source={{ uri: item.profilePic }} style={{ width: 40, height: 40, borderRadius: 20, marginRight: 10 }} />
                         <Text style={styles.contactText}>{item.name}</Text>
+
                     </TouchableOpacity>
+                    
                 )}
             />
 
@@ -127,6 +147,7 @@ const AddContact = ({ closeModal, onAddContact }: { closeModal: () => void, onAd
             id: String(Date.now()),
             name,
             phone: number,
+            profilePic: 'https://via.placeholder.com/100', // ✅ placeholder image
         };
         onAddContact(newContact);
         setName('');
