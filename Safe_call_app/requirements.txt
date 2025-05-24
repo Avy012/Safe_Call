@@ -1,4 +1,4 @@
 fastapi
 uvicorn
 python-dotenv
-livekit
+git+https://github.com/livekit/python-sdks.git#subdirectory=packages/server-sdk
