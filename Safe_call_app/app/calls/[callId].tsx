@@ -85,10 +85,13 @@ export default function CallDetail() {
     Alert.alert('삭제 완료', '연락처가 삭제되었습니다.');
   };
 
-  const profileImage =
-    contact?.profilePic?.startsWith('http')
-      ? contact.profilePic
-      : 'https://i.pravatar.cc/150?img=65';
+  const profileImageSource =
+  typeof contact?.profilePic === 'string' && contact.profilePic.startsWith('http')
+    ? { uri: contact.profilePic }
+    : require('../../assets/images/default_profile.jpg');
+
+
+
 
   const callHistory: { date: string; type: string; duration: string }[] = [
     { date: '2025-05-18', type: '수신', duration: '3분' },
@@ -141,7 +144,7 @@ export default function CallDetail() {
       </View>
 
       <View className="items-center pt-0 mb-4">
-        <Image source={{ uri: profileImage }} className="w-28 h-28 rounded-full mb-5" />
+        <Image source={profileImageSource} className="w-28 h-28 rounded-full mb-5" />
         <Text className="text-3xl font-semibold">{contact.name}</Text>
         {contact.phone && (
           <Text className="text-lg font-medium text-blue-700 mt-3">{contact.phone}</Text>
