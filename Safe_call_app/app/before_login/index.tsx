@@ -13,7 +13,7 @@ const Before_Login = ({ navigation }: any) => {
         className="w-full h-12 rounded-md items-center justify-center mb-4"
         onPress={() => router.push('/signup')}
       >
-        <Text className="text-white text-lg font-semibold">SIGN UP</Text>
+        <Text className="text-white text-lg font-semibold">회원가입</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -21,7 +21,7 @@ const Before_Login = ({ navigation }: any) => {
         className="w-full h-12 rounded-md items-center justify-center"
         onPress={() => router.push('login')}
       >
-        <Text className="text-white text-lg font-semibold">LOGIN</Text>
+        <Text className="text-white text-lg font-semibold">로그인</Text>
       </TouchableOpacity>
     </View>
   );

@@ -5,7 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b6578ae5-f28a-4cc3-8a16-424b5ed728ee" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/.gradle/8.10.2/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/.gradle/8.10.2/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/.gradle/8.10.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/.gradle/8.10.2/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/.gradle/8.10.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/.gradle/8.10.2/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/.gradle/8.10.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/.gradle/8.10.2/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/.gradle/8.10.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/.gradle/8.10.2/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/.gradle/8.10.2/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/.gradle/8.10.2/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/.cxx/Debug/5ao64591/arm64-v8a/configure_fingerprint.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/build/generated/autolinking/package-lock.json.sha" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/build/generated/autolinking/package-lock.json.sha" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/build/generated/autolinking/package.json.sha" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/build/generated/autolinking/package.json.sha" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/contacts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/contacts.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/IncomingCallScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/IncomingCallScreen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/call.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/calls/[callId].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/calls/[callId].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/signup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/signup.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/assets/images/login.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/context/UserContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/context/UserContext.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,22 +72,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "ScreenshotViewer.SavePath": "C:/Users/User/Documents/GitHub",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "com.google.services.firebase.aqiPopupShown": "true",
-    "git-widget-placeholder": "msms",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/User/Documents/GitHub",
-    "settings.editor.selected.configurable": "AndroidSdkUpdater"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;ScreenshotViewer.SavePath&quot;: &quot;C:/Users/User/Documents/GitHub&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;msms&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/Documents/GitHub&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

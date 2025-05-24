@@ -6,6 +6,7 @@ import { auth } from "../../services/firebaseConfig";
 import { Ionicons } from '@expo/vector-icons'; // 아이콘 사용
 import { useContext } from 'react';
 import { UserContext } from '@/context/UserContext';
+import { Alert } from 'react-native';
 
 
 export default function SettingsScreen() {
@@ -40,13 +41,30 @@ export default function SettingsScreen() {
 
       <TouchableOpacity
         style={[styles.button, styles.logoutButton]}
-        onPress={async () => {
-          try {
-            await signOut(auth);
-            router.replace('/before_login');
-          } catch (error) {
-            console.log("Logout error:", error);
-          }
+        onPress={() => {
+          Alert.alert(
+            '로그아웃 확인',
+            '정말 로그아웃하시겠습니까?',
+            [
+              {
+                text: '취소',
+                style: 'cancel',
+              },
+              {
+                text: '로그아웃',
+                style: 'destructive',
+                onPress: async () => {
+                  try {
+                    await signOut(auth);
+                    router.replace('/before_login');
+                  } catch (error) {
+                    console.log('Logout error:', error);
+                  }
+                },
+              },
+            ],
+            { cancelable: true }
+          );
         }}
       >
         <Ionicons name="log-out-outline" size={20} color="#fff" style={styles.icon} />

@@ -18,8 +18,12 @@ const Privacy = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => router.back()} className="absolute top-2 left-4 p-2 bg-white rounded-lg z-10">
-        <Text className="text-5xl text-primary-1000">←</Text>
+      <TouchableOpacity
+        onPress={() => router.replace('/settings')}
+        className="absolute top-2 left-5 p-2 bg-white rounded-lg z-10"
+        style={{ top: 4, left: 0 }} // ⬅ move up and left
+      >
+        <Text className="text-4xl text-primary-1000">←</Text>
       </TouchableOpacity>
 
       <Text style={styles.title}>개인정보 보호 설정</Text>

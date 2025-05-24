@@ -1,5 +1,4 @@
-// EditProfile.tsx
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { UserContext } from '@/context/UserContext';
@@ -8,17 +7,41 @@ import * as ImagePicker from 'expo-image-picker';
 
 const EditProfile = () => {
   const { user, setUser } = useContext(UserContext);
-  const [name, setName] = useState(user.name);
-  const [phone, setPhone] = useState(user.phone);
-  const [imageUri, setImageUri] = useState(user.imageUri);
   const router = useRouter();
 
+  // Local state (start empty, populate with useEffect)
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [imageUri, setImageUri] = useState('');
+
+  // 🧠 Update local state once user is loaded
+  useEffect(() => {
+    if (user) {
+      setName(user.name ?? '');
+      setPhone(user.phone ?? '');
+      setImageUri(user.imageUri ?? '');
+    }
+  }, [user]);
+
+  // Save changes to context
   const handleSaveAndExit = () => {
-    setUser({ name, phone, imageUri });
+    if (!name || !phone) {
+      Alert.alert('입력 오류', '이름과 전화번호를 모두 입력해주세요.');
+      return;
+    }
+
+    setUser(prev => ({
+      ...prev,
+      name,
+      phone,
+      imageUri,
+    }));
+
     Alert.alert('저장 완료', '프로필이 수정되었습니다.');
     router.back();
   };
 
+<<<<<<< HEAD
   const handleImageUpdate = async () => {
   const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
   if (status !== 'granted') {
@@ -37,12 +60,22 @@ const EditProfile = () => {
     setImageUri(result.assets[0].uri);
   }
 };
+=======
+  // Mock image change
+  const handleImageUpdate = () => {
+    const newImage = 'https://randomuser.me/api/portraits/women/65.jpg';
+    setImageUri(newImage);
+  };
+>>>>>>> origin/dkim
 
   return (
     <View style={styles.container}>
-         <TouchableOpacity onPress={() => router.back()} className="absolute top-2 left-4 p-2 bg-white rounded-lg z-10">
-              <Text className="text-5xl text-primary-1000">←</Text>
-            </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => router.replace('/settings')}
+        style={[styles.backButton, { top: 4, left: 0 }]}
+      >
+        <Text style={styles.backIcon}>←</Text>
+      </TouchableOpacity>
 
       <Text style={styles.title}>계정 정보 수정</Text>
 
@@ -63,7 +96,7 @@ const EditProfile = () => {
       />
 
       <TouchableOpacity style={styles.button} onPress={handleSaveAndExit}>
-        <Text style={styles.buttonText}>저장 </Text>
+        <Text style={styles.buttonText}>저장</Text>
       </TouchableOpacity>
     </View>
   );
@@ -76,7 +109,17 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: 'center',
   },
-
+  backButton: {
+    position: 'absolute',
+    backgroundColor: 'white',
+    padding: 8,
+    borderRadius: 8,
+    zIndex: 10,
+  },
+  backIcon: {
+    fontSize: 32,
+    color: '#1E3A5F',
+  },
   title: {
     fontSize: 20,
     fontWeight: '700',
