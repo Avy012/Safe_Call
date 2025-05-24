@@ -1,40 +1,94 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { View, Text, Image, TouchableOpacity, FlatList, Alert } from 'react-native';
-import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  FlatList,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../services/firebaseConfig';
+
+interface Contact {
+  id: string;
+  name: string;
+  phone: string;
+  profilePic: string;
+}
 
 export default function CallDetail() {
-  const { name, summary, phone, profilePic } = useLocalSearchParams();
+  const { callId } = useLocalSearchParams();
   const router = useRouter();
+  const [contact, setContact] = useState<Contact | null>(null);
   const [blocked, setBlocked] = useState(false);
+  const [loading, setLoading] = useState(true);
 
+  // Debug
+  console.log('📞 Route param CallId:', callId);
 
-  const profileImage =
-    typeof profilePic === 'string'
-      ? profilePic
-      : Array.isArray(profilePic) && profilePic.length > 0
-      ? profilePic[0]
-      : 'https://i.pravatar.cc/150?img=65'; // fallback placeholder
+  useEffect(() => {
+    const fetchContact = async () => {
+      if (!callId || typeof callId !== 'string') {
+        console.warn('🚫 Invalid CallId:', callId);
+        setLoading(false);
+        return;
+      }
 
+      try {
+        const docRef = doc(db, 'users', callId);
+        const docSnap = await getDoc(docRef);
 
+        if (docSnap.exists()) {
+          setContact(docSnap.data() as Contact);
+        } else {
+          console.warn('❌ Contact not found in Firestore for ID:', callId);
+        }
+      } catch (err) {
+        console.error('🔥 Firestore error:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    fetchContact();
+  }, [callId]);
+
+  // Timeout failsafe
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (loading) {
+        console.warn('⏱ Timeout: forcibly ending loading');
+        setLoading(false);
+      }
+    }, 5000);
+    return () => clearTimeout(timeout);
+  }, [loading]);
 
   const handleCall = () => {
-    if (phone) {
+    if (contact?.phone) {
       router.push({
         pathname: '/keypad',
-        params: { phone },
+        params: { phone: contact.phone },
       });
     }
   };
 
   const handleBlock = () => {
     setBlocked(true);
-    Alert.alert('차단 완료', `${name}님이 차단되었습니다.`);
+    Alert.alert('차단 완료', `${contact?.name ?? '연락처'}님이 차단되었습니다.`);
   };
 
   const handleDelete = () => {
     Alert.alert('삭제 완료', '연락처가 삭제되었습니다.');
   };
+
+  const profileImage =
+    contact?.profilePic?.startsWith('http')
+      ? contact.profilePic
+      : 'https://i.pravatar.cc/150?img=65';
 
   const callHistory: { date: string; type: string; duration: string }[] = [
     { date: '2025-05-18', type: '수신', duration: '3분' },
@@ -42,41 +96,58 @@ export default function CallDetail() {
     { date: '2025-05-10', type: '부재중', duration: '-' },
   ];
 
+  if (loading) {
+    return (
+      <View className="flex-1 justify-center items-center bg-white">
+        <ActivityIndicator size="large" color="#1E3A5F" />
+        <Text className="mt-4 text-gray-600">불러오는 중... ID: {String(callId)}</Text>
+      </View>
+    );
+  }
+
+  if (!contact) {
+    return (
+      <View className="flex-1 justify-center items-center bg-white">
+        <Text className="text-red-500 text-lg font-semibold">
+          ❗ 연락처를 불러올 수 없습니다.
+        </Text>
+        <Text className="text-gray-500 mt-2">ID: {String(callId)}</Text>
+        <TouchableOpacity onPress={() => router.back()} className="mt-4">
+          <Text className="text-blue-600 underline">← 돌아가기</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
   return (
     <View className="flex-1 bg-white px-6 pt-12 pb-6 justify-between">
-       <View className="flex-row items-center justify-between ">
-      {/* 뒤로 가기 버튼 */}
-      <TouchableOpacity onPress={() => router.back()} className="absolute top-0 left-2 p-2 bg-white rounded-lg z-10">
-        <Text className="text-5xl text-primary-1000">←</Text>
-      </TouchableOpacity>
-      
-          {/* 삭제 버튼 */}
-          <View className="items-end mt-0">
-            <TouchableOpacity
-              className="absolute top-0 right-2 p-2 mt-4 bg-white rounded-lg z-10"
-              onPress={handleDelete}
-            >
-              <Text className="text-black font-semibold text-lg">❌</Text>
-            </TouchableOpacity>
-          </View>
+      <View className="flex-row items-center justify-between ">
+        <TouchableOpacity
+          onPress={() => router.replace('/contacts')}
+          className="absolute bg-white rounded-lg z-10"
+          style={{ top: 4, left: 0 }} // ⬅ move up and left
+        >
+          <Text className="text-4xl text-primary-1000">←</Text>
+        </TouchableOpacity>
+
+        <View className="items-end mt-0">
+          <TouchableOpacity
+            className="absolute top-0 right-2 p-2 mt-4 bg-white rounded-lg z-10"
+            onPress={handleDelete}
+          >
+            <Text className="text-black font-semibold text-lg">❌</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      {/* 프로필 */}
+
       <View className="items-center pt-0 mb-4">
         <Image source={{ uri: profileImage }} className="w-28 h-28 rounded-full mb-5" />
-        <Text className="text-3xl font-semibold">{name}</Text>
-        {phone && (
-          <Text className="text-lg font-medium text-blue-700 mt-3">{phone}</Text>
-        )}
-        
-        {/* summary 출력 */}
-        {summary && (
-          <View className="px-4 py-2 bg-blue-50 mt-4 rounded-xl w-full">
-            <Text className="text-base text-blue-900 italic text-center">{summary}</Text>
-          </View>
+        <Text className="text-3xl font-semibold">{contact.name}</Text>
+        {contact.phone && (
+          <Text className="text-lg font-medium text-blue-700 mt-3">{contact.phone}</Text>
         )}
       </View>
 
-      {/* 최근 통화 목록 */}
       <View className="w-full px-2">
         <Text className="text-lg font-bold mb-6 text-center">최근 통화 목록</Text>
         <FlatList
@@ -92,7 +163,6 @@ export default function CallDetail() {
         />
       </View>
 
-      {/* 버튼 영역 */}
       <View className="flex-row justify-center gap-4 mt-10">
         <TouchableOpacity
           className="bg-[#30557f] py-4 rounded-full mb-4 items-center w-1/2"

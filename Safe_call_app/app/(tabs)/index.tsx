@@ -1,10 +1,14 @@
-import React, { useContext, useCallback, useState,useEffect  } from 'react';
+import React, { useContext, useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import { Text, View, Image, StyleSheet, TouchableOpacity, ScrollView,ImageBackground } from "react-native";
-import { useRouter } from "expo-router";
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
+import { useRouter } from 'expo-router';
 import { UserContext } from '../../context/UserContext';
-
-
 
 const blockedUsers = [
   { id: '1', name: 'User A' },
@@ -16,59 +20,53 @@ const blockedUsers = [
   { id: '7', name: 'User G' }
 ];
 
-
 export default function Index() {
   const router = useRouter();
   const { user } = useContext(UserContext);
   const [refresh, setRefresh] = useState(false);
   const [summaryData, setSummaryData] = useState({
-  phoneNumber: '010-0000-0000', // 예시 전화번호
-  summaryText: '통화 요약이 여기에 표시됩니다.', // 예시 요약
-});
+    phoneNumber: '010-0000-0000',
+    summaryText: '통화 요약이 여기에 표시됩니다.',
+  });
+
   useFocusEffect(
     useCallback(() => {
-      setRefresh(prev => !prev); // 리렌더 유도
+      setRefresh(prev => !prev);
       console.log('포커스 시점의 최신 user:', user);
     }, [user])
   );
-   // 밑에는 백엔드 연결되면, 최신 통화 요약 받아서 표시하기기
-  //   useEffect(() => {
-  //   const fetchCallSummary = async () => {
-  //     // API 요청 보내기 (axios 또는 fetch 등 사용)
-  //     const response = await fetch('https://api.example.com/call-summary?userId=123');
-  //     const data = await response.json();
 
-  //     // 받은 데이터로 state 업데이트
-  //     setSummaryData({
-  //       phoneNumber: data.phoneNumber,
-  //       summaryText: data.summary,
-  //     });
-  //   };
-
-  //   fetchCallSummary();
-  // }, []);
+  // ✅ Guard: show loading until user is loaded
+  if (!user) {
+    return (
+      <View className="flex-1 justify-center items-center bg-white">
+        <Text className="text-lg text-gray-600">🔄 사용자 정보를 불러오는 중...</Text>
+      </View>
+    );
+  }
 
   return (
     <View className="flex-1 bg-white">
-       <View className="bg-primary px-4 py-4">
-          <Text className="text-white text-2xl font-bold">Safe Call</Text>
-        </View>
-    <ScrollView contentContainerStyle={[styles.container, { paddingBottom: 20 }]}>
-      {/* 프로필 카드 */}
-      
-            <View style={styles.profileCard}>
+      <View className="bg-primary px-4 py-4">
+        <Text className="text-white text-2xl font-bold">Safe Call</Text>
+      </View>
+
+      <ScrollView contentContainerStyle={[styles.container, { paddingBottom: 20 }]}>
+        {/* 프로필 카드 */}
+        <View style={styles.profileCard}>
           <View style={styles.profileRow}>
-            {/* 프로필 이미지 */}
-            <Image source={{ uri: user.imageUri }} style={styles.profileImage} />
+            <Image
+              source={{ uri: user.imageUri || 'https://via.placeholder.com/100' }}
+              style={styles.profileImage}
+            />
 
             <View style={styles.profileInfo}>
-              {/* 이름 + 설정 버튼 */}
               <View style={styles.nameRow}>
-                <Text style={styles.userName} numberOfLines={1} ellipsizeMode="tail">{user.name}</Text>
-                
+                <Text style={styles.userName} numberOfLines={1} ellipsizeMode="tail">
+                  {user.name}
+                </Text>
               </View>
 
-              {/* 차단 정보 */}
               <View style={styles.statBox}>
                 <Text style={styles.statLabel}>차단</Text>
                 <Text style={styles.statNumber}>7</Text>
@@ -77,36 +75,35 @@ export default function Index() {
           </View>
         </View>
 
-      
-      <View className="flex-1 justify-center items-center bg-white">
-      <Text className="text-2xl font-bold mb-6">Safe Call</Text>
-    </View>
-      <View className="flex-row items-end mb-2 px-0 w-auto">
-      <Image
-              source={require('../../assets/images/aisummary.png')}
-              style={styles.aisumarryImage}
-            />
+        <View className="flex-1 justify-center items-center bg-white">
+          <Text className="text-2xl font-bold mb-6">Safe Call</Text>
         </View>
 
-      {/* 콜 요약 */}
-      <View style={styles.Latest_Call_summary}>
-        
-        <Text style={styles.number}>{summaryData.phoneNumber}</Text>
-        <Text>{summaryData.summaryText}</Text>
-      </View>
-     
-      {/* Blocked 리스트 제목 */}
-       <Image
-              source={require('../../assets/images/blocked_list.png')}
-              style={styles.Blocked_listImage}
-              
-            />
-      {blockedUsers.map(item => (
-        <View key={item.id} style={styles.Card}>
-          <Text style={styles.blockedUserName}>{item.name}</Text>
+        <View className="flex-row items-end mb-2 px-0 w-auto">
+          <Image
+            source={require('../../assets/images/aisummary.png')}
+            style={styles.aisumarryImage}
+          />
         </View>
-      ))}
-    </ScrollView>
+
+        {/* 콜 요약 */}
+        <View style={styles.Latest_Call_summary}>
+          <Text style={styles.number}>{summaryData.phoneNumber}</Text>
+          <Text>{summaryData.summaryText}</Text>
+        </View>
+
+        {/* Blocked 리스트 제목 */}
+        <Image
+          source={require('../../assets/images/blocked_list.png')}
+          style={styles.Blocked_listImage}
+        />
+
+        {blockedUsers.map(item => (
+          <View key={item.id} style={styles.Card}>
+            <Text style={styles.blockedUserName}>{item.name}</Text>
+          </View>
+        ))}
+      </ScrollView>
     </View>
   );
 }
@@ -118,77 +115,75 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   profileCard: {
-  width: 350,
-  height: 120,
-  backgroundColor: '#FFFFFF',
-  borderRadius: 12,
-  padding: 15,
-  shadowColor: '#000',
-  shadowOpacity: 0.2,
-  shadowOffset: { width: 0, height: 5 },
-  shadowRadius: 10,
-  elevation: 2,
-  marginTop: 20,
-  marginBottom: 10,
-  borderColor: '#F2F2F2',
-  justifyContent: 'center',
-},
-profileRow: {
-  flexDirection: 'row',
-  alignItems: 'center',
-},
-profileImage: {
-  width: 75,
-  height: 75,
-  left:40,
-  margin:10,
-  borderRadius: 50,
-  borderWidth: 2,
-  borderColor: '#ddd',
-  marginRight: 15,
-},
-profileInfo: {
-  flex: 1,
-  margin:20,
-  justifyContent: 'center',
-},
-nameRow: {
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  marginLeft:20
-},
-userName: {
-  fontSize: 20,
-  fontWeight: 'bold',
-  color: '#222',
-  flexShrink: 1,
-},
-
-statBox: {
-  marginTop: 4,
-  flexDirection: 'row',
-  alignItems: 'center',
-  marginLeft:20
-},
-statLabel: {
-  fontSize: 16,
-  fontWeight: 'bold',
-  color: '#B22222',
-  marginRight: 10,
-},
-statNumber: {
-  fontSize: 16,
-  fontWeight: 'bold',
-  color: '#333',
-  backgroundColor: '#f3f4f6',
-  borderRadius: 8,
-  paddingVertical: 4,
-  paddingHorizontal: 12,
-  overflow: 'hidden',
-  elevation:2
-},
-
+    width: 350,
+    height: 120,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    padding: 15,
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 5 },
+    shadowRadius: 10,
+    elevation: 2,
+    marginTop: 20,
+    marginBottom: 10,
+    borderColor: '#F2F2F2',
+    justifyContent: 'center',
+  },
+  profileRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  profileImage: {
+    width: 75,
+    height: 75,
+    left: 40,
+    margin: 10,
+    borderRadius: 50,
+    borderWidth: 2,
+    borderColor: '#ddd',
+    marginRight: 15,
+  },
+  profileInfo: {
+    flex: 1,
+    margin: 20,
+    justifyContent: 'center',
+  },
+  nameRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginLeft: 20,
+  },
+  userName: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#222',
+    flexShrink: 1,
+  },
+  statBox: {
+    marginTop: 4,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: 20,
+  },
+  statLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#B22222',
+    marginRight: 10,
+  },
+  statNumber: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+    backgroundColor: '#f3f4f6',
+    borderRadius: 8,
+    paddingVertical: 4,
+    paddingHorizontal: 12,
+    overflow: 'hidden',
+    elevation: 2,
+  },
   Latest_Call_summary: {
     width: 350,
     height: '20%',
@@ -211,7 +206,7 @@ statNumber: {
     alignSelf: 'center',
     backgroundColor: '#FAFAFA',
     borderRadius: 12,
-    borderColor:'#A3B5C9',
+    borderColor: '#A3B5C9',
     padding: 10,
     alignItems: 'flex-start',
     shadowColor: '#000',
@@ -220,7 +215,6 @@ statNumber: {
     shadowRadius: 30,
     elevation: 2,
     marginVertical: 5,
-    
   },
   blockedUserName: {
     fontSize: 17,
@@ -234,42 +228,40 @@ statNumber: {
     marginLeft: 25,
     color: '#222',
     marginTop: 0,
-    marginBottom: 10
+    marginBottom: 10,
   },
-  title_summary:{
+  title_summary: {
     fontSize: 20,
     fontWeight: '700',
     alignSelf: 'flex-start',
-    color: '#222'
+    color: '#222',
   },
-  number : {
+  number: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#B22222',
     marginTop: 5,
-    marginBottom:5
+    marginBottom: 5,
   },
-  
   separator: {
     width: '95%',
-    height: 1, // 디바이스가 표현할 수 있는 가장 얇은 선
+    height: 1,
     backgroundColor: '#ccc',
-    marginVertical: 35
+    marginVertical: 35,
   },
-  aisumarryImage:{
-    right:100,
-    width:155,
+  aisumarryImage: {
+    right: 100,
+    width: 155,
     height: 50,
-    resizeMode: 'contain' ,
-    marginTop:20
-  }, 
-  Blocked_listImage:{
-    right:120,
-    width:115,
+    resizeMode: 'contain',
+    marginTop: 20,
+  },
+  Blocked_listImage: {
+    right: 120,
+    width: 115,
     height: 40,
     resizeMode: 'contain',
-    marginBottom:10,
-    marginTop:10,
-  }
-
-})
+    marginBottom: 10,
+    marginTop: 10,
+  },
+});

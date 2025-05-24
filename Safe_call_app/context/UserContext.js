@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState, useContext } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../services/firebaseConfig';
+import { doc, getDoc } from 'firebase/firestore';
+import { auth, db } from '../services/firebaseConfig';
 
 export const UserContext = createContext();
 
@@ -11,26 +12,29 @@ export const UserProvider = ({ children }) => {
     const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
         try {
-          // 🔁 Reload to get latest profile info
           await firebaseUser.reload();
           const refreshedUser = auth.currentUser;
 
-          console.log('✅ Refreshed user from Firebase Auth:', {
-            uid: refreshedUser?.uid,
-            name: refreshedUser?.displayName,
-            photoURL: refreshedUser?.photoURL,
+          const docRef = doc(db, 'users', refreshedUser.uid);
+          const docSnap = await getDoc(docRef);
+
+          const firestoreData = docSnap.exists() ? docSnap.data() : {};
+
+          console.log('✅ Loaded Firestore + Firebase user:', {
+            uid: refreshedUser.uid,
+            name: firestoreData.name,
+            phone: firestoreData.phone,
+            profilePic: firestoreData.profilePic,
           });
 
           setUser({
             uid: refreshedUser.uid,
-            name: refreshedUser.displayName || '익명',
-            phone: refreshedUser.phoneNumber || '알 수 없음',
-            imageUri:
-              refreshedUser.photoURL ||
-              '', // Optional fallback image URL here
+            name: refreshedUser.displayName || firestoreData.name || '익명',
+            phone: firestoreData.phone || '알 수 없음',
+            imageUri: refreshedUser.photoURL || firestoreData.profilePic || '',
           });
         } catch (err) {
-          console.error('🔥 Error reloading user:', err);
+          console.error('🔥 Error loading user:', err);
           setUser(null);
         }
       } else {
