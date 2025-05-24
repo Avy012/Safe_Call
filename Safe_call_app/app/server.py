@@ -1,11 +1,16 @@
 import os
+import time
+import jwt  # PyJWT
 from fastapi import FastAPI, Request
 from dotenv import load_dotenv
-from livekit import AccessToken, VideoGrant  # ✅ FIXED
 
 load_dotenv()
 
 app = FastAPI()
+
+LIVEKIT_API_KEY = os.getenv("LIVEKIT_API_KEY")
+LIVEKIT_API_SECRET = os.getenv("LIVEKIT_API_SECRET")
+
 
 @app.post("/get-token")
 async def get_token(request: Request):
@@ -17,12 +22,23 @@ async def get_token(request: Request):
     if not identity:
         return {"error": "Missing identity"}
 
-    token = AccessToken(
-        os.getenv("LIVEKIT_API_KEY"),
-        os.getenv("LIVEKIT_API_SECRET"),
-        identity=identity,
-        name=name,
-        grants=[VideoGrant(room_join=True, room=room)],
-    )
+    now = int(time.time())
+    exp = now + 3600  # 1 hour expiry
 
-    return {"token": token.to_jwt()}
+    payload = {
+        "iss": LIVEKIT_API_KEY,
+        "sub": identity,
+        "nbf": now,
+        "exp": exp,
+        "name": name,
+        "video": {
+            "roomJoin": True,
+            "room": room,
+            "canPublish": True,
+            "canSubscribe": True,
+        }
+    }
+
+    token = jwt.encode(payload, LIVEKIT_API_SECRET, algorithm="HS256")
+
+    return {"token": token}
