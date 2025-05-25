@@ -9,7 +9,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '../../services/firebaseConfig';
 import { getLiveKitToken } from '@/services/livekit';
 import { connectToRoom } from '@/services/livekitConnect';
@@ -81,8 +81,6 @@ export default function CallDetail() {
 
   const callerId = auth.currentUser?.uid;
   const receiverId = contact.id;
-  console.log('👤 Caller:', callerId);
-  console.log('👤 Receiver:', receiverId);
 
   if (!callerId) {
     Alert.alert('Error', '로그인 정보가 없습니다.');
@@ -90,19 +88,37 @@ export default function CallDetail() {
   }
 
   try {
-    const token = await getLiveKitToken(contact.phone); 
+    // 1. Get LiveKit token
+    const token = await getLiveKitToken(contact.phone); // or callerId — depends on your backend
     if (!token) throw new Error('토큰 생성 실패');
+
+    const user = auth.currentUser;
+
+    // 2. Signal incoming call in Firestore
+    await setDoc(doc(db, 'calls', receiverId), {
+      name: user?.displayName ?? '이름 없음',
+      phone: user?.phoneNumber ?? '알 수 없음',
+      profilePic: user?.photoURL ?? '',
+      callId: user?.uid ?? '',
+      token,
+      roomName: 'safe-call-room',
+    });
+
+    // 3. Navigate to call room screen
     router.push({
-      pathname: '/generate_room',
-      params: { 
+      pathname: '/generate_room', // or your call screen
+      params: {
         token,
         name: contact.name,
         profilePic: contact.profilePic,
       },
     });
+
+    // 4. Connect to LiveKit room
     await connectToRoom(token);
 
-    await fetch('http://192.168.219.105:8000/send-notification', { // 여기에 사용 네트워크 ip 넣기! 
+    // 5. Optional: notify your backend (replace with real Render URL)
+    await fetch('https://safe-call.onrender.com/send-notification', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -111,12 +127,12 @@ export default function CallDetail() {
       }),
     });
 
-    // Alert.alert('☎️ 호출 중...', `${contact.name}에게 전화를 거는 중입니다.`);
   } catch (error) {
     console.error('📞 Call failed:', error);
     Alert.alert('통화 오류', '전화 연결에 실패했습니다.');
   }
 };
+
 
 
   const handleBlock = () => {

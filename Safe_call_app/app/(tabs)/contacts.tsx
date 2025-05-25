@@ -22,10 +22,20 @@ const Contacts = () => {
     const fetchContacts = async () => {
       try {
         const snapshot = await getDocs(collection(db, 'users'));
-        const contactList = snapshot.docs.map(doc => ({
+        const contactList = snapshot.docs.map(doc => {
+        const data = doc.data();
+
+        return {
           id: doc.id,
-          ...doc.data(),
-        })) as Contact[];
+          name: data.name || '이름 없음',
+          phone: data.phone || '알 수 없음',
+          profilePic:
+            typeof data.profilePic === 'string' && data.profilePic.startsWith('http')
+              ? data.profilePic
+              : null, // fallback to null if invalid or missing
+        };
+      }) as Contact[];
+
         setContacts(contactList);
       } catch (error) {
         console.error('Failed to load contacts:', error);
@@ -91,19 +101,19 @@ const Contacts = () => {
         renderItem={({ item }) => {
           const safeProfilePic =
             typeof item.profilePic === 'string' && item.profilePic.startsWith('http')
-              ? item.profilePic
-              : 'https://via.placeholder.com/100';
+              ? { uri: item.profilePic }
+               : require('@/assets/images/default_profile.jpg');
 
-          console.log('📸 profilePic for', item.name, ':', safeProfilePic);
+          console.log('📸 profilePic for', item.name, ':', safeProfilePic.uri);
 
           return (
             <TouchableOpacity
-                style={styles.contactItem}
-                onPress={() => router.push(`/calls/${item.id}`)}
+              style={styles.contactItem}
+              onPress={() => router.push(`/calls/${item.id}`)}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Image
-                  source={{ uri: safeProfilePic }}
+                  source={safeProfilePic}
                   style={{
                     width: 40,
                     height: 40,
@@ -111,6 +121,9 @@ const Contacts = () => {
                     marginRight: 10,
                     backgroundColor: '#eee',
                   }}
+                  onError={() =>
+                    console.warn('❌ Failed to load image for', item.name, safeProfilePic.uri)
+                  }
                 />
                 <Text style={styles.contactText}>{item.name}</Text>
               </View>
@@ -118,6 +131,7 @@ const Contacts = () => {
           );
         }}
       />
+
 
       <Modal
         animationType="slide"

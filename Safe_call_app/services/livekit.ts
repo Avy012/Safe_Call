@@ -6,13 +6,16 @@ export const getLiveKitToken = async (
   room: string = 'safe-call-room'
 ): Promise<string | null> => {
   try {
-    const res = await axios.post('http://192.168.219.105:8000/get-token', {// 여기에 사용 네트워크 ip 넣기! 
+    const res = await axios.post('https://safe-call.onrender.com/get-token', {
       identity,
       name: name || identity,
       room,
     });
 
-    if (res.data?.token) return res.data.token;
+    if (res.data?.token) {
+      console.log('✅ LiveKit token received:', res.data.token);
+      return res.data.token;
+    }
 
     console.warn('❌ Token not returned:', res.data);
     return null;
