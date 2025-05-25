@@ -2,8 +2,8 @@ import { View, Text, TouchableOpacity, Image, StyleSheet, ActivityIndicator } fr
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { deleteDoc, doc, getDoc } from 'firebase/firestore';
-import { db } from '../services/firebaseConfig'; // Update with your actual path
-import { useAuth } from '../context/UserContext'; // Your auth context for current user
+import { db } from '../services/firebaseConfig';
+import { useAuth } from '../context/UserContext';
 
 interface Contact {
   id: string;
@@ -14,47 +14,42 @@ interface Contact {
 
 export default function IncomingCallScreen() {
   const { name, phone, token, roomName, callId } = useLocalSearchParams();
-  console.log("📞 Incoming CallId:", callId);
   const router = useRouter();
   const { user } = useAuth();
 
   const [contact, setContact] = useState<Contact | null>(null);
   const [loading, setLoading] = useState(true);
+  const [imageError, setImageError] = useState(false);
 
-  // 🔍 Load caller info (like profilePic) from Firestore
+  // 🔍 Load caller info
   useEffect(() => {
-  const fetchContact = async () => {
-    if (!callId || typeof callId !== 'string') {
-      console.warn("❌ Invalid callId:", callId);
-      setLoading(false);
-      return;
-    }
-
-    try {
-      const docSnap = await getDoc(doc(db, 'users', callId));
-      if (docSnap.exists()) {
-        setContact({ id: docSnap.id, ...docSnap.data() } as Contact);
-      } else {
-        console.warn('❌ No such user in Firestore:', callId);
+    const fetchContact = async () => {
+      if (!callId || typeof callId !== 'string') {
+        console.warn("❌ Invalid callId:", callId);
+        setLoading(false);
+        return;
       }
-    } catch (err) {
-      console.error('🔥 Error loading user:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
 
-  fetchContact();
-}, [callId]);
+      try {
+        const docSnap = await getDoc(doc(db, 'users', callId));
+        if (docSnap.exists()) {
+          setContact({ id: docSnap.id, ...docSnap.data() } as Contact);
+        } else {
+          console.warn('❌ No such user in Firestore:', callId);
+        }
+      } catch (err) {
+        console.error('🔥 Error loading user:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    fetchContact();
+  }, [callId]);
 
   const displayName = name || contact?.name || 'Unknown';
   const displayPhone = phone || contact?.phone || '번호 없음';
-
-  const profilePic =
-    typeof contact?.profilePic === 'string' && contact.profilePic.startsWith('http')
-      ? { uri: contact.profilePic }
-      : require('../assets/images/default_profile.jpg'); // fallback image
+  const profilePicUrl = !imageError && contact?.profilePic?.startsWith('http') ? { uri: contact.profilePic } : require('../assets/images/default_profile.jpg');
 
   if (!user || loading) {
     return (
@@ -68,7 +63,6 @@ export default function IncomingCallScreen() {
   const handleReject = async () => {
     try {
       if (user?.uid) {
-        console.log("🧹 Deleting doc: calls/" + user?.uid);
         await deleteDoc(doc(db, 'calls', user.uid));
         console.log("✅ Deleted call doc");
       }
@@ -81,17 +75,19 @@ export default function IncomingCallScreen() {
   const handleAccept = async () => {
     try {
       if (user?.uid) {
-        console.log("🧹 Deleting doc: calls/" + user?.uid);
         await deleteDoc(doc(db, 'calls', user.uid));
         console.log("✅ Deleted call doc");
       }
-      router.push({
-        pathname: '/generate_room',// 전화받으면
+
+      console.log('🧼 Final profilePic string:', contact?.profilePic);
+
+      router.replace({
+        pathname: '/generate_room',
         params: {
           token: token as string,
           roomName: roomName as string,
-          name: name as string,
-          profilePic: profilePic as string,
+          name: displayName,
+          profilePic: encodeURIComponent(contact?.profilePic ?? ''),
         },
       });
     } catch (err) {
@@ -101,13 +97,14 @@ export default function IncomingCallScreen() {
 
   return (
     <View className="flex-1 bg-black justify-between items-center pb-12 px-4">
-      {/* 상단 텍스트 */}
-      <View className="items-center">
+      <View className="items-center mt-32">
         <Text className="text-gray-300 text-lg mb-4 pt-20">전화가 왔습니다</Text>
-
-        {/* 프로필 이미지 */}
         <Image
-          source={profilePic}
+          source={profilePicUrl}
+          onError={() => {
+            console.warn('❌ Failed to load image');
+            setImageError(true);
+          }}
           style={{
             width: 112,
             height: 112,
@@ -115,22 +112,17 @@ export default function IncomingCallScreen() {
             marginBottom: 16,
             backgroundColor: '#444',
           }}
-          onError={() => console.warn('❌ Failed to load image:', profilePic)}
         />
-
         <Text className="text-white text-3xl font-semibold">{displayName}</Text>
         <Text className="text-gray-400 text-lg mt-1">{displayPhone}</Text>
       </View>
 
-      {/* 수락/거절 버튼 */}
       <View className="flex-row justify-around w-full pb-12 px-12 mt-16">
-        {/* 거절 */}
         <TouchableOpacity className="items-center" onPress={handleReject}>
           <Image source={require('../assets/icons/deny.png')} style={styles.icon} />
           <Text className="text-white text-sm pt-8">거절</Text>
         </TouchableOpacity>
 
-        {/* 수락 */}
         <TouchableOpacity className="items-center" onPress={handleAccept}>
           <Image source={require('../assets/icons/callButton.png')} style={styles.icon} />
           <Text className="text-white text-sm pt-8">받기</Text>

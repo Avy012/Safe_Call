@@ -10,7 +10,6 @@ import {
   AudioSession,
   LiveKitRoom,
   useTracks,
-  TrackReferenceOrPlaceholder,
   VideoTrack,
   isTrackReference,
   useLocalParticipant,
@@ -22,13 +21,17 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { icons } from '@/constants/icons';
 import { Camera } from 'expo-camera';
 import { Audio } from 'expo-av';
-import { getLiveKitToken } from '@/services/livekit'; // ✅ You must implement this if not present
+import { getLiveKitToken } from '@/services/livekit';
 
 registerGlobals();
 const wsURL = 'wss://safecall-ozn2xsg6.livekit.cloud';
 
 const GenerateRoomScreen: React.FC = () => {
-  const { roomName, name, profilePic } = useLocalSearchParams();
+  const { roomName, name, profilePic: rawPic } = useLocalSearchParams();
+
+  const profilePic =
+    typeof rawPic === 'string' ? decodeURIComponent(rawPic) : '';
+
   const [roomToken, setRoomToken] = useState<string | null>(null);
 
   useEffect(() => {
@@ -43,6 +46,7 @@ const GenerateRoomScreen: React.FC = () => {
       try {
         const userIdentity = name || 'anonymous';
         const token = await getLiveKitToken(userIdentity as string, roomName as string);
+        console.log('✅ LiveKit token received:', token);
         setRoomToken(token);
       } catch (err) {
         console.error('❌ Failed to get LiveKit token:', err);
@@ -65,6 +69,7 @@ const GenerateRoomScreen: React.FC = () => {
       </View>
     );
   }
+  console.log('🖼️ Raw profilePic beforesend:', profilePic);
 
   return (
     <LiveKitRoom
@@ -80,13 +85,13 @@ const GenerateRoomScreen: React.FC = () => {
   );
 };
 
-const RoomView: React.FC<{ name: string; profilePic: string }> = ({ name, profilePic }) => {
+const RoomView: React.FC<{ name: string; profilePic: string }> = ({ name }) => {
   const router = useRouter();
   const { localParticipant } = useLocalParticipant();
   const tracks = useTracks([Track.Source.Camera]);
   const room = useRoomContext();
 
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(true); // initial guess
   const [isVideoOn, setIsVideoOn] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [canPublish, setCanPublish] = useState(false);
@@ -99,6 +104,11 @@ const RoomView: React.FC<{ name: string; profilePic: string }> = ({ name, profil
       console.log('✅ RoomEvent.Connected');
       setIsConnected(true);
       setHasConnected(true);
+
+      // 🔄 Sync actual mic/camera state
+      setIsMuted(!localParticipant.isMicrophoneEnabled);
+      setIsVideoOn(localParticipant.isCameraEnabled);
+
       timer = setTimeout(() => {
         console.log('⏱️ canPublish now true');
         setCanPublish(true);
@@ -120,31 +130,6 @@ const RoomView: React.FC<{ name: string; profilePic: string }> = ({ name, profil
       room.off(RoomEvent.Disconnected, onDisconnected);
       if (timer) clearTimeout(timer);
     };
-  }, [room]);
-
-  useEffect(() => {
-    const trackInfo = tracks.map((t) =>
-      isTrackReference(t)
-        ? `${t.source} | ID: ${t.track?.sid ?? 'no track'}`
-        : 'placeholder'
-    );
-    console.log('🎥 Current tracks:', trackInfo);
-  }, [tracks]);
-
-  useEffect(() => {
-    const updateMediaStates = () => {
-      setIsMuted(!localParticipant.isMicrophoneEnabled);
-      setIsVideoOn(localParticipant.isCameraEnabled);
-    };
-
-    updateMediaStates();
-    room.on(RoomEvent.LocalTrackPublished, updateMediaStates);
-    room.on(RoomEvent.LocalTrackUnpublished, updateMediaStates);
-
-    return () => {
-      room.off(RoomEvent.LocalTrackPublished, updateMediaStates);
-      room.off(RoomEvent.LocalTrackUnpublished, updateMediaStates);
-    };
   }, [room, localParticipant]);
 
   const toggleMute = async () => {
@@ -154,7 +139,7 @@ const RoomView: React.FC<{ name: string; profilePic: string }> = ({ name, profil
     }
 
     try {
-      await localParticipant.setMicrophoneEnabled(!isMuted);
+      await localParticipant.setMicrophoneEnabled(isMuted); // ← use previous isMuted
       setIsMuted((prev) => !prev);
     } catch (err) {
       console.error('❌ Error toggling mic:', err);
@@ -186,28 +171,12 @@ const RoomView: React.FC<{ name: string; profilePic: string }> = ({ name, profil
       t.source === Track.Source.Camera
   );
 
-  const safeImageSource =
-    typeof profilePic === 'string' && profilePic.startsWith('http')
-      ? { uri: profilePic }
-      : require('@/assets/images/default_profile.jpg');
-
   return (
     <View style={{ flex: 1, backgroundColor: 'black' }}>
       {remoteTrack && isTrackReference(remoteTrack) && isVideoOn ? (
         <VideoTrack trackRef={remoteTrack} style={{ flex: 1 }} />
       ) : (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Image
-            source={safeImageSource}
-            onError={() => console.warn('❌ Failed to load profilePic:', profilePic)}
-            style={{
-              width: 130,
-              height: 130,
-              borderRadius: 999,
-              marginBottom: 12,
-              backgroundColor: 'gray',
-            }}
-          />
+        <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center', paddingTop: 150 }}>
           <Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>{name}</Text>
         </View>
       )}
@@ -227,49 +196,64 @@ const RoomView: React.FC<{ name: string; profilePic: string }> = ({ name, profil
           <VideoTrack trackRef={localTrack} style={{ flex: 1 }} />
         </View>
       )}
-
+      
+      {/* VIDEO BUTTON */}
       <View
-        className={
-          isVideoOn
-            ? 'absolute bottom-10 left-10 items-center'
-            : 'absolute bottom-60 left-10 items-center'
-        }
+        style={{
+          position: 'absolute',
+          bottom: isVideoOn ? 40 : 150,
+          left: 40,
+        }}
       >
-        <ImageBackground
-          source={isVideoOn ? icons.video_on : icons.video_off}
-          className="w-[70px] h-[70px] mx-2 rounded-xl overflow-hidden"
-        >
-          <TouchableOpacity onPress={toggleVideo} className="w-full h-full" />
-        </ImageBackground>
+        <TouchableOpacity onPress={toggleVideo}>
+          <ImageBackground
+            source={isVideoOn ? icons.video_on : icons.video_off}
+            style={{ width: 70, height: 70 }}
+          />
+          {/* 핸드폰 비율 봐서 이 부분 수정해야 될 수 있음 left-7 이부분  */}
+          <Text className="text-white text-sm pt-8 left-5">영상통화</Text> 
+        </TouchableOpacity> 
+
       </View>
 
-      <ImageBackground
-        source={isMuted ? icons.mute_off : icons.mute_on}
-        className={
-          isVideoOn
-            ? 'w-[70px] h-[70px] mx-2 rounded-xl overflow-hidden absolute right-10 bottom-10'
-            : 'w-[70px] h-[70px] mx-2 rounded-xl overflow-hidden absolute right-10 bottom-60'
-        }
-      >
-        <TouchableOpacity onPress={toggleMute} className="w-full h-full" />
-      </ImageBackground>
-
+      {/* MUTE BUTTON */}
       <View
-        className={
-          isVideoOn
-            ? 'absolute bottom-10 left-0 right-0 items-center'
-            : 'absolute bottom-60 left-0 right-0 items-center'
-        }
+        style={{
+          position: 'absolute',
+          bottom: isVideoOn ? 40 : 150,
+          right: 40,
+        }}
       >
-        <ImageBackground
-          source={icons.hangup}
-          className="w-[70px] h-[70px] mx-2 rounded-xl overflow-hidden"
-        >
-          <TouchableOpacity onPress={() => router.back()} className="w-full h-full" />
-        </ImageBackground>
+        <TouchableOpacity onPress={toggleMute}>
+          <ImageBackground
+            source={isMuted ? icons.mute_on : icons.mute_off}
+            style={{ width: 70, height: 70 }}
+          />
+          <Text className="text-white text-sm pt-8 left-6">음소거</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* HANG UP */}
+      <View
+        style={{
+          position: 'absolute',
+          bottom: isVideoOn ? 40 : 150,
+          left: 0,
+          right: 0,
+          alignItems: 'center',
+        }}
+      >
+        <TouchableOpacity onPress={() => router.back()}>
+          <ImageBackground
+            source={icons.hangup}
+            style={{ width: 70, height: 70 }}
+          />
+          <Text className="text-white text-sm pt-8 left-5">통화종료</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 };
+
 
 export default GenerateRoomScreen;
