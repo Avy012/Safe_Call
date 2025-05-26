@@ -72,28 +72,35 @@ export default function IncomingCallScreen() {
     router.back();
   };
 
-  const handleAccept = async () => {
-    try {
-      if (user?.uid) {
-        await deleteDoc(doc(db, 'calls', user.uid));
-        console.log("✅ Deleted call doc");
-      }
-
-      console.log('🧼 Final profilePic string:', contact?.profilePic);
-
-      router.replace({
-        pathname: '/generate_room',
-        params: {
-          token: token as string,
-          roomName: roomName as string,
-          name: displayName,
-          profilePic: encodeURIComponent(contact?.profilePic ?? ''),
-        },
-      });
-    } catch (err) {
-      console.error('❌ Failed to accept call:', err);
+ const handleAccept = async () => {
+  try {
+    if (user?.uid) {
+      await deleteDoc(doc(db, 'calls', user.uid));
+      console.log("✅ Deleted call doc");
     }
-  };
+
+    const finalName = contact?.name || name || 'Unknown';
+    const finalPhone = contact?.phone || phone || '번호 없음';
+    const finalProfilePic = contact?.profilePic || '';
+
+    console.log('🧼 Final profilePic string:', finalProfilePic);
+
+    router.replace({
+      pathname: '/generate_room',
+      params: {
+        token: token as string,
+        roomName: roomName as string,
+        name: finalName,
+        profilePic: encodeURIComponent(finalProfilePic),
+        phone: finalPhone,
+        userId: callId as string, // ✅ add this for logging call
+      },
+    });
+  } catch (err) {
+    console.error('❌ Failed to accept call:', err);
+  }
+};
+
 
   return (
     <View className="flex-1 bg-black justify-between items-center pb-12 px-4">

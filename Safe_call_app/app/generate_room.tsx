@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
   ImageBackground,
-  Image,
 } from 'react-native';
 import {
   AudioSession,
@@ -22,17 +21,25 @@ import { icons } from '@/constants/icons';
 import { Camera } from 'expo-camera';
 import { Audio } from 'expo-av';
 import { getLiveKitToken } from '@/services/livekit';
+import { saveCallLog } from '@/services/callLogStorage';
+import { auth } from '@/services/firebaseConfig';
 
 registerGlobals();
 const wsURL = 'wss://safecall-ozn2xsg6.livekit.cloud';
 
 const GenerateRoomScreen: React.FC = () => {
-  const { roomName, name, profilePic: rawPic } = useLocalSearchParams();
-
-  const profilePic =
-    typeof rawPic === 'string' ? decodeURIComponent(rawPic) : '';
+  const {
+    roomName,
+    name,
+    profilePic: rawProfilePic,
+    userId: contactId,
+    phone,
+    callerId,
+  } = useLocalSearchParams();
 
   const [roomToken, setRoomToken] = useState<string | null>(null);
+  const profilePic = typeof rawProfilePic === 'string' ? rawProfilePic : '';
+  const router = useRouter();
 
   useEffect(() => {
     (async () => {
@@ -69,7 +76,6 @@ const GenerateRoomScreen: React.FC = () => {
       </View>
     );
   }
-  console.log('🖼️ Raw profilePic beforesend:', profilePic);
 
   return (
     <LiveKitRoom
@@ -80,22 +86,36 @@ const GenerateRoomScreen: React.FC = () => {
       video={false}
       options={{ adaptiveStream: true }}
     >
-      <RoomView name={name as string} profilePic={profilePic as string} />
+      <RoomView
+        name={name as string}
+        profilePic={profilePic}
+        contactId={contactId as string}
+        phone={phone as string}
+        callerId={callerId as string}
+      />
     </LiveKitRoom>
   );
 };
 
-const RoomView: React.FC<{ name: string; profilePic: string }> = ({ name }) => {
+const RoomView: React.FC<{
+  name: string;
+  profilePic: string;
+  contactId: string;
+  phone: string;
+  callerId: string;
+}> = ({ name, profilePic, contactId, phone, callerId }) => {
   const router = useRouter();
   const { localParticipant } = useLocalParticipant();
   const tracks = useTracks([Track.Source.Camera]);
   const room = useRoomContext();
 
-  const [isMuted, setIsMuted] = useState(true); // initial guess
+  const [isMuted, setIsMuted] = useState(true);
   const [isVideoOn, setIsVideoOn] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [canPublish, setCanPublish] = useState(false);
   const [hasConnected, setHasConnected] = useState(false);
+
+  const roomStartTimeRef = useRef<Date | null>(null);
 
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
@@ -105,7 +125,8 @@ const RoomView: React.FC<{ name: string; profilePic: string }> = ({ name }) => {
       setIsConnected(true);
       setHasConnected(true);
 
-      // 🔄 Sync actual mic/camera state
+      roomStartTimeRef.current = new Date();
+
       setIsMuted(!localParticipant.isMicrophoneEnabled);
       setIsVideoOn(localParticipant.isCameraEnabled);
 
@@ -129,6 +150,7 @@ const RoomView: React.FC<{ name: string; profilePic: string }> = ({ name }) => {
       room.off(RoomEvent.Connected, onConnected);
       room.off(RoomEvent.Disconnected, onDisconnected);
       if (timer) clearTimeout(timer);
+      room.disconnect().catch((err) => console.warn('Room disconnect on unmount failed:', err));
     };
   }, [room, localParticipant]);
 
@@ -139,7 +161,7 @@ const RoomView: React.FC<{ name: string; profilePic: string }> = ({ name }) => {
     }
 
     try {
-      await localParticipant.setMicrophoneEnabled(isMuted); // ← use previous isMuted
+      await localParticipant.setMicrophoneEnabled(isMuted);
       setIsMuted((prev) => !prev);
     } catch (err) {
       console.error('❌ Error toggling mic:', err);
@@ -158,6 +180,45 @@ const RoomView: React.FC<{ name: string; profilePic: string }> = ({ name }) => {
     } catch (err) {
       console.error('❌ Error toggling camera:', err);
     }
+  };
+
+  const handleHangUp = async () => {
+    const endTime = new Date();
+    try {
+      await room.disconnect();
+      console.log('📴 Disconnected from room');
+
+      const startTime = roomStartTimeRef.current;
+      if (!startTime) {
+        console.warn('⚠️ No start time found, skipping log save');
+        return;
+      }
+
+      const durationSec = Math.floor((endTime.getTime() - startTime.getTime()) / 1000);
+      const currentUserId = auth.currentUser?.uid;
+      const isCaller = currentUserId === callerId;
+
+      const otherUserInfo = isCaller
+        ? { userId: contactId, name, phone, profile: profilePic }
+        : { userId: callerId, name: '상대방', phone: '알 수 없음', profile: '' }; // fallback for receiver
+
+      await saveCallLog({
+        userId: otherUserInfo.userId,
+        name: otherUserInfo.name,
+        phone: otherUserInfo.phone,
+        profile: otherUserInfo.profile,
+        summary: '',
+        type: isCaller ? '발신' : '수신',
+        startTime: startTime.toISOString(),
+        duration: durationSec,
+      });
+
+      console.log('✅ Call log saved');
+    } catch (err) {
+      console.error('❌ Failed to disconnect or save call log:', err);
+    }
+
+    router.replace('/');
   };
 
   const localTrack = tracks.find(
@@ -196,64 +257,29 @@ const RoomView: React.FC<{ name: string; profilePic: string }> = ({ name }) => {
           <VideoTrack trackRef={localTrack} style={{ flex: 1 }} />
         </View>
       )}
-      
-      {/* VIDEO BUTTON */}
-      <View
-        style={{
-          position: 'absolute',
-          bottom: isVideoOn ? 40 : 150,
-          left: 40,
-        }}
-      >
-        <TouchableOpacity onPress={toggleVideo}>
-          <ImageBackground
-            source={isVideoOn ? icons.video_on : icons.video_off}
-            style={{ width: 70, height: 70 }}
-          />
-          {/* 핸드폰 비율 봐서 이 부분 수정해야 될 수 있음 left-7 이부분  */}
-          <Text className="text-white text-sm pt-8 left-5">영상통화</Text> 
-        </TouchableOpacity> 
 
+      <View style={{ position: 'absolute', bottom: isVideoOn ? 40 : 150, left: 40 }}>
+        <TouchableOpacity onPress={toggleVideo}>
+          <ImageBackground source={isVideoOn ? icons.video_on : icons.video_off} style={{ width: 70, height: 70 }} />
+          <Text className="text-white text-sm pt-8 left-5">영상통화</Text>
+        </TouchableOpacity>
       </View>
 
-      {/* MUTE BUTTON */}
-      <View
-        style={{
-          position: 'absolute',
-          bottom: isVideoOn ? 40 : 150,
-          right: 40,
-        }}
-      >
+      <View style={{ position: 'absolute', bottom: isVideoOn ? 40 : 150, right: 40 }}>
         <TouchableOpacity onPress={toggleMute}>
-          <ImageBackground
-            source={isMuted ? icons.mute_on : icons.mute_off}
-            style={{ width: 70, height: 70 }}
-          />
+          <ImageBackground source={isMuted ? icons.mute_on : icons.mute_off} style={{ width: 70, height: 70 }} />
           <Text className="text-white text-sm pt-8 left-6">음소거</Text>
         </TouchableOpacity>
       </View>
 
-      {/* HANG UP */}
-      <View
-        style={{
-          position: 'absolute',
-          bottom: isVideoOn ? 40 : 150,
-          left: 0,
-          right: 0,
-          alignItems: 'center',
-        }}
-      >
-        <TouchableOpacity onPress={() => router.back()}>
-          <ImageBackground
-            source={icons.hangup}
-            style={{ width: 70, height: 70 }}
-          />
+      <View style={{ position: 'absolute', bottom: isVideoOn ? 40 : 150, left: 0, right: 0, alignItems: 'center' }}>
+        <TouchableOpacity onPress={handleHangUp}>
+          <ImageBackground source={icons.hangup} style={{ width: 70, height: 70 }} />
           <Text className="text-white text-sm pt-8 left-5">통화종료</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
-
 
 export default GenerateRoomScreen;

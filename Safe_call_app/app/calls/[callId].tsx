@@ -123,6 +123,7 @@ export default function CallDetail() {
           token,
           name: contact.name,
           profilePic: encodeURIComponent((userData.profilePic ?? '').replace(/prrofilePics|profilePiccs/g, 'profilePics')),
+          phone: contact.phone,
         },
       });
 
