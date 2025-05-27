@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useState } from 'react';
+import React, { useContext, useCallback, useEffect, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import {
   Text,
@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { UserContext } from '../../context/UserContext';
+import { doc, onSnapshot } from 'firebase/firestore';
+import { db } from '../../services/firebaseConfig';
 
 const blockedUsers = [
   { id: '1', name: 'User A' },
@@ -17,7 +19,7 @@ const blockedUsers = [
   { id: '4', name: 'User D' },
   { id: '5', name: 'User E' },
   { id: '6', name: 'User F' },
-  { id: '7', name: 'User G' }
+  { id: '7', name: 'User G' },
 ];
 
 export default function Index() {
@@ -29,14 +31,40 @@ export default function Index() {
     summaryText: '통화 요약이 여기에 표시됩니다.',
   });
 
+  // ✅ Refresh on focus
   useFocusEffect(
     useCallback(() => {
-      setRefresh(prev => !prev);
+      setRefresh((prev) => !prev);
       console.log('포커스 시점의 최신 user:', user);
     }, [user])
   );
 
-  // ✅ Guard: show loading until user is loaded
+  // ✅ Incoming call listener
+  useEffect(() => {
+    if (!user?.uid) return;
+
+    const unsubscribe = onSnapshot(doc(db, 'calls', user.uid), (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        console.log('📞 전화오는중:', data);
+
+        router.push({
+          pathname: '/IncomingCallScreen',
+          params: {
+            name: data.name,
+            phone: data.phone,
+            token: data.token,
+            roomName: data.roomName,
+            callId: data.callId,
+            profilePic: data.profilePic, 
+          },
+        });
+      }
+    });
+
+    return () => unsubscribe();
+  }, [user]);
+
   if (!user) {
     return (
       <View className="flex-1 justify-center items-center bg-white">
@@ -59,7 +87,6 @@ export default function Index() {
               source={{ uri: user.imageUri || 'https://via.placeholder.com/100' }}
               style={styles.profileImage}
             />
-
             <View style={styles.profileInfo}>
               <View style={styles.nameRow}>
                 <Text style={styles.userName} numberOfLines={1} ellipsizeMode="tail">{user.name}</Text>
@@ -68,7 +95,6 @@ export default function Index() {
                     <Text>통화 화면으로 이동</Text>
                   </TouchableOpacity>
               </View>
-
               <View style={styles.statBox}>
                 <Text style={styles.statLabel}>차단</Text>
                 <Text style={styles.statNumber}>7</Text>
@@ -100,7 +126,7 @@ export default function Index() {
           style={styles.Blocked_listImage}
         />
 
-        {blockedUsers.map(item => (
+        {blockedUsers.map((item) => (
           <View key={item.id} style={styles.Card}>
             <Text style={styles.blockedUserName}>{item.name}</Text>
           </View>
