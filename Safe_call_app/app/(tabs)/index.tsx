@@ -5,7 +5,7 @@ import {
   View,
   Image,
   StyleSheet,
-  ScrollView,
+  ScrollView,TouchableOpacity 
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { UserContext } from '../../context/UserContext';
@@ -64,9 +64,9 @@ export default function Index() {
               <View style={styles.nameRow}>
                 <Text style={styles.userName} numberOfLines={1} ellipsizeMode="tail">{user.name}</Text>
                 {/* 통화 화면으로 이동 버튼 */}
-        <TouchableOpacity onPress={() => router.push(`/callScreen?name=최근통화&phone=${summaryData.phoneNumber}`)}>
-          <Text>통화 화면으로 이동</Text>
-        </TouchableOpacity>
+                  <TouchableOpacity onPress={() => router.push(`/callScreen?name=최근통화&phone=${summaryData.phoneNumber}`)}>
+                    <Text>통화 화면으로 이동</Text>
+                  </TouchableOpacity>
               </View>
 
               <View style={styles.statBox}>
@@ -251,7 +251,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#ccc',
     marginVertical: 35,
   },
-<<<<<<< HEAD
   aisumarryImage:{
     right:100,
     width:170,
@@ -262,18 +261,6 @@ const styles = StyleSheet.create({
   Blocked_listImage:{
     right:120,
     width:130,
-=======
-  aisumarryImage: {
-    right: 100,
-    width: 155,
-    height: 50,
-    resizeMode: 'contain',
-    marginTop: 20,
-  },
-  Blocked_listImage: {
-    right: 120,
-    width: 115,
->>>>>>> origin/dkim
     height: 40,
     resizeMode: 'contain',
     marginBottom: 10,

@@ -41,7 +41,6 @@ const EditProfile = () => {
     router.back();
   };
 
-<<<<<<< HEAD
   const handleImageUpdate = async () => {
   const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
   if (status !== 'granted') {
@@ -60,13 +59,6 @@ const EditProfile = () => {
     setImageUri(result.assets[0].uri);
   }
 };
-=======
-  // Mock image change
-  const handleImageUpdate = () => {
-    const newImage = 'https://randomuser.me/api/portraits/women/65.jpg';
-    setImageUri(newImage);
-  };
->>>>>>> origin/dkim
 
   return (
     <View style={styles.container}>
