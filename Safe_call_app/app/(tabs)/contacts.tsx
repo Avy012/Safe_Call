@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity, Modal, Image } from 'react-native';
+import { View, Text, TextInput, FlatList, TouchableOpacity, Modal, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../../services/firebaseConfig';
+import { db, auth } from '../../services/firebaseConfig';
 
 interface Contact {
   id: string;
   name: string;
   phone: string;
-  profilePic: string;
+  profilePic: string | null;
 }
 
 const Contacts = () => {
@@ -17,35 +17,53 @@ const Contacts = () => {
   const [showOptions, setShowOptions] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [contacts, setContacts] = useState<Contact[]>([]);
+  const [blockedIds, setBlockedIds] = useState<string[]>([]);
+
+  const formatPhoneNumber = (num: string) => { // 01012341234 -> 010-1234-1234
+  if (!num || num.length !== 11) return num; // return as-is if invalid
+  return `${num.slice(0, 3)}-${num.slice(3, 7)}-${num.slice(7)}`;
+};
+
 
   useEffect(() => {
-    const fetchContacts = async () => {
+    const fetchContactsAndBlocked = async () => {
       try {
+        const currentUserId = auth.currentUser?.uid;
+        if (!currentUserId) return;
+
+        // Get blocked users
+        const blockedSnap = await getDocs(collection(db, `users/${currentUserId}/blockedUsers`));
+        const blocked = blockedSnap.docs.map(doc => doc.id);
+        setBlockedIds(blocked);
+
+        // Get all users
         const snapshot = await getDocs(collection(db, 'users'));
-        const contactList = snapshot.docs.map(doc => {
-        const data = doc.data();
+        const all = snapshot.docs.map(doc => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            name: data.name || '이름 없음',
+            phone: data.phone || '알 수 없음',
+            profilePic:
+              typeof data.profilePic === 'string' && data.profilePic.startsWith('http')
+                ? data.profilePic
+                : null,
+          };
+        }) as Contact[];
 
-        return {
-          id: doc.id,
-          name: data.name || '이름 없음',
-          phone: data.phone || '알 수 없음',
-          profilePic:
-            typeof data.profilePic === 'string' && data.profilePic.startsWith('http')
-              ? data.profilePic
-              : null, // fallback to null if invalid or missing
-        };
-      }) as Contact[];
-
-        setContacts(contactList);
+        // Filter out self
+        const filtered = all.filter(user => user.id !== currentUserId);
+        setContacts(filtered);
       } catch (error) {
-        console.error('Failed to load contacts:', error);
+        console.error('❌ Failed to load contacts:', error);
       }
     };
 
-    fetchContacts();
+    fetchContactsAndBlocked();
   }, []);
 
   const filteredContacts = contacts.filter(contact =>
+    !blockedIds.includes(contact.id) &&
     (contact.name?.toLowerCase?.() ?? '').includes(search.toLowerCase())
   );
 
@@ -63,84 +81,74 @@ const Contacts = () => {
         <Text className="text-white text-2xl font-bold">연락처</Text>
       </View>
 
-      <View style={styles.searchContainer}>
+      {/* 검색창 */}
+      <View className="flex-row items-center h-[60px] bg-gray-100 px-3">
         <TextInput
-          style={styles.searchInput}
+          className="flex-1 bg-white rounded-md px-3 h-10 border border-gray-300"
           placeholder="검색어를 입력해주세요"
           value={search}
           onChangeText={setSearch}
         />
         <TouchableOpacity
-          style={styles.plusButton}
+          className="ml-2 w-10 h-10 bg-[#1E3A5F] rounded-full justify-center items-center"
           onPress={() => setShowOptions(prev => !prev)}
         >
-          <Text style={styles.plusText}>+</Text>
+          <Text className="text-white text-xl font-bold">+</Text>
         </TouchableOpacity>
       </View>
 
+      {/* 옵션 메뉴 */}
       {showOptions && (
-        <View style={styles.optionsContainer}>
-          <TouchableOpacity
-            style={styles.optionButton}
-            onPress={() => router.push('/keypad')}
-          >
-            <Text style={styles.optionText}>전화 걸기</Text>
+        <View className="absolute right-4 top-[110px] bg-white rounded-md shadow-md z-50 p-2">
+          <TouchableOpacity className="py-2" onPress={() => router.push('/keypad')}>
+            <Text className="text-[#1E3A5F] text-base">전화 걸기</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.optionButton}
-            onPress={() => setShowModal(true)}
-          >
-            <Text style={styles.optionText}>연락처 추가</Text>
+          <TouchableOpacity className="py-2" onPress={() => setShowModal(true)}>
+            <Text className="text-[#1E3A5F] text-base">연락처 추가</Text>
           </TouchableOpacity>
         </View>
       )}
 
+      {/* 연락처 목록 */}
       <FlatList
         data={filteredContacts}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => {
           const safeProfilePic =
-            typeof item.profilePic === 'string' && item.profilePic.startsWith('http')
+            typeof item.profilePic === 'string'
               ? { uri: item.profilePic }
-               : require('@/assets/images/default_profile.jpg');
-
-          console.log('📸 profilePic for', item.name, ':', safeProfilePic.uri);
+              : require('@/assets/images/default_profile.jpg');
 
           return (
             <TouchableOpacity
-              style={styles.contactItem}
+              className="px-4 py-3 border-b border-gray-200"
               onPress={() => router.push(`/calls/${item.id}`)}
             >
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View className="flex-row items-center py-3">
                 <Image
                   source={safeProfilePic}
-                  style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: 20,
-                    marginRight: 10,
-                    backgroundColor: '#eee',
-                  }}
-                  onError={() =>
-                    console.warn('❌ Failed to load image for', item.name, safeProfilePic.uri)
-                  }
+                  className="w-14 h-14 rounded-full mr-4 bg-gray-200"
                 />
-                <Text style={styles.contactText}>{item.name}</Text>
+                <View>
+                  <Text className="text-lg font-semibold text-gray-900">{item.name}</Text>
+                  <Text className="text-sm text-gray-500">{formatPhoneNumber(item.phone)}</Text>
+                </View>
               </View>
+
             </TouchableOpacity>
           );
         }}
       />
 
-
+      {/* 연락처 추가 모달 */}
       <Modal
         animationType="slide"
         transparent={true}
         visible={showModal}
         onRequestClose={() => setShowModal(false)}
       >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
+        <View className="flex-1 justify-center items-center bg-black/50">
+          <View className="bg-white rounded-xl w-[320px] p-5">
             <AddContact
               closeModal={() => setShowModal(false)}
               onAddContact={(newContact) => {
@@ -179,146 +187,34 @@ const AddContact = ({
   };
 
   return (
-    <View style={styles.card}>
-      <Text style={styles.title}>연락처 추가</Text>
-      <Text style={styles.title2}>연락처명</Text>
+    <View className="bg-white rounded-xl">
+      <Text className="text-xl font-bold text-center mb-4">연락처 추가</Text>
+
+      <Text className="text-sm text-gray-600 mb-2 ml-1">연락처명</Text>
       <TextInput
-        style={styles.input}
+        className="border border-gray-300 rounded-md px-3 h-10 mb-4"
         placeholderTextColor="#aaa"
         value={name}
         onChangeText={setName}
       />
-      <Text style={styles.title2}>전화번호</Text>
+
+      <Text className="text-sm text-gray-600 mb-2 ml-1">전화번호</Text>
       <TextInput
-        style={styles.input}
+        className="border border-gray-300 rounded-md px-3 h-10 mb-4"
         placeholderTextColor="#aaa"
         value={number}
         onChangeText={setNumber}
       />
-      <TouchableOpacity style={styles.button} onPress={add}>
-        <Text style={styles.buttonText}>추가</Text>
+
+      <TouchableOpacity className="bg-[#1E3A5F] rounded-full h-10 justify-center items-center mb-3" onPress={add}>
+        <Text className="text-white font-bold">추가</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={closeModal}>
-        <Text style={styles.buttonText}>닫기</Text>
+
+      <TouchableOpacity className="bg-gray-400 rounded-full h-10 justify-center items-center" onPress={closeModal}>
+        <Text className="text-white font-bold">닫기</Text>
       </TouchableOpacity>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff' },
-  searchContainer: {
-    height: 60,
-    backgroundColor: '#f0f0f0',
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 10,
-    elevation: 3,
-  },
-  searchInput: {
-    flex: 1,
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    height: 40,
-    borderWidth: 1,
-    borderColor: '#ccc',
-  },
-  plusButton: {
-    marginLeft: 10,
-    width: 40,
-    height: 40,
-    backgroundColor: '#1E3A5F',
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  plusText: {
-    color: '#fff',
-    fontSize: 24,
-    lineHeight: 24,
-  },
-  optionsContainer: {
-    position: 'absolute',
-    top: 130,
-    right: 10,
-    backgroundColor: '#ffffff',
-    borderRadius: 8,
-    elevation: 5,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    zIndex: 20,
-  },
-  optionButton: {
-    paddingVertical: 8,
-    paddingHorizontal: 10,
-  },
-  optionText: {
-    fontSize: 16,
-    color: '#1E3A5F',
-  },
-  contactItem: {
-    padding: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
-  },
-  contactText: {
-    fontSize: 16,
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  modalContent: {
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    width: 320,
-    padding: 20,
-  },
-  card: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 16,
-    elevation: 6,
-    padding: 20,
-    borderWidth: 1,
-    borderColor: '#CCC',
-  },
-  title: {
-    fontSize: 22,
-    marginBottom: 16,
-    color: '#333',
-    textAlign: 'center',
-  },
-  title2: {
-    fontSize: 15,
-    marginBottom: 13,
-    color: '#333',
-    marginLeft: 10,
-  },
-  input: {
-    width: '100%',
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    marginBottom: 16,
-  },
-  button: {
-    backgroundColor: '#1E3A5F',
-    width: '100%',
-    height: 40,
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-});
 
 export default Contacts;

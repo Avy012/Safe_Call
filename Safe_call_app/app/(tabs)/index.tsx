@@ -4,50 +4,78 @@ import {
   Text,
   View,
   Image,
-  StyleSheet,
   ScrollView,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { UserContext } from '../../context/UserContext';
-import { doc, onSnapshot } from 'firebase/firestore';
+import { collection, doc, getDocs, onSnapshot, deleteDoc } from 'firebase/firestore';
 import { db } from '../../services/firebaseConfig';
-
-const blockedUsers = [
-  { id: '1', name: 'User A' },
-  { id: '2', name: 'User B' },
-  { id: '3', name: 'User C' },
-  { id: '4', name: 'User D' },
-  { id: '5', name: 'User E' },
-  { id: '6', name: 'User F' },
-  { id: '7', name: 'User G' },
-];
 
 export default function Index() {
   const router = useRouter();
   const { user } = useContext(UserContext);
   const [refresh, setRefresh] = useState(false);
+  const [blockedUsers, setBlockedUsers] = useState<{ id: string; name: string; phone?: string }[]>([]);
   const [summaryData, setSummaryData] = useState({
     phoneNumber: '010-0000-0000',
     summaryText: '통화 요약이 여기에 표시됩니다.',
   });
 
+  // ✅ Handle unblock
+  const handleUnblock = async (blockedUserId: string) => {
+    try {
+      if (!user?.uid) return;
+      await deleteDoc(doc(db, `users/${user.uid}/blockedUsers/${blockedUserId}`));
+      setBlockedUsers(prev => prev.filter(user => user.id !== blockedUserId));
+      console.log(`✅ Unblocked user: ${blockedUserId}`);
+    } catch (err) {
+      console.error('❌ Failed to unblock user:', err);
+    }
+  };
+
   // ✅ Refresh on focus
   useFocusEffect(
     useCallback(() => {
-      setRefresh((prev) => !prev);
-      console.log('포커스 시점의 최신 user:', user);
+      setRefresh(prev => !prev);
     }, [user])
   );
 
-  // ✅ Incoming call listener
+  // ✅ Fetch blocked users
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchBlocked = async () => {
+      if (!user?.uid) return;
+      try {
+        const snap = await getDocs(collection(db, `users/${user.uid}/blockedUsers`));
+        const list = snap.docs.map(doc => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            name: data.name || '이름 없음',
+            phone: data.phone || '알 수 없음',
+          };
+        });
+        if (isMounted) setBlockedUsers(list);
+      } catch (err) {
+        console.error('❌ Failed to fetch blocked users:', err);
+      }
+    };
+
+    fetchBlocked();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [user?.uid, refresh]);
+
+  // ✅ Listen for incoming calls
   useEffect(() => {
     if (!user?.uid) return;
 
     const unsubscribe = onSnapshot(doc(db, 'calls', user.uid), (docSnap) => {
       if (docSnap.exists()) {
         const data = docSnap.data();
-        console.log('📞 전화오는중:', data);
-
         router.push({
           pathname: '/IncomingCallScreen',
           params: {
@@ -56,7 +84,7 @@ export default function Index() {
             token: data.token,
             roomName: data.roomName,
             callId: data.callId,
-            profilePic: data.profilePic, 
+            profilePic: data.profilePic,
           },
         });
       }
@@ -79,215 +107,82 @@ export default function Index() {
         <Text className="text-white text-2xl font-bold">Safe Call</Text>
       </View>
 
-      <ScrollView contentContainerStyle={[styles.container, { paddingBottom: 20 }]}>
+      <ScrollView
+        contentContainerStyle={{
+          paddingBottom: 20,
+          alignItems: 'center',
+          backgroundColor: '#ffffff',
+        }}
+      >
         {/* 프로필 카드 */}
-        <View style={styles.profileCard}>
-          <View style={styles.profileRow}>
+        <View className="w-[350px] h-[120px] bg-white rounded-xl p-4 shadow-md mt-5 mb-2 border border-gray-100 justify-center">
+          <View className="flex-row items-center">
             <Image
               source={{ uri: user.imageUri || 'https://via.placeholder.com/100' }}
-              style={styles.profileImage}
+              className="w-[75px] h-[75px] ml-10 mr-4 rounded-full border-2 border-gray-300"
             />
-            <View style={styles.profileInfo}>
-              <View style={styles.nameRow}>
-                <Text style={styles.userName} numberOfLines={1} ellipsizeMode="tail">
+            <View className="flex-1 justify-center ml-5">
+              <View className="flex-row justify-between items-center">
+                <Text className="text-xl font-bold text-gray-900" numberOfLines={1} ellipsizeMode="tail">
                   {user.name}
                 </Text>
               </View>
-              <View style={styles.statBox}>
-                <Text style={styles.statLabel}>차단</Text>
-                <Text style={styles.statNumber}>7</Text>
+              <View className="flex-row items-center mt-1">
+                <Text className="text-red-700 font-bold text-base mr-2">차단</Text>
+                <Text className="text-gray-800 bg-gray-100 rounded-lg px-3 py-1 font-bold shadow">
+                  {blockedUsers.length}
+                </Text>
               </View>
             </View>
           </View>
         </View>
 
-        <View className="flex-1 justify-center items-center bg-white">
-          <Text className="text-2xl font-bold mb-6">Safe Call</Text>
-        </View>
-
-        <View className="flex-row items-end mb-2 px-0 w-auto">
+        {/* AI Summary 이미지 왼쪽 정렬 */}
+        <View className="w-full items-start px-5 mt-4 mb-2">
           <Image
             source={require('../../assets/images/aisummary.png')}
-            style={styles.aisumarryImage}
+            className="w-[155px] h-[50px]"
+            resizeMode="contain"
           />
         </View>
 
         {/* 콜 요약 */}
-        <View style={styles.Latest_Call_summary}>
-          <Text style={styles.number}>{summaryData.phoneNumber}</Text>
-          <Text>{summaryData.summaryText}</Text>
+        <View className="w-[350px] bg-white rounded-xl p-4 shadow-md border border-blue-200 mt-2 mb-6">
+          <Text className="text-red-700 font-bold mb-1">{summaryData.phoneNumber}</Text>
+          <Text className="text-gray-800">{summaryData.summaryText}</Text>
         </View>
 
-        {/* Blocked 리스트 제목 */}
-        <Image
-          source={require('../../assets/images/blocked_list.png')}
-          style={styles.Blocked_listImage}
-        />
+        {/* 차단 목록 타이틀 */}
+        <View className="w-full items-start px-5 mt-2 mb-2">
+          <Image
+            source={require('../../assets/images/blocked_list.png')}
+            className="w-[115px] h-[40px]"
+            resizeMode="contain"
+          />
+        </View>
 
+
+        {/* 차단된 사용자 목록 */}
         {blockedUsers.map((item) => (
-          <View key={item.id} style={styles.Card}>
-            <Text style={styles.blockedUserName}>{item.name}</Text>
+          <View
+            key={item.id}
+            className="w-[350px] min-h-[65px] bg-gray-50 rounded-xl border border-blue-200 p-3 shadow-lg mb-2"
+          >
+            <View className="flex-row justify-between items-center">
+              <View>
+                <Text className="text-lg text-red-700">{item.name}</Text>
+                {item.phone && <Text className="text-base text-gray-600">{item.phone}</Text>}
+              </View>
+              <Text
+                onPress={() => handleUnblock(item.id)}
+                className="text-sm text-blue-700 font-semibold px-3 py-2 bg-blue-100 rounded-full overflow-hidden"
+              >
+                차단 해제
+              </Text>
+            </View>
           </View>
         ))}
       </ScrollView>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#FFF',
-    alignItems: 'center',
-    padding: 10,
-  },
-  profileCard: {
-    width: 350,
-    height: 120,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    padding: 15,
-    shadowColor: '#000',
-    shadowOpacity: 0.2,
-    shadowOffset: { width: 0, height: 5 },
-    shadowRadius: 10,
-    elevation: 2,
-    marginTop: 20,
-    marginBottom: 10,
-    borderColor: '#F2F2F2',
-    justifyContent: 'center',
-  },
-  profileRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  profileImage: {
-    width: 75,
-    height: 75,
-    left: 40,
-    margin: 10,
-    borderRadius: 50,
-    borderWidth: 2,
-    borderColor: '#ddd',
-    marginRight: 15,
-  },
-  profileInfo: {
-    flex: 1,
-    margin: 20,
-    justifyContent: 'center',
-  },
-  nameRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginLeft: 20,
-  },
-  userName: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#222',
-    flexShrink: 1,
-  },
-  statBox: {
-    marginTop: 4,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginLeft: 20,
-  },
-  statLabel: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#B22222',
-    marginRight: 10,
-  },
-  statNumber: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-    backgroundColor: '#f3f4f6',
-    borderRadius: 8,
-    paddingVertical: 4,
-    paddingHorizontal: 12,
-    overflow: 'hidden',
-    elevation: 2,
-  },
-  Latest_Call_summary: {
-    width: 350,
-    height: '20%',
-    backgroundColor: '#FFFFFF',
-    borderColor: '#A3B5C9',
-    borderRadius: 12,
-    padding: 15,
-    alignItems: 'flex-start',
-    shadowColor: '#000',
-    shadowOpacity: 0.2,
-    shadowOffset: { width: 0, height: 5 },
-    shadowRadius: 10,
-    elevation: 2,
-    marginTop: 5,
-    marginBottom: 20,
-  },
-  Card: {
-    width: 350,
-    minHeight: 65,
-    alignSelf: 'center',
-    backgroundColor: '#FAFAFA',
-    borderRadius: 12,
-    borderColor: '#A3B5C9',
-    padding: 10,
-    alignItems: 'flex-start',
-    shadowColor: '#000',
-    shadowOpacity: 1,
-    shadowOffset: { width: 7, height: 7 },
-    shadowRadius: 30,
-    elevation: 2,
-    marginVertical: 5,
-  },
-  blockedUserName: {
-    fontSize: 17,
-    color: '#B22222',
-    marginTop: 8,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: '700',
-    alignSelf: 'flex-start',
-    marginLeft: 25,
-    color: '#222',
-    marginTop: 0,
-    marginBottom: 10,
-  },
-  title_summary: {
-    fontSize: 20,
-    fontWeight: '700',
-    alignSelf: 'flex-start',
-    color: '#222',
-  },
-  number: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#B22222',
-    marginTop: 5,
-    marginBottom: 5,
-  },
-  separator: {
-    width: '95%',
-    height: 1,
-    backgroundColor: '#ccc',
-    marginVertical: 35,
-  },
-  aisumarryImage: {
-    right: 100,
-    width: 155,
-    height: 50,
-    resizeMode: 'contain',
-    marginTop: 20,
-  },
-  Blocked_listImage: {
-    right: 120,
-    width: 115,
-    height: 40,
-    resizeMode: 'contain',
-    marginBottom: 10,
-    marginTop: 10,
-  },
-});

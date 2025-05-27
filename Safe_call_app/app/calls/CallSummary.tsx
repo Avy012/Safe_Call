@@ -3,10 +3,18 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 
 export default function CallSummary() {
-  const { name, phone, date, type, duration, userId, profile } = useLocalSearchParams();
+  const { name,  date, type, duration, userId, profile } = useLocalSearchParams();
   const router = useRouter();
-
   const profileURL = typeof profile === 'string' ? profile : null;
+
+  const params = useLocalSearchParams();
+  const phone = Array.isArray(params.phone) ? params.phone[0] : params.phone;
+
+  const formatPhoneNumber = (num: string) => {
+    if (!num || num.length !== 11) return num; // return as-is if invalid
+    return `${num.slice(0, 3)}-${num.slice(3, 7)}-${num.slice(7)}`;
+  };
+
 
   const formattedDate = date
     ? new Date(date as string).toLocaleString('ko-KR', {
@@ -59,7 +67,7 @@ export default function CallSummary() {
 
         {/* 전화번호 */}
         {phone && (
-          <Text className="text-lg font-medium text-blue-0 mt-3">{phone}</Text>
+          <Text className="text-lg font-medium text-blue-700 mt-3">{formatPhoneNumber(phone)}</Text>
         )}
       </View>
 

@@ -16,6 +16,7 @@ import { connectToRoom } from '@/services/livekitConnect';
 import { auth } from '../../services/firebaseConfig';
 
 
+
 interface Contact {
   id: string;
   name: string;
@@ -29,6 +30,12 @@ export default function CallDetail() {
   const [contact, setContact] = useState<Contact | null>(null);
   const [blocked, setBlocked] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const formatPhoneNumber = (num: string) => {
+    if (!num || num.length !== 11) return num; // return as-is if invalid
+    return `${num.slice(0, 3)}-${num.slice(3, 7)}-${num.slice(7)}`;
+  };
+
 
   // Debug
   console.log('📞 Route param CallId:', callId);
@@ -148,9 +155,22 @@ export default function CallDetail() {
 
 
 
-  const handleBlock = () => {
-    setBlocked(true);
-    Alert.alert('차단 완료', `${contact?.name ?? '연락처'}님이 차단되었습니다.`);
+  const handleBlock = async () => {
+    try {
+      const currentUserId = auth.currentUser?.uid;
+      if (!currentUserId || !contact?.id) return;
+
+      await setDoc(
+        doc(db, `users/${currentUserId}/blockedUsers/${contact.id}`),
+        { name: contact.name, phone: contact.phone, blockedAt: new Date() }
+      );
+
+      setBlocked(true);
+      Alert.alert('차단 완료', `${contact?.name ?? '연락처'}님이 차단되었습니다.`);
+    } catch (error) {
+      console.error('❌ 차단 실패:', error);
+      Alert.alert('오류', '차단에 실패했습니다.');
+    }
   };
 
   const handleDelete = () => {
@@ -219,9 +239,12 @@ export default function CallDetail() {
         <Image source={profileImageSource} className="w-28 h-28 rounded-full mb-5" />
         <Text className="text-3xl font-semibold">{contact.name}</Text>
         {contact.phone && (
-          <Text className="text-lg font-medium text-blue-700 mt-3">{contact.phone}</Text>
+          <Text className="text-lg font-medium text-blue-700 mt-3">
+            {formatPhoneNumber(contact.phone)}
+          </Text>
         )}
       </View>
+
 
       <View className="w-full px-2">
         <Text className="text-lg font-bold mb-6 text-center">최근 통화 목록</Text>
