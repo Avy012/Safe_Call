@@ -3,17 +3,23 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 
 export default function CallSummary() {
-  const { name,  date, type, duration, userId, profile, summary } = useLocalSearchParams();
+  const { name,  date, type, duration, userId, profile, summary, isScam  } = useLocalSearchParams();
   const router = useRouter();
   const profileURL = typeof profile === 'string' ? profile : null;
 
   const params = useLocalSearchParams();
   const phone = Array.isArray(params.phone) ? params.phone[0] : params.phone;
 
+  const scamLikely = String(isScam).toLowerCase() === 'true';
+
+
   const formatPhoneNumber = (num: string) => {
     if (!num || num.length !== 11) return num; // return as-is if invalid
     return `${num.slice(0, 3)}-${num.slice(3, 7)}-${num.slice(7)}`;
   };
+
+  console.log('🧪 isScam param:', isScam);
+
 
 
   const formattedDate = date
@@ -76,6 +82,14 @@ export default function CallSummary() {
         <Text className="text-xl font-semibold text-gray-900 mb-2">AI 요약</Text>
         <Text className="text-base text-gray-900 text-center">{summary || '요약 없음'}</Text>
       </View>
+
+      {/* 스캠 경고 */}
+      {scamLikely && (
+        <View className="mt-4 bg-red-100 border-l-4 border-red-500 p-4 rounded">
+          <Text className="text-red-800 font-bold text-center">🚨 이 통화는 스캠일 수 있습니다.</Text>
+        </View>
+      )}
+
 
 
 

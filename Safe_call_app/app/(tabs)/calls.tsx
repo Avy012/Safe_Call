@@ -12,6 +12,7 @@ export default function Calls() {
   const [callList, setCallList] = useState<any[]>([]);
   const [errorImages, setErrorImages] = useState<Record<string, boolean>>({});
   const defaultProfile = require('../../assets/images/default_profile.jpg');
+  
 
   useEffect(() => {
     const loadLogs = async () => {
@@ -64,10 +65,7 @@ export default function Calls() {
           const profile = (item.displayProfile || '').trim();
           const isValidURL = profile.startsWith('http') && !errorImages[profile];
 
-          
-
-          console.log('🧪 From call log:', profile);
-          console.log('📦 Item in call log:', item); // ADD THIS TEMP LOG
+        
 
           return (
             <TouchableOpacity
@@ -83,6 +81,7 @@ export default function Calls() {
                     duration: String(item.duration),
                     summary: item.summary,
                     userId: item.userId,
+                    isScam: String(item.isScam || 'false'), // ✅ ADD THIS
                   },
                 })
               }

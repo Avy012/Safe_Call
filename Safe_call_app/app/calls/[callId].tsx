@@ -189,14 +189,6 @@ export default function CallDetail() {
   
 
 
-
-
-  const callHistory: { date: string; type: string; duration: string }[] = [
-    { date: '2025-05-18', type: '수신', duration: '3분' },
-    { date: '2025-05-15', type: '발신', duration: '6분' },
-    { date: '2025-05-10', type: '부재중', duration: '-' },
-  ];
-
   if (loading) {
     return (
       <View className="flex-1 justify-center items-center bg-white">

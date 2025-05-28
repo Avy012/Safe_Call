@@ -11,7 +11,9 @@
     "ios": {
       "supportsTablet": true
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "android": {
       "package": "com.anonymous.Safe_Call",
       "googleServicesFile": "./android/app/google-services.json",
@@ -25,7 +27,10 @@
           "data": {
             "scheme": "exp+safecall"
           },
-          "category": ["BROWSABLE", "DEFAULT"]
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
         }
       ]
     },
@@ -48,7 +53,8 @@
       [
         "@livekit/react-native-expo-plugin",
         "@config-plugins/react-native-webrtc"
-      ]
+      ],
+      "expo-secure-store"
     ],
     "experiments": {},
     "extra": {

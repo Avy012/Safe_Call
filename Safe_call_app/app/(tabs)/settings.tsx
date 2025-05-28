@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { signOut } from "firebase/auth";
 import { auth } from "../../services/firebaseConfig";
 import { Ionicons } from '@expo/vector-icons'; // 아이콘 사용
@@ -12,6 +12,7 @@ import { Alert } from 'react-native';
 export default function SettingsScreen() {
   const router = useRouter();
   const { user } = useContext(UserContext);
+  
   return (
     <View style={styles.container}>
       {/* 사용자 정보 카드 */}

@@ -23,6 +23,7 @@ export default function Index() {
   const [refresh, setRefresh] = useState(false);
   const [blockedUsers, setBlockedUsers] = useState<{ id: string; name: string; phone?: string }[]>([]);
   const [summaryData, setSummaryData] = useState({
+    name: '이름 없음',
     phoneNumber: '010-0000-0000',
     summaryText: '통화 요약이 여기에 표시됩니다.',
   });
@@ -62,13 +63,16 @@ export default function Index() {
         if (sortedLogs.length > 0) {
           const recentPhone = sortedLogs[0].phone || '알 수 없음';
           const recentSummary = sortedLogs[0].summary || '요약 없음';
+          const recentLog = sortedLogs[0].name || '이름 없음'; 
 
           setSummaryData({
+            name: recentLog,
             phoneNumber: recentPhone,
             summaryText: recentSummary,
           });
         } else {
           setSummaryData({
+            name: '이름 없음',
             phoneNumber: '기록 없음',
             summaryText: '요약 없음',
           });
@@ -76,6 +80,7 @@ export default function Index() {
       } catch (err) {
         console.error('❌ Failed to load recent call from local:', err);
         setSummaryData({
+          name: '이름 불러오기 실패',
           phoneNumber: '불러오기 실패',
           summaryText: '요약 로딩 실패',
         });
@@ -244,13 +249,19 @@ export default function Index() {
             <ActivityIndicator size="small" />
           ) : (
             <>
-              <Text className="text-red-700 font-bold mb-1">
-                {formatPhoneNumber(summaryData.phoneNumber)}
-              </Text>
+              <View className="flex-row items-center mb-1">
+                <Text className="text-lg font-bold text-primary mr-2">
+                  {summaryData.name}
+                </Text>
+                <Text className="text-red-700 font-bold">
+                  {formatPhoneNumber(summaryData.phoneNumber)}
+                </Text>
+              </View>
               <Text className="text-gray-800">{summaryData.summaryText}</Text>
             </>
           )}
         </View>
+
 
         {/* 차단 목록 타이틀 */}
         <View className="w-full items-start px-5 mt-2 mb-2">

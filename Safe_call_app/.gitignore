@@ -51,5 +51,8 @@ service_account_key.json
 
 # STT 
 safe-call-460006-2338c2ca2d5b.json
+safe-call-460006-2338c2ca2d5b.json
+
+firebaseConfig.ts
 
 **/.gradle/

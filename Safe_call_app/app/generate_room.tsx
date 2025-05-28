@@ -29,7 +29,8 @@ import { router } from 'expo-router'; // if not already imported
 import * as FileSystem from 'expo-file-system';
 import axios from 'axios';
 import { Asset } from 'expo-asset';;
-
+import { getScenario, resetScenario } from '@/services/scenarioStore';
+import * as SecureStore from 'expo-secure-store';
 
 
 
@@ -59,7 +60,7 @@ const GenerateRoomScreen: React.FC = () => {
     })();
   }, []);
 
-
+ 
   useEffect(() => {
     if (typeof rawToken === 'string') {
       const decoded = decodeURIComponent(rawToken);
@@ -129,6 +130,16 @@ const GenerateRoomScreen: React.FC = () => {
   );
 };
 
+// 시나리오별 경로 
+const scenarioFiles: { [key: string]: number } = {
+  '1': require('../assets/scenario1.wav'),
+  '2': require('../assets/scenario2.wav'),
+  '3': require('../assets/scenario3.wav'),
+  '4': require('../assets/scenario4.wav'),
+  // '5': require('../assets/scenario5.wav'),
+  // '6': require('../assets/scenario6.wav'), // 🔒 나중추가
+};
+
 const RoomView: React.FC<{
   name: string;
   profilePic: string;
@@ -159,7 +170,6 @@ const RoomView: React.FC<{
 
   const roomStartTimeRef = useRef<Date | null>(null);
 
-  
 
   useEffect(() => {
   let timer: ReturnType<typeof setTimeout>;
@@ -244,6 +254,21 @@ const RoomView: React.FC<{
     }
   };
 
+  useEffect(() => {
+    (async () => {
+      const scenario = await getScenario();
+      console.log('🧠 Scenario set from Notification/Privacy:', scenario);
+      if (!scenario || !(scenario in scenarioFiles)) {
+        console.warn('⚠️ No valid scenario found. Defaulting to scenario1.wav');
+        return;
+      }
+
+      const asset = Asset.fromModule(scenarioFiles[scenario]);
+      // ...
+    })();
+  }, []);
+
+
   const handleHangUp = async () => {
     const endTime = new Date();
 
@@ -316,6 +341,8 @@ const RoomView: React.FC<{
         type: isCaller ? '발신' : '수신',
         summary: summaryRef.current || '',
         
+        isScam: String(isScamRef.current || false),
+
       });
 
       console.log('✅ Call log saved');
@@ -371,74 +398,84 @@ const RoomView: React.FC<{
 
 
 
- const fetchCallScamCheck = async (isCallee: boolean) => {
-    console.log('📞 fetchCallScamCheck triggered');
+const fetchCallScamCheck = async (isCallee: boolean) => {
+  console.log('📞 fetchCallScamCheck triggered');
 
-    try {
-      const asset = Asset.fromModule(require('../assets/scenario4.wav'));
-      await asset.downloadAsync();
-      const dest = FileSystem.documentDirectory + 'scenario4.wav';
-      await FileSystem.copyAsync({ from: asset.localUri!, to: dest });
-      console.log('✅ File copied to:', dest);
+  try {
+    // 1. Load correct file based on scenario
+    const scenario = await SecureStore.getItemAsync('scenario');
+    console.log('🧠 Loaded scenario:', scenario);
 
-      const fileInfo = await FileSystem.getInfoAsync(dest);
-      if (!fileInfo.exists) {
-        console.error('❌ Copied file does not exist');
-        return;
-      }
-      console.log('📦 File size (bytes):', fileInfo.size);
+    if (!scenario || !(scenario in scenarioFiles)) {
+      console.warn('⚠️ No valid scenario found. Defaulting to scenario1.wav');
+      return;
+    }
 
-      const fileBase64 = await FileSystem.readAsStringAsync(dest, {
-        encoding: FileSystem.EncodingType.Base64,
-      });
-      console.log('📏 base64 length:', fileBase64.length);
+    const asset = Asset.fromModule(scenarioFiles[scenario]);
+    await asset.downloadAsync();
 
-      // 2. STT
-      const sttResponse = await axios.post(
-        'https://usyvahybz2.execute-api.us-east-1.amazonaws.com/dev/audio',
-        { audio: fileBase64 }
-      );
-      const text = sttResponse.data.body || '';
-      if (!text) {
-        console.warn('⚠️ No STT result received');
-        return;
-      }
+    const dest = FileSystem.documentDirectory + `scenario${scenario}.wav`;
+    await FileSystem.copyAsync({ from: asset.localUri!, to: dest });
+    console.log(`✅ File copied to: ${dest}`);
 
-      // 3. Scam check (only callee)
-      if (isCallee) {
-        const scamResponse = await axios.post(
-          'https://usyvahybz2.execute-api.us-east-1.amazonaws.com/dev/check',
-          { text }
-        );
-        const scamResult = scamResponse.data?.result?.trim() === '예';
-        isScamRef.current = scamResult;
-        if (scamResult) {
-          console.log('⛔ Scam detected');
-          setShowScamWarning(true);
-        }
-      }
+    const fileInfo = await FileSystem.getInfoAsync(dest);
+    if (!fileInfo.exists) {
+      console.error('❌ Copied file does not exist');
+      return;
+    }
+    console.log('📦 File size (bytes):', fileInfo.size);
 
-      // 4. Summary (everyone)
-      const summaryResponse = await axios.post(
-        'https://usyvahybz2.execute-api.us-east-1.amazonaws.com/dev/SummationText',
+    const fileBase64 = await FileSystem.readAsStringAsync(dest, {
+      encoding: FileSystem.EncodingType.Base64,
+    });
+    console.log('📏 base64 length:', fileBase64.length);
+
+    // 2. Speech-to-Text
+    const sttResponse = await axios.post(
+      'https://usyvahybz2.execute-api.us-east-1.amazonaws.com/dev/audio',
+      { audio: fileBase64 }
+    );
+    const text = sttResponse.data.body || '';
+    if (!text) {
+      console.warn('⚠️ No STT result received');
+      return;
+    }
+
+    // 3. Scam check (only for callee)
+    if (isCallee) {
+      const scamResponse = await axios.post(
+        'https://usyvahybz2.execute-api.us-east-1.amazonaws.com/dev/check',
         { text }
       );
-
-      let summaryText = '요약 없음';
-      try {
-        const parsed = JSON.parse(summaryResponse.data.body);
-        summaryText = parsed.result?.trim() || '요약 없음';
-      } catch (e) {
-        console.warn('⚠️ Failed to parse summary Lambda body:', e);
-        summaryText = summaryResponse.data.body || '요약 없음';
+      const scamResult = scamResponse.data?.result?.trim() === '예';
+      isScamRef.current = scamResult;
+      if (scamResult) {
+        console.log('⛔ Scam detected');
+        setShowScamWarning(true);
       }
-
-      console.log('📝 summaryText:', summaryText);
-      summaryRef.current = summaryText;
-    } catch (err) {
-      console.error('❌ fetchCallScamCheck error:', err);
     }
-  };
+
+    // 4. Summary (run for both caller and callee)
+    const summaryResponse = await axios.post(
+      'https://usyvahybz2.execute-api.us-east-1.amazonaws.com/dev/SummationText',
+      { text }
+    );
+
+    let summaryText = '요약 없음';
+    try {
+      const parsed = JSON.parse(summaryResponse.data.body);
+      summaryText = parsed.result?.trim() || '요약 없음';
+    } catch (e) {
+      console.warn('⚠️ Failed to parse summary Lambda body:', e);
+      summaryText = summaryResponse.data.body || '요약 없음';
+    }
+
+    console.log('📝 summaryText:', summaryText);
+    summaryRef.current = summaryText;
+  } catch (err) {
+    console.error('❌ fetchCallScamCheck error:', err);
+  }
+};
 
 
 
@@ -512,13 +549,6 @@ const RoomView: React.FC<{
         <TouchableOpacity onPress={handleHangUp}>
           <ImageBackground source={icons.hangup} style={{ width: 70, height: 70 }} />
           <Text className="text-white text-sm pt-8 left-5">통화종료</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={{ position: 'absolute', bottom: isVideoOn ? 120 : 230, left: 0, right: 0, alignItems: 'center' }}>
-        <TouchableOpacity onPress={() => setShowScamWarning(true)}>
-          <ImageBackground source={icons.warning} style={{ width: 70, height: 70 }} />
-          <Text className="text-white text-sm pt-8 left-4">스캠경고</Text>
         </TouchableOpacity>
       </View>
 

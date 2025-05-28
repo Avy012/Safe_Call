@@ -16,6 +16,7 @@ export const saveCallLog = async ({
   startTime,
   type,
   summary = '',
+  isScam = 'false', // ✅ Add this
 }: {
   callerId: string;
   calleeId: string;
@@ -30,6 +31,7 @@ export const saveCallLog = async ({
   startTime: string;
   type: '발신' | '수신';
   summary?: string;
+  isScam?: string; // ✅ Add this
 }) => {
   const cleanCallerProfile = typeof callerProfile === 'string' ? callerProfile.trim() : '';
   const cleanCalleeProfile = typeof calleeProfile === 'string' ? calleeProfile.trim() : '';
@@ -40,6 +42,7 @@ export const saveCallLog = async ({
     duration,
     startTime,
     summary,
+    isScam, // ✅ Add this line
 
     // target for UI display
     name: isCaller ? calleeName : callerName,
