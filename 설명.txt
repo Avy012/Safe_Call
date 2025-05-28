@@ -1,0 +1,16 @@
+//패키지 설정
+$env:GOOGLE_APPLICATION_CREDENTIALS = "C:\Users\ParkJiwoo\Desktop\capstone\safe-call-460006-2338c2ca2d5b.json"
+
+npm install axios
+
+//파일 내용
+testLambdaCall : stt설정되어 있는 lambda 연결 
+testLambdaCall_2 : stt 처리 lambda -> openai에서 전체 전화 요약 lambda
+testLambdaCall_3 : stt 처리 lambda -> openai에서 scam 판단 lambda
+
+//녹음
+scenario1.wav : scam 아님
+scenario2.wav : scam 아닌듯 scam
+scenario3.wav : 완전한 scam
+
+실행문 : npx ts-node testLambdaCall.ts (testLambdaCall_2,testLambdaCall_3..)
