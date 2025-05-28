@@ -7,9 +7,15 @@ import { UserProvider } from '@/context/UserContext';
 import './globals.css';
 import * as Notifications from 'expo-notifications';
 import { registerForPushNotificationsAsync } from '@/services/notificationService';
+import { doc, onSnapshot } from 'firebase/firestore';
+import { db } from '@/services/firebaseConfig';
+import { auth } from '@/services/firebaseConfig';
+import axios from 'axios';
 
 
 registerGlobals();
+
+
 
 // Optional: Suppress known LiveKit warning
 const originalConsoleError = console.error;
@@ -54,6 +60,11 @@ export default function RootLayout() {
 
     return () => subscription.remove();
   }, []);
+
+  useEffect(() => {
+    axios.get('https://safe-call.onrender.com/ping').catch(() => {});
+  }, []);
+
 
   
 

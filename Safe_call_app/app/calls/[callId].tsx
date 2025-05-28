@@ -100,10 +100,16 @@ export default function CallDetail() {
     const userDoc = await getDoc(doc(db, 'users', callerId));
     if (!userDoc.exists()) throw new Error('Caller Firestore user not found.');
     const userData = userDoc.data();
-
     const callerPhone = userData.phone; // this MUST be the current user’s phone
     const token = await getLiveKitToken(callerPhone, receiverId, userData.name);
- // ✅ Use caller’s phone only
+     // ✅ Use caller’s phone only
+     
+    console.log('callerPhone:', callerPhone, 'receiverId:', receiverId, 'userData.name:', userData.name);
+    if (!token) {
+      console.error('❌ No token returned from backend');
+      Alert.alert('연결 실패', '서버로부터 토큰을 가져오지 못했습니다.');
+      return;
+    }
 
 
     // 2. Write to Firestore for callee to join later
@@ -122,7 +128,7 @@ export default function CallDetail() {
     router.push({
       pathname: '/generate_room',
       params: {
-        token,
+        token: encodeURIComponent(token),
         name: contact.name,
         profilePic: encodeURIComponent((userData.profilePic ?? '').replace(/prrofilePics|profilePiccs/g, 'profilePics')),
         phone: contact.phone,

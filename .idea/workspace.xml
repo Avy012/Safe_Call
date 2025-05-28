@@ -5,32 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b6578ae5-f28a-4cc3-8a16-424b5ed728ee" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/.gradle/8.10.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/.gradle/8.10.2/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/.gradle/8.10.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/.gradle/8.10.2/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/.gradle/8.10.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/.gradle/8.10.2/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/.gradle/8.10.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/.gradle/8.10.2/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/.gradle/8.10.2/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/.gradle/8.10.2/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/build/generated/autolinking/package-lock.json.sha" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/build/generated/autolinking/package-lock.json.sha" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/build/generated/autolinking/package.json.sha" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/build/generated/autolinking/package.json.sha" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/calls.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/calls.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/contacts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/contacts.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/IncomingCallScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/IncomingCallScreen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/_layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/calls/[callId].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/calls/[callId].tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/generate_room.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/generate_room.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/signup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/signup.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/assets/images/aisummary.png" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/assets/images/aisummary.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/services/callLogStorage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/services/callLogStorage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/services/livekit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/services/livekit.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

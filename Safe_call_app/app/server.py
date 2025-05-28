@@ -90,5 +90,8 @@ async def get_token(request: Request):
         print("🔥 Exception occurred while handling /get-token")
         traceback.print_exc()
         return {"error": f"Internal server error: {str(e)}"}
-
+    
+@app.get("/ping")
+def ping():
+    return {"status": "ok"}
 
