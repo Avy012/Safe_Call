@@ -102,7 +102,7 @@ export default function CallDetail() {
     const userData = userDoc.data();
 
     const callerPhone = userData.phone; // this MUST be the current user’s phone
-    const token = await getLiveKitToken(callerPhone); // ✅ Use caller’s phone only
+    const token = await getLiveKitToken(callerPhone, userData.name, 'safe-call-room', receiverId); // ✅ Use caller’s phone only
 
 
     // 2. Write to Firestore for callee to join later
