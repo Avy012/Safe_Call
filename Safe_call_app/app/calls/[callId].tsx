@@ -161,14 +161,32 @@ export default function CallDetail() {
     }
   };
 
-  const handleDelete = () => {
-    Alert.alert('삭제 완료', '연락처가 삭제되었습니다.');
+  const handleDelete = async () => {
+    try {
+      const currentUserId = auth.currentUser?.uid;
+      if (!currentUserId || !contact?.id) return;
+
+      await setDoc(
+        doc(db, `users/${currentUserId}/contacts/${contact.id}`),
+        {},
+        { merge: false } // or use deleteDoc if it's a full document
+      );
+
+      Alert.alert('삭제 완료', '연락처가 삭제되었습니다.');
+      router.replace('/contacts'); // Go back to contacts screen
+    } catch (error) {
+      console.error('❌ 연락처 삭제 실패:', error);
+      Alert.alert('오류', '연락처 삭제에 실패했습니다.');
+    }
   };
+
 
   const profileImageSource =
   typeof contact?.profilePic === 'string' && contact.profilePic.startsWith('http')
     ? { uri: contact.profilePic }
     : require('../../assets/images/default_profile.jpg');
+
+  
 
 
 
@@ -212,15 +230,6 @@ export default function CallDetail() {
         >
           <Text className="text-4xl text-primary-1000">←</Text>
         </TouchableOpacity>
-
-        <View className="items-end mt-0">
-          <TouchableOpacity
-            className="absolute top-0 right-2 p-2 mt-4 bg-white rounded-lg z-10"
-            onPress={handleDelete}
-          >
-            <Text className="text-black font-semibold text-lg">❌</Text>
-          </TouchableOpacity>
-        </View>
       </View>
 
       <View className="items-center pt-0 mb-4">
@@ -231,22 +240,6 @@ export default function CallDetail() {
             {formatPhoneNumber(contact.phone)}
           </Text>
         )}
-      </View>
-
-
-      <View className="w-full px-2">
-        <Text className="text-lg font-bold mb-6 text-center">최근 통화 목록</Text>
-        <FlatList
-          data={callHistory}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <View className="flex-row justify-between px-4 py-4 border-b border-gray-200">
-              <Text className="text-base text-gray-800">{item.date}</Text>
-              <Text className="text-base text-gray-800">{item.type}</Text>
-              <Text className="text-base text-gray-800">{item.duration}</Text>
-            </View>
-          )}
-        />
       </View>
 
       <View className="flex-row justify-center gap-4 mt-10">

@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router';
 import { collection, getDocs } from 'firebase/firestore';
 import { db, auth } from '../../services/firebaseConfig';
 
+
 interface Contact {
   id: string;
   name: string;
