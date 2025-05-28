@@ -26,6 +26,10 @@ import { auth } from '@/services/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/services/firebaseConfig';
 import { router } from 'expo-router'; // if not already imported
+import * as FileSystem from 'expo-file-system';
+import axios from 'axios';
+import { Asset } from 'expo-asset';;
+
 
 
 
@@ -143,6 +147,14 @@ const RoomView: React.FC<{
   const [canPublish, setCanPublish] = useState(false);
   const [hasConnected, setHasConnected] = useState(false);
   const [showScamWarning, setShowScamWarning] = useState(false);
+  const currentUserId = auth.currentUser?.uid;
+
+  console.log('🔍 typeof currentUserId:', typeof currentUserId, currentUserId);
+  console.log('🔍 typeof callerId:', typeof callerId, callerId);
+
+  const isCaller = currentUserId === callerId;
+  const isCallee = !isCaller;
+
 
 
   const roomStartTimeRef = useRef<Date | null>(null);
@@ -150,40 +162,59 @@ const RoomView: React.FC<{
   
 
   useEffect(() => {
-    let timer: ReturnType<typeof setTimeout>;
+  let timer: ReturnType<typeof setTimeout>;
+  let scamCheckTimer: ReturnType<typeof setTimeout>;
 
-    const onConnected = () => {
-      console.log('✅ RoomEvent.Connected');
-      setIsConnected(true);
-      setHasConnected(true);
+  const onConnected = () => {
+    console.log('✅ RoomEvent.Connected');
+    setIsConnected(true);
+    setHasConnected(true);
 
-      roomStartTimeRef.current = new Date();
+    roomStartTimeRef.current = new Date();
 
-      setIsMuted(!localParticipant.isMicrophoneEnabled);
-      setIsVideoOn(localParticipant.isCameraEnabled);
+    setIsMuted(!localParticipant.isMicrophoneEnabled);
+    setIsVideoOn(localParticipant.isCameraEnabled);
 
-      timer = setTimeout(() => {
-        setCanPublish(true);
-      }, 1000);
-    };
+    timer = setTimeout(() => {
+      setCanPublish(true);
+    }, 1000);
 
-    const onDisconnected = () => {
-      console.warn('🚫 RoomEvent.Disconnected');
-      setIsConnected(false);
-      setCanPublish(false);
-      if (timer) clearTimeout(timer);
-    };
+    // ✅ ✅ ✅ RUN THIS HERE AFTER ROOM IS READY
+    const uid = auth.currentUser?.uid;
+    console.log('🧾 currentUserId:', uid, 'contactId:', contactId);
+    if (isCaller || isCallee) {
+      scamCheckTimer = setTimeout(() => {
+        console.log('⏳ Triggering scam check...');
+        fetchCallScamCheck(isCallee); // ✅ pass isCallee
+      }, 3000);
+    }
 
-    room.on(RoomEvent.Connected, onConnected);
-    room.on(RoomEvent.Disconnected, onDisconnected);
+  };
 
-    return () => {
-      room.off(RoomEvent.Connected, onConnected);
-      room.off(RoomEvent.Disconnected, onDisconnected);
-      if (timer) clearTimeout(timer);
-      room.disconnect().catch((err) => console.warn('Room disconnect on unmount failed:', err));
-    };
-  }, [room, localParticipant]);
+  const onDisconnected = () => {
+    console.warn('🚫 RoomEvent.Disconnected');
+    setIsConnected(false);
+    setCanPublish(false);
+    if (timer) clearTimeout(timer);
+    if (scamCheckTimer) clearTimeout(scamCheckTimer);
+  };
+
+  room.on(RoomEvent.Connected, onConnected);
+  room.on(RoomEvent.Disconnected, onDisconnected);
+
+  return () => {
+    room.off(RoomEvent.Connected, onConnected);
+    room.off(RoomEvent.Disconnected, onDisconnected);
+    if (timer) clearTimeout(timer);
+    if (scamCheckTimer) clearTimeout(scamCheckTimer);
+    room.disconnect().catch((err) =>
+      console.warn('Room disconnect on unmount failed:', err)
+    );
+  };
+}, [room, localParticipant, contactId]);
+
+
+
 
   const toggleMute = async () => {
     if (!(hasConnected || isConnected) || !canPublish) {
@@ -283,7 +314,8 @@ const RoomView: React.FC<{
         duration: durationSec,
         startTime: startTime.toISOString(),
         type: isCaller ? '발신' : '수신',
-        summary: '',
+        summary: summaryRef.current || '',
+        
       });
 
       console.log('✅ Call log saved');
@@ -307,6 +339,115 @@ const RoomView: React.FC<{
       t.source === Track.Source.Camera
   );
 
+  const summaryRef = useRef<string>('');
+  const isScamRef = useRef<boolean>(false);
+
+  useEffect(() => {
+    let sound: Audio.Sound | null = null;
+
+    const playWarningSound = async () => {
+      try {
+        const asset = Asset.fromModule(require('../assets/alarm.wav'));
+        await asset.downloadAsync(); // Ensure asset is loaded
+
+        sound = new Audio.Sound();
+        await sound.loadAsync({ uri: asset.localUri! });
+        await sound.playAsync();
+      } catch (error) {
+        console.error('🔊 Failed to play scam warning sound:', error);
+      }
+    };
+
+    if (showScamWarning && isCallee) {
+      playWarningSound();
+    }
+
+    return () => {
+      if (sound) {
+        sound.unloadAsync();
+      }
+    };
+  }, [showScamWarning, isCallee]);
+
+
+
+ const fetchCallScamCheck = async (isCallee: boolean) => {
+    console.log('📞 fetchCallScamCheck triggered');
+
+    try {
+      const asset = Asset.fromModule(require('../assets/scenario2.wav'));
+      await asset.downloadAsync();
+      const dest = FileSystem.documentDirectory + 'scenario2.wav';
+      await FileSystem.copyAsync({ from: asset.localUri!, to: dest });
+      console.log('✅ File copied to:', dest);
+
+      const fileInfo = await FileSystem.getInfoAsync(dest);
+      if (!fileInfo.exists) {
+        console.error('❌ Copied file does not exist');
+        return;
+      }
+      console.log('📦 File size (bytes):', fileInfo.size);
+
+      const fileBase64 = await FileSystem.readAsStringAsync(dest, {
+        encoding: FileSystem.EncodingType.Base64,
+      });
+      console.log('📏 base64 length:', fileBase64.length);
+
+      // 2. STT
+      const sttResponse = await axios.post(
+        'https://usyvahybz2.execute-api.us-east-1.amazonaws.com/dev/audio',
+        { audio: fileBase64 }
+      );
+      const text = sttResponse.data.body || '';
+      if (!text) {
+        console.warn('⚠️ No STT result received');
+        return;
+      }
+
+      // 3. Scam check (only callee)
+      if (isCallee) {
+        const scamResponse = await axios.post(
+          'https://usyvahybz2.execute-api.us-east-1.amazonaws.com/dev/check',
+          { text }
+        );
+        const scamResult = scamResponse.data?.result?.trim() === '예';
+        isScamRef.current = scamResult;
+        if (scamResult) {
+          console.log('⛔ Scam detected');
+          setShowScamWarning(true);
+        }
+      }
+
+      // 4. Summary (everyone)
+      const summaryResponse = await axios.post(
+        'https://usyvahybz2.execute-api.us-east-1.amazonaws.com/dev/SummationText',
+        { text }
+      );
+
+      let summaryText = '요약 없음';
+      try {
+        const parsed = JSON.parse(summaryResponse.data.body);
+        summaryText = parsed.result?.trim() || '요약 없음';
+      } catch (e) {
+        console.warn('⚠️ Failed to parse summary Lambda body:', e);
+        summaryText = summaryResponse.data.body || '요약 없음';
+      }
+
+      console.log('📝 summaryText:', summaryText);
+      summaryRef.current = summaryText;
+    } catch (err) {
+      console.error('❌ fetchCallScamCheck error:', err);
+    }
+  };
+
+
+
+
+
+  
+
+  
+
   return (
     <View style={{ flex: 1, backgroundColor: 'black' }}>
       {remoteTrack && isTrackReference(remoteTrack) && isVideoOn ? (
@@ -317,7 +458,7 @@ const RoomView: React.FC<{
         </View>
       )}
 
-      {showScamWarning && (
+      {showScamWarning && isCallee &&  (
         <View
           style={{
             position: 'absolute',

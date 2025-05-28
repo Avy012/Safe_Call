@@ -26,7 +26,15 @@ def send_push():
             "token": DEVICE_TOKEN,
             "notification": {
                 "title": "📞 전화 수신 중",
-                "body": "김다희 님이 전화 중입니다."
+                "body": "김다희 님이 전화 중입니다.",
+                "sound": "default" 
+            },
+            "android": {
+                "priority": "high",
+                "notification": {
+                    "sound": "default", 
+                    "channel_id": "incoming_calls" 
+                }
             },
             "data": {
                 "type": "incoming_call"

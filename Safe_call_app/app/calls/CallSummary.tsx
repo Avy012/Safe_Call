@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 
 export default function CallSummary() {
-  const { name,  date, type, duration, userId, profile } = useLocalSearchParams();
+  const { name,  date, type, duration, userId, profile, summary } = useLocalSearchParams();
   const router = useRouter();
   const profileURL = typeof profile === 'string' ? profile : null;
 
@@ -70,6 +70,14 @@ export default function CallSummary() {
           <Text className="text-lg font-medium text-blue-700 mt-3">{formatPhoneNumber(phone)}</Text>
         )}
       </View>
+
+        {/* 요약정보 */}
+      <View className="px-4 py-5 border-b border-gray-200 items-center">
+        <Text className="text-xl font-semibold text-gray-900 mb-2">AI 요약</Text>
+        <Text className="text-base text-gray-900 text-center">{summary || '요약 없음'}</Text>
+      </View>
+
+
 
       {/* 통화 정보 섹션 */}
       <View className="space-y-6">

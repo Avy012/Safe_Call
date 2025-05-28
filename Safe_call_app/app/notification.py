@@ -33,6 +33,13 @@ def send_push_notification(device_token: str, caller_name: str, call_payload: di
                 "body": f"{caller_name} 님이 전화 중입니다.",
                 "sound": "default"
             },
+            "android": {
+                "priority": "high",
+                "notification": {
+                    "sound": "default",
+                    "channel_id": "incoming_calls",  # 👈 Must match what's in app/_layout.tsx
+                }
+            },
             "data": {
                 "type": "incoming_call",
                 "name": caller_name,
