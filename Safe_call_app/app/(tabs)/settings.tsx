@@ -33,7 +33,7 @@ export default function SettingsScreen() {
         <Text style={styles.buttonText}>개인 정보 보호</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.button} onPress={() => router.push('/notification')}>
+      <TouchableOpacity style={styles.button} onPress={() => router.push('/notification_set')}>
         <Ionicons name="notifications-outline" size={20} color="#333" style={styles.icon} />
         <Text style={styles.buttonText}>알림 설정</Text>
       </TouchableOpacity>
