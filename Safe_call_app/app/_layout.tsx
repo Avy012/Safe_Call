@@ -54,6 +54,8 @@ export default function RootLayout() {
     return () => subscription.remove();
   }, []);
 
+  
+
   return (
     <UserProvider>
       <Slot />

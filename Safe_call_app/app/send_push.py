@@ -2,9 +2,11 @@ import json
 import requests
 from google.oauth2 import service_account
 from google.auth.transport.requests import Request
+import os
+
 
 PROJECT_ID = "safe-call-f0276"
-DEVICE_TOKEN = "NSOk4MHlzwN7i7GpMZYheI"
+DEVICE_TOKEN = os.getenv("DEVICE_TOKEN")
 SERVICE_ACCOUNT_FILE = "service_account_key.json"
 
 SCOPES = ["https://www.googleapis.com/auth/firebase.messaging"]
