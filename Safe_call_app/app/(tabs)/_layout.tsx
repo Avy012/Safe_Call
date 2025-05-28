@@ -17,9 +17,10 @@ const TabIcon = ({ focused, icon, title }: any) => {
         );
     }
     return(
-        <View className="size-full justify-center items-center mt-4 primary">
-            <Image source={icon} tintColor="#ffffff" className="size-5"/>
+        <View className="h-[52px] w-full justify-center items-center mt-4 bg-primary">
+            <Image source={icon} tintColor="#ffffff" className="w-5 h-5" />
         </View>
+
     );
 };
 
@@ -55,7 +56,7 @@ const _Layout = () => {
                         <TabIcon
                             focused={focused}
                             icon={icons.home}
-                            title="Home"
+                            title="홈"
                         />
                     ),
                 }}
@@ -69,7 +70,7 @@ const _Layout = () => {
                         <TabIcon
                             focused={focused}
                             icon={icons.person}
-                            title="Contacts"
+                            title="연락처"
                         />
                     ),
                 }}
@@ -83,21 +84,21 @@ const _Layout = () => {
                         <TabIcon
                             focused={focused}
                             icon={icons.call}
-                            title="Calls"
+                            title="통화 기록"
                         />
                     ),
                 }}
             />
             <Tabs.Screen
-                name="chats"
+                name="settings"
                 options={{
-                    title: 'Chats',
+                    title: 'Settings',
                     headerShown: false,
                     tabBarIcon: ({ focused }) => (
                         <TabIcon
                             focused={focused}
-                            icon={icons.chat}
-                            title="Chats"
+                            icon={icons.settings}
+                            title="설정"
                         />
                     ),
                 }}

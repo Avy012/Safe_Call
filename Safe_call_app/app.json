@@ -2,26 +2,37 @@
   "expo": {
     "name": "Safe_Call",
     "slug": "Safe_Call",
+    "scheme": "safecall",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "icon": "./assets/images/logo_no_text.png",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true
     },
+    "assetBundlePatterns": ["**/*"],
     "android": {
+      "package": "com.anonymous.Safe_Call",
+      "googleServicesFile": "./android/app/google-services.json",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/favicon.png",
+        "foregroundImage": "./assets/images/logo_no_text.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.Safe_Call"
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": {
+            "scheme": "exp+safecall"
+          },
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/logo_no_text.png"
     },
     "plugins": [
       "expo-router",
@@ -34,8 +45,10 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      ["@livekit/react-native-expo-plugin",
-      "@config-plugins/react-native-webrtc"]
+      [
+        "@livekit/react-native-expo-plugin",
+        "@config-plugins/react-native-webrtc"
+      ]
     ],
     "experiments": {},
     "extra": {

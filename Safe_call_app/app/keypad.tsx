@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { icons } from '@/constants/icons';
+import { collection, getDocs, query, where, doc, getDoc, setDoc } from 'firebase/firestore';
+import { db, auth } from '@/services/firebaseConfig'; // ✅ adjust path if needed
 
 const Keypad: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -16,25 +18,82 @@ const Keypad: React.FC = () => {
   };
 
   const handleCall = async () => {
-    if (!phoneNumber) return console.error('전화번호가 비어있습니다.');
+    if (!phoneNumber || phoneNumber.length < 8) {
+      Alert.alert('유효하지 않은 번호', '전화번호를 입력해주세요.');
+      return;
+    }
 
     try {
-      const response = await fetch('https://your-server.com/get-token', {
+      const callerId = auth.currentUser?.uid;
+      if (!callerId) {
+        Alert.alert('로그인 오류', '로그인 정보가 없습니다.');
+        return;
+      }
+
+      // 🔍 1. Find receiver by phone number
+      const q = query(collection(db, 'users'), where('phone', '==', phoneNumber));
+      const snapshot = await getDocs(q);
+
+      if (snapshot.empty) {
+        Alert.alert('연락처 없음', '해당 전화번호의 사용자를 찾을 수 없습니다.');
+        return;
+      }
+
+      const receiverDoc = snapshot.docs[0];
+      const receiverId = receiverDoc.id;
+      const receiverData = receiverDoc.data();
+
+      // 🔍 2. Get caller data
+      const callerDoc = await getDoc(doc(db, 'users', callerId));
+      if (!callerDoc.exists()) throw new Error('Caller 정보 없음');
+      const callerData = callerDoc.data();
+
+      const roomName = `room_${callerId}_${receiverId}`;
+
+      // 🔐 3. Get token from backend (with safe handling)
+      const res = await fetch('https://safe-call.onrender.com/get-token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ identity: phoneNumber }),
+        body: JSON.stringify({ identity: receiverId, roomName }),
       });
 
-      const { token } = await response.json();
-      console.log('통화 연결됨!', token);
+      const rawText = await res.text();
 
-      // Navigate to CallScreen and pass token and phone number
+      let token: string;
+      try {
+        const parsed = JSON.parse(rawText);
+        token = parsed.token;
+        if (!token) throw new Error('No token in response');
+      } catch (err) {
+        console.error('❌ Token 파싱 실패:', rawText);
+        Alert.alert('오류', '토큰을 받아오지 못했습니다.');
+        return;
+      }
+
+      // 💾 4. Save call request to Firestore
+      await setDoc(doc(db, 'calls', receiverId), {
+        name: callerData.name,
+        phone: callerData.phone,
+        profilePic: callerData.profilePic ?? '',
+        callId: callerId,
+        token,
+        roomName,
+      });
+
+      // 🧭 5. Navigate to room
       router.push({
-        pathname: './generate_room',
-        params: { token, phoneNumber },
+        pathname: '/generate_room',
+        params: {
+          token,
+          name: receiverData.name,
+          profilePic: encodeURIComponent(receiverData.profilePic ?? ''),
+          phone: phoneNumber,
+        },
       });
+
     } catch (error) {
-      console.error('전화 연결 실패', error);
+      console.error('📞 전화 연결 실패:', error);
+      Alert.alert('통화 실패', '전화 연결 중 문제가 발생했습니다.');
     }
   };
 

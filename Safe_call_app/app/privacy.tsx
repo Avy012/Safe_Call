@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
-import { View, Text, Switch, StyleSheet } from 'react-native';
-
+import { View, Text, Switch, StyleSheet, TouchableOpacity } from 'react-native';
+import { useRouter } from "expo-router";
 const Privacy = () => {
+  const router = useRouter(); 
   const [isProfilePublic, setIsProfilePublic] = useState(true);
   const [allowCallsFromUnknown, setAllowCallsFromUnknown] = useState(false);
   const [saveCallHistory, setSaveCallHistory] = useState(true);
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity
+        onPress={() => router.replace('/settings')}
+        className="absolute top-2 left-5 p-2 bg-white rounded-lg z-10"
+        style={{ top: 4, left: 0 }} // ⬅ move up and left
+      >
+        <Text className="text-4xl text-primary-1000">←</Text>
+      </TouchableOpacity>
       <Text style={styles.title}>개인정보 보호 설정</Text>
 
       <View style={styles.optionRow}>
@@ -43,8 +51,8 @@ const styles = StyleSheet.create({
       padding: 20,
     },
     title: {
-      fontSize: 24,
-      fontWeight: '700',
+      fontSize: 20,
+      fontWeight: '300',
       marginBottom: 30,
       alignSelf: 'center',
     },

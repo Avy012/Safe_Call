@@ -54,7 +54,7 @@ export default function Login() {
           onPress={handleLogin}
           className="w-full h-12 bg-primary rounded-md items-center justify-center"
         >
-          <Text className="text-white text-lg font-semibold">LOGIN</Text>
+          <Text className="text-white text-lg font-semibold">로그인</Text>
         </TouchableOpacity>
       </View>
     </TouchableWithoutFeedback>
