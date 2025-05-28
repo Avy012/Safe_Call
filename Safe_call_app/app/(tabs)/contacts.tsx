@@ -124,13 +124,14 @@ const Contacts = () => {
               className="px-4 py-3 border-b border-gray-200"
               onPress={() => router.push(`/calls/${item.id}`)}
             >
-              <View className="flex-row items-center py-3">
+              <View className="flex-row items-center ">
                 <Image
                   source={safeProfilePic}
-                  className="w-14 h-14 rounded-full mr-4 bg-gray-200"
+                  // className="w-14 h-14 rounded-full mr-4 bg-gray-200"
+                  style={{ width: 50, height: 50, borderRadius: 50, backgroundColor: 'gray' }}
                 />
                 <View>
-                  <Text className="text-lg font-semibold text-gray-900">{item.name}</Text>
+                  <Text className="text-lg font-medium text-gray-900">{item.name}</Text>
                   <Text className="text-sm text-gray-500">{formatPhoneNumber(item.phone)}</Text>
                 </View>
               </View>

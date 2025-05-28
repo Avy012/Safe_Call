@@ -24,18 +24,20 @@ import { getLiveKitToken } from '@/services/livekit';
 import { saveCallLog } from '@/services/callLogStorage';
 import { auth } from '@/services/firebaseConfig';
 
+
 registerGlobals();
 const wsURL = 'wss://safecall-ozn2xsg6.livekit.cloud';
 
 const GenerateRoomScreen: React.FC = () => {
   const {
-    roomName,
-    name,
-    profilePic: rawProfilePic,
-    userId: contactId,
-    phone,
-    callerId,
-  } = useLocalSearchParams();
+  token: rawToken,
+  name,
+  roomName,
+  profilePic: rawProfilePic,
+  userId: contactId,
+  phone,
+  callerId,
+} = useLocalSearchParams();
 
   const [roomToken, setRoomToken] = useState<string | null>(null);
   const profilePic = typeof rawProfilePic === 'string' ? rawProfilePic : '';
@@ -48,26 +50,47 @@ const GenerateRoomScreen: React.FC = () => {
     })();
   }, []);
 
-  useEffect(() => {
-    const fetchToken = async () => {
-      try {
-        const userIdentity = name || 'anonymous';
-        const token = await getLiveKitToken(userIdentity as string, roomName as string);
-        console.log('✅ LiveKit token received:', token);
-        setRoomToken(token);
-      } catch (err) {
-        console.error('❌ Failed to get LiveKit token:', err);
-      }
-    };
-    fetchToken();
-  }, [name, roomName]);
 
   useEffect(() => {
-    AudioSession.startAudioSession();
+    if (typeof rawToken === 'string') {
+      const decoded = decodeURIComponent(rawToken);
+      console.log('✅ Using passed token:', decoded);
+      setRoomToken(decoded); // ✅ Only use this token!
+    } else {
+      console.error('❌ No token passed in route params');
+    }
+  }, [rawToken]);
+
+
+  useEffect(() => {
+    const setupAudio = async () => {
+      try {
+        // 🎧 Route audio to speaker, enable recording, etc.
+        await Audio.setAudioModeAsync({
+          allowsRecordingIOS: true,
+          staysActiveInBackground: true,
+          playsInSilentModeIOS: true,
+          shouldDuckAndroid: false,
+          playThroughEarpieceAndroid: false, // false = speaker
+        });
+
+        // 🎙️ Start LiveKit audio session
+        await AudioSession.startAudioSession();
+        console.log('✅ Audio session started');
+      } catch (error) {
+        console.error('❌ Audio session setup failed:', error);
+      }
+    };
+
+    setupAudio();
+
     return () => {
-      AudioSession.stopAudioSession();
+      AudioSession.stopAudioSession().catch((error) =>
+        console.error('❌ Failed to stop audio session:', error)
+      );
     };
   }, []);
+
 
   if (!roomToken) {
     return (
@@ -131,7 +154,6 @@ const RoomView: React.FC<{
       setIsVideoOn(localParticipant.isCameraEnabled);
 
       timer = setTimeout(() => {
-        console.log('⏱️ canPublish now true');
         setCanPublish(true);
       }, 1000);
     };

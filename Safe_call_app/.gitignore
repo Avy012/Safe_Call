@@ -45,3 +45,6 @@ android/app/google-services.json
 
 # token
 livekit_token.json
+
+# firebase 
+service_account_key.json

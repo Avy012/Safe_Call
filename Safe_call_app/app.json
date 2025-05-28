@@ -13,6 +13,7 @@
     },
     "android": {
       "package": "com.anonymous.Safe_Call",
+      "googleServicesFile": "./android/app/google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/logo_no_text.png",
         "backgroundColor": "#ffffff"

@@ -1,9 +1,10 @@
-import { View, Text, TouchableOpacity, Image, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { deleteDoc, doc, getDoc } from 'firebase/firestore';
 import { db } from '../services/firebaseConfig';
 import { useAuth } from '../context/UserContext';
+import { getLiveKitToken } from '@/services/livekit';
 
 interface Contact {
   id: string;
@@ -13,11 +14,14 @@ interface Contact {
 }
 
 export default function IncomingCallScreen() {
-  const { name, phone, token, roomName, callId } = useLocalSearchParams();
+  const { callId } = useLocalSearchParams();
   const router = useRouter();
   const { user } = useAuth();
 
+  console.log('👤 Logged-in user phone:', user?.phone); // ← add this
+
   const [contact, setContact] = useState<Contact | null>(null);
+  const [callData, setCallData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
 
@@ -39,19 +43,32 @@ export default function IncomingCallScreen() {
         }
       } catch (err) {
         console.error('🔥 Error loading user:', err);
+      }
+    };
+
+    const fetchCall = async () => {
+      if (!user?.uid) return;
+      try {
+        const callSnap = await getDoc(doc(db, 'calls', user.uid));
+        if (callSnap.exists()) {
+          setCallData(callSnap.data());
+        }
+      } catch (err) {
+        console.error('🔥 Error loading call data:', err);
       } finally {
         setLoading(false);
       }
     };
 
     fetchContact();
-  }, [callId]);
+    fetchCall();
+  }, [callId, user?.uid]);
 
-  const displayName = name || contact?.name || 'Unknown';
-  const displayPhone = phone || contact?.phone || '번호 없음';
+  const displayName = contact?.name || 'Unknown';
+  const displayPhone = contact?.phone || '번호 없음';
   const profilePicUrl = !imageError && contact?.profilePic?.startsWith('http') ? { uri: contact.profilePic } : require('../assets/images/default_profile.jpg');
 
-  if (!user || loading) {
+  if (!user || loading || !callData) {
     return (
       <View className="flex-1 justify-center items-center bg-white">
         <ActivityIndicator size="large" color="#000" />
@@ -72,34 +89,47 @@ export default function IncomingCallScreen() {
     router.back();
   };
 
- const handleAccept = async () => {
-  try {
-    if (user?.uid) {
+  const handleAccept = async () => {
+    try {
+      if (!user?.uid || !user.phone) {
+        Alert.alert('❗ 오류', '사용자 정보를 불러오지 못했습니다.');
+        return;
+      }
+
+      const myIdentity = user.phone;
+      const myName = user.name ?? 'Unknown';
+      const callerName = contact?.name ?? 'Unknown Caller';
+      const callerProfile = contact?.profilePic ?? '';
+
+      console.log('👤 Logged-in user phone (callee identity):', myIdentity);
+
+      const newToken = await getLiveKitToken(myIdentity, myName, callData.roomName);
+      if (!newToken) {
+        Alert.alert('❌ 오류', '토큰을 받아오지 못했습니다.');
+        return;
+      }
+
+      console.log('📲 Creating call with identity (callee):', myIdentity);
+
       await deleteDoc(doc(db, 'calls', user.uid));
-      console.log("✅ Deleted call doc");
+
+      router.replace({
+        pathname: '/generate_room',
+        params: {
+          token: encodeURIComponent(newToken),
+          roomName: callData.roomName,
+          name: callerName, // ✅ show caller’s name
+          profilePic: encodeURIComponent(callerProfile), // ✅ show caller’s profile
+          phone: callData.phone ?? '알 수 없음', // caller's phone
+          userId: callData.callId, // caller’s UID
+          callerId: callData.callId,
+        },
+      });
+    } catch (err) {
+      console.error('❌ Failed to accept call:', err);
     }
+  };
 
-    const finalName = contact?.name || name || 'Unknown';
-    const finalPhone = contact?.phone || phone || '번호 없음';
-    const finalProfilePic = contact?.profilePic || '';
-
-    console.log('🧼 Final profilePic string:', finalProfilePic);
-
-    router.replace({
-      pathname: '/generate_room',
-      params: {
-        token: token as string,
-        roomName: roomName as string,
-        name: finalName,
-        profilePic: encodeURIComponent(finalProfilePic),
-        phone: finalPhone,
-        userId: callId as string, // ✅ add this for logging call
-      },
-    });
-  } catch (err) {
-    console.error('❌ Failed to accept call:', err);
-  }
-};
 
 
   return (

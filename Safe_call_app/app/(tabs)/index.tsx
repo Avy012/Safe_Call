@@ -10,6 +10,8 @@ import { useRouter } from 'expo-router';
 import { UserContext } from '../../context/UserContext';
 import { collection, doc, getDocs, onSnapshot, deleteDoc } from 'firebase/firestore';
 import { db } from '../../services/firebaseConfig';
+import * as Notifications from 'expo-notifications';
+import * as Device from 'expo-device';
 
 export default function Index() {
   const router = useRouter();
@@ -74,24 +76,70 @@ export default function Index() {
     if (!user?.uid) return;
 
     const unsubscribe = onSnapshot(doc(db, 'calls', user.uid), (docSnap) => {
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        router.push({
-          pathname: '/IncomingCallScreen',
-          params: {
-            name: data.name,
-            phone: data.phone,
-            token: data.token,
-            roomName: data.roomName,
-            callId: data.callId,
-            profilePic: data.profilePic,
-          },
-        });
+      if (!docSnap.exists()) return;
+
+      const data = docSnap.data();
+      const callerId = data.callId;
+
+      const isBlocked = blockedUsers.some(user => user.id === callerId);  
+      if (isBlocked) {
+        console.log('차단유저 전화시도:', callerId);
+        return; // 차단유저 전화 안 받
       }
+
+      router.push({
+        pathname: '/IncomingCallScreen',
+        params: {
+          name: data.name,
+          phone: data.phone,
+          token: data.token,
+          roomName: data.roomName,
+          callId: data.callId,
+          profilePic: data.profilePic,
+        },
+      });
     });
 
     return () => unsubscribe();
-  }, [user]);
+  }, [user?.uid, blockedUsers]);
+
+  useEffect(() => {
+    const getPushToken = async () => {
+      console.log('📱 getPushToken started');
+
+      if (!Device.isDevice) {
+        console.log('❌ Not a physical device');
+        return;
+      }
+
+      try {
+        const { status: existingStatus } = await Notifications.getPermissionsAsync();
+        let finalStatus = existingStatus;
+
+        console.log('🔐 Existing permission status:', existingStatus);
+
+        if (existingStatus !== 'granted') {
+          const { status } = await Notifications.requestPermissionsAsync();
+          finalStatus = status;
+          console.log('📥 Requested new permission:', finalStatus);
+        }
+
+        if (finalStatus !== 'granted') {
+          console.log('🚫 Permission not granted');
+          return;
+        }
+
+        const { data: token } = await Notifications.getExpoPushTokenAsync();
+        console.log('✅ Push Token:', token);
+
+      } catch (err) {
+        console.error('❌ Error getting push token:', err);
+      }
+    };
+
+    getPushToken();
+  }, []);
+
 
   if (!user) {
     return (

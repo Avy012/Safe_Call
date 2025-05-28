@@ -38,7 +38,7 @@ export default function CallDetail() {
 
 
   // Debug
-  console.log('📞 Route param CallId:', callId);
+  console.log('📞 Route param CallId  callee userid:', callId);
 
   useEffect(() => {
     const fetchContact = async () => {
@@ -81,79 +81,60 @@ export default function CallDetail() {
   }, [loading]);
 
   const handleCall = async () => {
-    console.log('📞 handleCall triggered');
-    if (!contact?.id) {
-      Alert.alert('Error', '잘못된 연락처입니다.');
-      return;
-    }
+  console.log('📞 handleCall triggered');
+  if (!contact?.id) {
+    Alert.alert('Error', '잘못된 연락처입니다.');
+    return;
+  }
 
-    const callerId = auth.currentUser?.uid;
-    const receiverId = contact.id;
+  const callerId = auth.currentUser?.uid;
+  const receiverId = contact.id;
 
-    if (!callerId) {
-      Alert.alert('Error', '로그인 정보가 없습니다.');
-      return;
-    }
+  if (!callerId) {
+    Alert.alert('Error', '로그인 정보가 없습니다.');
+    return;
+  }
 
-    try {
-      // 1. Get LiveKit token
-      const token = await getLiveKitToken(contact.phone); // or callerId — depends on your backend
-      if (!token) throw new Error('토큰 생성 실패');
+  try {
+    // 1. Get token for caller only
+    const userDoc = await getDoc(doc(db, 'users', callerId));
+    if (!userDoc.exists()) throw new Error('Caller Firestore user not found.');
+    const userData = userDoc.data();
 
-      const callerId = auth.currentUser?.uid;
-
-      const userDoc = await getDoc(doc(db, 'users', callerId!));
-      if (!userDoc.exists()) {
-        throw new Error('Caller Firestore user not found.');
-      }
-      const userData = userDoc.data();
-
-      console.log('📤 Sending correct profilePic:', userData.profilePic);
+    const callerPhone = userData.phone; // this MUST be the current user’s phone
+    const token = await getLiveKitToken(callerPhone); // ✅ Use caller’s phone only
 
 
+    // 2. Write to Firestore for callee to join later
+    await setDoc(doc(db, 'calls', receiverId), {
+      name: userData.name ?? '이름 없음',
+      phone: userData.phone ?? '알 수 없음',
+      profilePic: (userData.profilePic ?? '').replace(/prrofilePics|profilePiccs/g, 'profilePics'),
+      callId: callerId,
+      token,
+      roomName: 'safe-call-room',
+    });
+    console.log('📲 Creating call with identity (caller):', callerPhone);
 
-      // 2. Signal incoming call in Firestore
-      await setDoc(doc(db, 'calls', receiverId), {
-        name: userData.name ?? '이름 없음',
-        phone: userData.phone ?? '알 수 없음',
-        profilePic: (userData.profilePic ?? '').replace(/prrofilePics|profilePiccs/g, 'profilePics'),
-        callId: callerId,
+
+    // 3. Go to call screen as caller
+    router.push({
+      pathname: '/generate_room',
+      params: {
         token,
-        roomName: 'safe-call-room',
-      });
+        name: contact.name,
+        profilePic: encodeURIComponent((userData.profilePic ?? '').replace(/prrofilePics|profilePiccs/g, 'profilePics')),
+        phone: contact.phone,
+        userId: contact.id,
+        callerId, // ✅ Pass explicitly
+      },
+    });
 
-
-      // 3. Navigate to call room screen
-      router.push({
-        pathname: '/generate_room',
-        params: {
-          token,
-          name: contact.name,
-          profilePic: encodeURIComponent((userData.profilePic ?? '').replace(/prrofilePics|profilePiccs/g, 'profilePics')),
-          phone: contact.phone,
-        },
-      });
-
-      // 4. Connect to LiveKit room
-      await connectToRoom(token);
-
-      // 5. Optional: notify your backend (replace with real Render URL)
-      await fetch('https://safe-call.onrender.com/send-notification', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          caller_uid: callerId,
-          receiver_uid: receiverId,
-        }),
-      });
-
-    } catch (error) {
-      console.error('📞 Call failed:', error);
-      Alert.alert('통화 오류', '전화 연결에 실패했습니다.');
-    }
+  } catch (error) {
+    console.error('📞 Call failed:', error);
+    Alert.alert('통화 오류', '전화 연결에 실패했습니다.');
+  }
 };
-
-
 
   const handleBlock = async () => {
     try {
