@@ -1,4 +1,5 @@
 # server.py
+import sys
 import os
 import time
 import jwt
@@ -8,9 +9,8 @@ from notification import send_push_notification  # ✅ import this
 from firebase_admin import firestore, credentials, initialize_app
 import firebase_admin
 
-
-import os
 print("📂 Current working directory:", os.getcwd())
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 load_dotenv()
 app = FastAPI()
