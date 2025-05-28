@@ -6,7 +6,7 @@ from google.auth.transport.requests import Request
 import os
 
 SCOPES = ["https://www.googleapis.com/auth/firebase.messaging"]
-SERVICE_ACCOUNT_FILE = "service_account_key"  # same directory
+SERVICE_ACCOUNT_FILE = "service_account_key.json"  # same directory
 PROJECT_ID = "safe-call-f0276"  # 🔁 Replace with your actual project ID
 
 print("✅ notificationPY module successfully loaded")
