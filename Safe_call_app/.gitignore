@@ -48,3 +48,8 @@ livekit_token.json
 
 # firebase 
 service_account_key.json
+
+# STT 
+safe-call-460006-2338c2ca2d5b.json
+
+**/.gradle/

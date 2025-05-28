@@ -2,16 +2,16 @@ import axios from 'axios';
 
 export const getLiveKitToken = async (
   identity: string,
+  receiver_id: string,
   name?: string,
   room: string = 'safe-call-room',
-  receiver_id?: string
 ): Promise<string | null> => {
   try {
     const payload = {
       identity,
+      receiver_id,    
       name: name || identity,
       room,
-      receiver_id, // ✅ REQUIRED by your backend
     };
 
     const res = await axios.post('https://safe-call.onrender.com/get-token', payload, {

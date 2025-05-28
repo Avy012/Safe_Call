@@ -23,6 +23,10 @@ import { Audio } from 'expo-av';
 import { getLiveKitToken } from '@/services/livekit';
 import { saveCallLog } from '@/services/callLogStorage';
 import { auth } from '@/services/firebaseConfig';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '@/services/firebaseConfig';
+import { router } from 'expo-router'; // if not already imported
+
 
 
 registerGlobals();
@@ -38,6 +42,7 @@ const GenerateRoomScreen: React.FC = () => {
   phone,
   callerId,
 } = useLocalSearchParams();
+
 
   const [roomToken, setRoomToken] = useState<string | null>(null);
   const profilePic = typeof rawProfilePic === 'string' ? rawProfilePic : '';
@@ -137,8 +142,12 @@ const RoomView: React.FC<{
   const [isConnected, setIsConnected] = useState(false);
   const [canPublish, setCanPublish] = useState(false);
   const [hasConnected, setHasConnected] = useState(false);
+  const [showScamWarning, setShowScamWarning] = useState(false);
+
 
   const roomStartTimeRef = useRef<Date | null>(null);
+
+  
 
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
@@ -206,6 +215,7 @@ const RoomView: React.FC<{
 
   const handleHangUp = async () => {
     const endTime = new Date();
+
     try {
       await room.disconnect();
       console.log('📴 Disconnected from room');
@@ -218,21 +228,62 @@ const RoomView: React.FC<{
 
       const durationSec = Math.floor((endTime.getTime() - startTime.getTime()) / 1000);
       const currentUserId = auth.currentUser?.uid;
-      const isCaller = currentUserId === callerId;
+      if (!currentUserId || !callerId || !contactId) {
+        console.error('🚨 Missing IDs:', { currentUserId, callerId, contactId });
+        return;
+      }
 
-      const otherUserInfo = isCaller
-        ? { userId: contactId, name, phone, profile: profilePic }
-        : { userId: callerId, name: '상대방', phone: '알 수 없음', profile: '' }; // fallback for receiver
+      const isCaller = currentUserId === callerId;
+      const otherUserId = isCaller ? contactId : callerId;
+
+      // 🔥 Fetch both users from Firestore
+      const [meSnap, otherSnap] = await Promise.all([
+        getDoc(doc(db, 'users', currentUserId)),
+        getDoc(doc(db, 'users', otherUserId)),
+      ]);
+
+      const meData = meSnap.data();
+      const otherData = otherSnap.data();
+
+      const myInfo = {
+        id: currentUserId,
+        name: meData?.name || '나',
+        phone: meData?.phone || '알 수 없음',
+        profile: meData?.profilePic || '',
+      };
+
+      const otherInfo = {
+        id: otherUserId,
+        name: otherData?.name || '상대방',
+        phone: otherData?.phone || '알 수 없음',
+        profile: otherData?.profilePic || '',
+      };
+
+      console.log('🧾 isCaller:', isCaller);
+      console.log('📲 currentUserId:', currentUserId);
+      console.log('📞 callerId:', callerId);
+      console.log('📞 contactId:', contactId);
+
+      console.log('🧍 My Info:', myInfo);
+      console.log('👤 Other Info:', otherInfo);
+
 
       await saveCallLog({
-        userId: otherUserInfo.userId,
-        name: otherUserInfo.name,
-        phone: otherUserInfo.phone,
-        profile: otherUserInfo.profile,
-        summary: '',
-        type: isCaller ? '발신' : '수신',
-        startTime: startTime.toISOString(),
+        callerId,
+        calleeId: contactId,
+        callerName: isCaller ? myInfo.name : otherInfo.name,
+        callerPhone: isCaller ? myInfo.phone : otherInfo.phone,
+        callerProfile: isCaller ? myInfo.profile : otherInfo.profile,
+
+        calleeName: isCaller ? otherInfo.name : myInfo.name,
+        calleePhone: isCaller ? otherInfo.phone : myInfo.phone,
+        calleeProfile: isCaller ? otherInfo.profile : myInfo.profile,
+
+        isCaller,
         duration: durationSec,
+        startTime: startTime.toISOString(),
+        type: isCaller ? '발신' : '수신',
+        summary: '',
       });
 
       console.log('✅ Call log saved');
@@ -242,6 +293,8 @@ const RoomView: React.FC<{
 
     router.replace('/');
   };
+
+
 
   const localTrack = tracks.find(
     (t) => isTrackReference(t) && t.participant.identity === localParticipant.identity
@@ -263,6 +316,26 @@ const RoomView: React.FC<{
           <Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>{name}</Text>
         </View>
       )}
+
+      {showScamWarning && (
+        <View
+          style={{
+            position: 'absolute',
+            top: 50,
+            left: 20,
+            right: 20,
+            padding: 10,
+            backgroundColor: 'rgba(255, 0, 0, 0.8)',
+            borderRadius: 10,
+            zIndex: 1000,
+          }}
+        >
+          <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 16, textAlign: 'center' }}>
+            🚨 이 전화는 스캠일 수 있습니다.
+          </Text>
+        </View>
+      )}
+
 
       {localTrack && isTrackReference(localTrack) && isVideoOn && (
         <View
@@ -300,6 +373,14 @@ const RoomView: React.FC<{
           <Text className="text-white text-sm pt-8 left-5">통화종료</Text>
         </TouchableOpacity>
       </View>
+
+      <View style={{ position: 'absolute', bottom: isVideoOn ? 120 : 230, left: 0, right: 0, alignItems: 'center' }}>
+        <TouchableOpacity onPress={() => setShowScamWarning(true)}>
+          <ImageBackground source={icons.warning} style={{ width: 70, height: 70 }} />
+          <Text className="text-white text-sm pt-8 left-4">스캠경고</Text>
+        </TouchableOpacity>
+      </View>
+
     </View>
   );
 };

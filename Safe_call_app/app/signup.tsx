@@ -6,6 +6,8 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { auth, db } from '../services/firebaseConfig';
 import { router } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
+import { useAuth } from '@/context/UserContext'; // adjust if needed
+
 
 export default function Signup() {
   const [email, setEmail] = useState('');
@@ -14,6 +16,8 @@ export default function Signup() {
   const [name, setName] = useState('');
   const [imageUri, setImageUri] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const { setUser } = useAuth();
+
 
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -65,6 +69,14 @@ export default function Signup() {
         displayName: name,
         photoURL: uploadedUrl,
       });
+      
+      setUser({
+        uid: user.uid,
+        name,
+        phone,
+        imageUri: uploadedUrl,
+      });
+
 
       await sendEmailVerification(user);
       Alert.alert('이메일 인증 메일이 발송되었습니다. 메일함을 확인해주세요.');

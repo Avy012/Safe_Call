@@ -119,12 +119,13 @@ export default function IncomingCallScreen() {
           token: encodeURIComponent(newToken),
           roomName: callData.roomName,
           name: callerName, // ✅ show caller’s name
-          profilePic: encodeURIComponent(callerProfile), // ✅ show caller’s profile
-          phone: callData.phone ?? '알 수 없음', // caller's phone
-          userId: callData.callId, // caller’s UID
-          callerId: callData.callId,
+          profilePic: encodeURIComponent(callerProfile),
+          phone: callData.phone,
+          userId: callData.callId, // ✅ this is caller’s UID
+          callerId: callData.callId, // ✅ always callerId
         },
       });
+
     } catch (err) {
       console.error('❌ Failed to accept call:', err);
     }

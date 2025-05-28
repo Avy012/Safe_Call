@@ -130,7 +130,7 @@ const Contacts = () => {
                   // className="w-14 h-14 rounded-full mr-4 bg-gray-200"
                   style={{ width: 50, height: 50, borderRadius: 50, backgroundColor: 'gray' }}
                 />
-                <View>
+                <View className="ml-4">
                   <Text className="text-lg font-medium text-gray-900">{item.name}</Text>
                   <Text className="text-sm text-gray-500">{formatPhoneNumber(item.phone)}</Text>
                 </View>

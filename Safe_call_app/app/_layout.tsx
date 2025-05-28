@@ -8,6 +8,7 @@ import './globals.css';
 import * as Notifications from 'expo-notifications';
 import { registerForPushNotificationsAsync } from '@/services/notificationService';
 
+
 registerGlobals();
 
 // Optional: Suppress known LiveKit warning

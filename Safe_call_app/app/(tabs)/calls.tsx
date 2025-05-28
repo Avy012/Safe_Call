@@ -3,6 +3,9 @@ import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { getCallLogs } from '@/services/callLogStorage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { auth } from '@/services/firebaseConfig';
+
+
 
 export default function Calls() {
   const router = useRouter();
@@ -12,11 +15,29 @@ export default function Calls() {
 
   useEffect(() => {
     const loadLogs = async () => {
+      const currentUserId = auth.currentUser?.uid;
+      if (!currentUserId) return;
+
       const logs = await getCallLogs();
-      setCallList(logs);
+
+      const updatedLogs = logs.map((log) => {
+        const isCaller = log.type === '발신'; // or log.callerId === currentUserId
+        const isUserCaller = log.userId === currentUserId && isCaller;
+
+        return {
+          ...log,
+          displayName: log.name,
+          displayPhone: log.phone,
+          displayProfile: log.profile,
+        };
+      });
+
+      setCallList(updatedLogs);
     };
+
     loadLogs();
   }, []);
+
 
   return (
     <View className="flex-1 bg-white">
@@ -40,8 +61,10 @@ export default function Calls() {
         data={callList}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => {
-          const profile = (item.profile || '').trim();
+          const profile = (item.displayProfile || '').trim();
           const isValidURL = profile.startsWith('http') && !errorImages[profile];
+
+          
 
           console.log('🧪 From call log:', profile);
           console.log('📦 Item in call log:', item); // ADD THIS TEMP LOG
@@ -78,7 +101,7 @@ export default function Calls() {
                 resizeMode="cover"
               />
               <View className="ml-4">
-                <Text className="text-lg font-medium">{item.name}</Text>
+                <Text className="text-lg font-medium">{item.displayName}</Text>
                 <Text className="text-gray-500">
                   {new Date(item.startTime).toLocaleString('ko-KR', {
                     year: 'numeric',
