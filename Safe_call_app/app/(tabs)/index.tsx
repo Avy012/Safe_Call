@@ -13,12 +13,7 @@ import { collection, doc, getDocs, onSnapshot, deleteDoc } from 'firebase/firest
 import { db } from '../../services/firebaseConfig';
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
-import * as FileSystem from 'expo-file-system';
-import axios from 'axios';
-import { Asset } from 'expo-asset';
 import { getCallLogs } from '@/services/callLogStorage';
-
-
 
 export default function Index() {
   const router = useRouter();
@@ -33,10 +28,9 @@ export default function Index() {
   });
 
   const [loadingSummary, setLoadingSummary] = useState(false);
-  const [transcription, setTranscription] = useState('');
 
   const formatPhoneNumber = (num: string) => {
-    if (!num || num.length !== 11) return num; // return as-is if invalid
+    if (!num || num.length !== 11) return num;
     return `${num.slice(0, 3)}-${num.slice(3, 7)}-${num.slice(7)}`;
   };
 
@@ -44,7 +38,6 @@ export default function Index() {
     console.log('🧠 User loaded:', user1);
   }, [user1]);
 
-  // 차단 해제 함수
   const handleUnblock = async (blockedUserId: string) => {
     try {
       if (!user?.uid) return;
@@ -56,45 +49,50 @@ export default function Index() {
     }
   };
 
-
+  // 🔥 Load most recent call summary and number
   useEffect(() => {
-    const loadRecentNumber = async () => {
+    const loadRecentLogSummary = async () => {
+      setLoadingSummary(true);
       try {
         const logs = await getCallLogs();
-
         const sortedLogs = logs.sort(
           (a, b) => new Date(b.startTime).getTime() - new Date(a.startTime).getTime()
         );
 
         if (sortedLogs.length > 0) {
           const recentPhone = sortedLogs[0].phone || '알 수 없음';
-          setSummaryData(prev => ({
-            ...prev,
+          const recentSummary = sortedLogs[0].summary || '요약 없음';
+
+          setSummaryData({
             phoneNumber: recentPhone,
-          }));
+            summaryText: recentSummary,
+          });
         } else {
-          setSummaryData(prev => ({
-            ...prev,
+          setSummaryData({
             phoneNumber: '기록 없음',
-          }));
+            summaryText: '요약 없음',
+          });
         }
       } catch (err) {
         console.error('❌ Failed to load recent call from local:', err);
+        setSummaryData({
+          phoneNumber: '불러오기 실패',
+          summaryText: '요약 로딩 실패',
+        });
+      } finally {
+        setLoadingSummary(false);
       }
     };
 
-    loadRecentNumber();
+    loadRecentLogSummary();
   }, []);
 
-
-  // 화면 포커스 시 refresh 토글
   useFocusEffect(
     useCallback(() => {
       setRefresh(prev => !prev);
     }, [user])
   );
 
-  // 차단 목록 불러오기
   useEffect(() => {
     let isMounted = true;
 
@@ -123,7 +121,6 @@ export default function Index() {
     };
   }, [user?.uid, refresh]);
 
-  // 수신 콜 실시간 감지
   useEffect(() => {
     if (!user?.uid) return;
 
@@ -136,7 +133,7 @@ export default function Index() {
       const isBlocked = blockedUsers.some(user => user.id === callerId);
       if (isBlocked) {
         console.log('차단유저 전화시도:', callerId);
-        return; // 차단 유저 전화 무시
+        return;
       }
 
       router.push({
@@ -155,7 +152,6 @@ export default function Index() {
     return () => unsubscribe();
   }, [user?.uid, blockedUsers]);
 
-  // Expo 푸시 알림 토큰 요청
   useEffect(() => {
     const getPushToken = async () => {
       console.log('getPushToken started');
@@ -169,12 +165,9 @@ export default function Index() {
         const { status: existingStatus } = await Notifications.getPermissionsAsync();
         let finalStatus = existingStatus;
 
-        console.log('🔐 Existing permission status:', existingStatus);
-
         if (existingStatus !== 'granted') {
           const { status } = await Notifications.requestPermissionsAsync();
           finalStatus = status;
-          console.log('Requested new permission:', finalStatus);
         }
 
         if (finalStatus !== 'granted') {
@@ -184,92 +177,12 @@ export default function Index() {
 
         const { data: token } = await Notifications.getExpoPushTokenAsync();
         console.log('✅ Push Token:', token);
-
       } catch (err) {
         console.error(' Error getting push token:', err);
       }
     };
 
     getPushToken();
-  }, []);
-
-  // STT + OpenAI 람다 호출해 요약 가져오기
-  const fetchCallSummary = async () => {
-    setLoadingSummary(true);
-    setTranscription('');
-    setSummaryData(prev => ({ ...prev, summaryText: '분석 중입니다...' }));
-
-    const copyScenarioFile = async () => {
-      const asset = Asset.fromModule(require('../../assets/scenario2.wav'));
-      await asset.downloadAsync(); // ensure file is available
-
-      const dest = FileSystem.documentDirectory + 'scenario2.wav';
-      await FileSystem.copyAsync({
-        from: asset.localUri!,
-        to: dest,
-      });
-
-      console.log('✅ File copied to:', dest);
-    };
-
-    try {
-      await copyScenarioFile();
-      const audioFileUri = FileSystem.documentDirectory + 'scenario2.wav';
-
-      // scenario1.wav 파일 base64 읽기
-      const fileBase64 = await FileSystem.readAsStringAsync(audioFileUri, {
-        encoding: FileSystem.EncodingType.Base64,
-      });
-
-      // STT 람다 호출
-      const sttLambdaUrl = 'https://usyvahybz2.execute-api.us-east-1.amazonaws.com/dev/audio';
-      const sttResponse = await axios.post(sttLambdaUrl, { audio: fileBase64 });
-      const text = sttResponse.data.body || '';
-
-      setTranscription(text);
-
-      if (!text) {
-        setSummaryData(prev => ({ ...prev, summaryText: 'STT 결과가 없습니다.' }));
-        setLoadingSummary(false);
-        return;
-      }
-
-     // OpenAI 람다 호출
-    const openAiLambdaUrl = 'https://usyvahybz2.execute-api.us-east-1.amazonaws.com/dev/SummationText';
-    const openAiResponse = await axios.post(openAiLambdaUrl, { text });
-
-    console.log('🔍 Full OpenAI Lambda response:', openAiResponse.data);
-
-    let aiResult = 'OpenAI 응답이 없습니다.';
-6
-    try {
-      // First: parse the outer "body"
-      const bodyParsed = JSON.parse(openAiResponse.data.body);
-
-      // Second: if that body has a "result" key, use it
-      aiResult = bodyParsed.result || '요약 없음';
-    } catch (e) {
-      console.warn('⚠️ JSON parse failed, using raw body');
-      aiResult = openAiResponse.data.body || '응답 없음';
-    }
-
-    setSummaryData(prev => ({
-      ...prev,
-      summaryText: aiResult,
-    }));
-
-
-    } catch (error) {
-      console.error('Summary fetch error:', error);
-      setSummaryData(prev => ({ ...prev, summaryText: '요약을 불러오는 중 오류가 발생했습니다.' }));
-    } finally {
-      setLoadingSummary(false);
-    }
-  };
-
-  // 화면 진입 시 요약 자동 호출
-  useEffect(() => {
-    fetchCallSummary();
   }, []);
 
   if (!user) {
@@ -331,7 +244,9 @@ export default function Index() {
             <ActivityIndicator size="small" />
           ) : (
             <>
-              <Text className="text-red-700 font-bold mb-1">{formatPhoneNumber(summaryData.phoneNumber)}</Text>
+              <Text className="text-red-700 font-bold mb-1">
+                {formatPhoneNumber(summaryData.phoneNumber)}
+              </Text>
               <Text className="text-gray-800">{summaryData.summaryText}</Text>
             </>
           )}

@@ -375,9 +375,9 @@ const RoomView: React.FC<{
     console.log('📞 fetchCallScamCheck triggered');
 
     try {
-      const asset = Asset.fromModule(require('../assets/scenario2.wav'));
+      const asset = Asset.fromModule(require('../assets/scenario4.wav'));
       await asset.downloadAsync();
-      const dest = FileSystem.documentDirectory + 'scenario2.wav';
+      const dest = FileSystem.documentDirectory + 'scenario4.wav';
       await FileSystem.copyAsync({ from: asset.localUri!, to: dest });
       console.log('✅ File copied to:', dest);
 
