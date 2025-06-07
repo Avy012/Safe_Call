@@ -28,8 +28,9 @@
 **개발 언어:** Typescript, python  
 **개발 도구:** Visual Studio, Google Firebase, AWS Lambda, OpenAI API, LiveKit  
 **개발 환경:** Windows, Android  
-**프레임워크:** Expo, React Native  
-<img src="https://github.com/user-attachments/assets/829ebec4-7d4d-4886-922d-fff415d030c9" alt="07조_이미지_주요 적용 기술 및 구조" />
+**프레임워크:** Expo, React Native   
+
+<img src="https://github.com/user-attachments/assets/829ebec4-7d4d-4886-922d-fff415d030c9" width="800" alt="07조_이미지_주요 적용 기술 및 구조" />
 
 
 
