@@ -5,8 +5,52 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b6578ae5-f28a-4cc3-8a16-424b5ed728ee" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/contacts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/(tabs)/contacts.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/calls/[callId].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/calls/[callId].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/proguard-rules.pro" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/proguard-rules.pro" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/java/com/anonymous/Safe_Call/MainActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/java/com/anonymous/Safe_Call/MainApplication.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/drawable/rn_edit_text_material.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/drawable/rn_edit_text_material.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-hdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-hdpi/ic_launcher.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.webp" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-mdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-mdpi/ic_launcher.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.webp" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.webp" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.webp" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.webp" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/build/generated/autolinking/package-lock.json.sha" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/build/generated/autolinking/package-lock.json.sha" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/build/generated/autolinking/package.json.sha" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/build/generated/autolinking/package.json.sha" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/android/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/android/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/app/generate_room.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/app/generate_room.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/assets/scenario1.wav" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/assets/scenario1.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/assets/scenario2.wav" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/assets/scenario2.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/assets/scenario3.wav" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/assets/scenario3.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/assets/scenario4.wav" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/assets/scenario4.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/eas.json" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/eas.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Safe_call_app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Safe_call_app/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -115,7 +115,7 @@ const GenerateRoomScreen: React.FC = () => {
       serverUrl={wsURL}
       token={roomToken}
       connect={true}
-      audio={true}
+      audio={false}
       video={false}
       options={{ adaptiveStream: true }}
     >
@@ -136,8 +136,8 @@ const scenarioFiles: { [key: string]: number } = {
   '2': require('../assets/scenario2.wav'),
   '3': require('../assets/scenario3.wav'),
   '4': require('../assets/scenario4.wav'),
-  // '5': require('../assets/scenario5.wav'),
-  // '6': require('../assets/scenario6.wav'), // 🔒 나중추가
+  '5': require('../assets/scenario5.wav'),
+  '6': require('../assets/scenario6.wav'), // 🔒 나중추가
 };
 
 const RoomView: React.FC<{
@@ -152,13 +152,14 @@ const RoomView: React.FC<{
   const tracks = useTracks([Track.Source.Camera]);
   const room = useRoomContext();
 
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
   const [isVideoOn, setIsVideoOn] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [canPublish, setCanPublish] = useState(false);
   const [hasConnected, setHasConnected] = useState(false);
   const [showScamWarning, setShowScamWarning] = useState(false);
   const currentUserId = auth.currentUser?.uid;
+  
 
   console.log('🔍 typeof currentUserId:', typeof currentUserId, currentUserId);
   console.log('🔍 typeof callerId:', typeof callerId, callerId);
@@ -172,34 +173,47 @@ const RoomView: React.FC<{
 
 
   useEffect(() => {
-  let timer: ReturnType<typeof setTimeout>;
-  let scamCheckTimer: ReturnType<typeof setTimeout>;
+    let timer: ReturnType<typeof setTimeout>;
+    let scamCheckTimer: ReturnType<typeof setTimeout>;
 
-  const onConnected = () => {
-    console.log('✅ RoomEvent.Connected');
-    setIsConnected(true);
-    setHasConnected(true);
+    const onConnected = async () => {
+      console.log('✅ RoomEvent.Connected');
+      setIsConnected(true);
+      setHasConnected(true);
+      roomStartTimeRef.current = new Date();
 
-    roomStartTimeRef.current = new Date();
 
-    setIsMuted(!localParticipant.isMicrophoneEnabled);
-    setIsVideoOn(localParticipant.isCameraEnabled);
+      setIsMuted(false);
+      setIsVideoOn(false);
 
-    timer = setTimeout(() => {
-      setCanPublish(true);
-    }, 1000);
+      timer = setTimeout(() => {
+        setCanPublish(true);
+      }, 1000);
 
-    // ✅ ✅ ✅ RUN THIS HERE AFTER ROOM IS READY
-    const uid = auth.currentUser?.uid;
-    console.log('🧾 currentUserId:', uid, 'contactId:', contactId);
-    if (isCaller || isCallee) {
-      scamCheckTimer = setTimeout(() => {
-        console.log('⏳ Triggering scam check...');
-        fetchCallScamCheck(isCallee); // ✅ pass isCallee
-      }, 3000);
-    }
+      // ✅ Scam check
+      const uid = auth.currentUser?.uid;
+      console.log('🧾 currentUserId:', uid, 'contactId:', contactId);
+      const scenario = await getScenario();
 
-  };
+      let sec = 0;
+
+      if(scenario == "2" ){
+          sec = 15000
+      }
+      else if (scenario == "4" ){
+          sec = 10000
+      }
+      else if (scenario == "5" ){
+          sec = 13000
+      }
+
+      if (isCaller || isCallee) {
+        scamCheckTimer = setTimeout(() => {
+          console.log('⏳ Triggering scam check...');
+          fetchCallScamCheck(isCallee); // ✅ pass isCallee
+        }, sec);
+      }
+    };
 
   const onDisconnected = () => {
     console.warn('🚫 RoomEvent.Disconnected');
@@ -233,8 +247,10 @@ const RoomView: React.FC<{
     }
 
     try {
-      await localParticipant.setMicrophoneEnabled(isMuted);
-      setIsMuted((prev) => !prev);
+      const current = localParticipant.isMicrophoneEnabled;
+      await localParticipant.setMicrophoneEnabled(!current);
+      setIsMuted(!current);
+
     } catch (err) {
       console.error('❌ Error toggling mic:', err);
     }
@@ -247,8 +263,10 @@ const RoomView: React.FC<{
     }
 
     try {
-      await localParticipant.setCameraEnabled(!isVideoOn);
-      setIsVideoOn((prev) => !prev);
+      const current = localParticipant.isCameraEnabled;
+      await localParticipant.setCameraEnabled(!current);
+      setIsVideoOn(!current);
+
     } catch (err) {
       console.error('❌ Error toggling camera:', err);
     }
@@ -540,7 +558,7 @@ const fetchCallScamCheck = async (isCallee: boolean) => {
 
       <View style={{ position: 'absolute', bottom: isVideoOn ? 40 : 150, right: 40 }}>
         <TouchableOpacity onPress={toggleMute}>
-          <ImageBackground source={isMuted ? icons.mute_on : icons.mute_off} style={{ width: 70, height: 70 }} />
+          <ImageBackground source={isMuted ? icons.mute_off : icons.mute_on} style={{ width: 70, height: 70 }} />
           <Text className="text-white text-sm pt-8 left-6">음소거</Text>
         </TouchableOpacity>
       </View>

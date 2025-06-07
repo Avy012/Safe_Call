@@ -1,0 +1,30 @@
+pluginManagement {
+  def pluginPath = ["node", "--print", "require.resolve('@react-native/gradle-plugin/package.json')"]
+    .execute(null, rootDir).text.trim()
+  println "📦 React Native Gradle Plugin Path: $pluginPath"
+
+  if (!pluginPath || pluginPath == "null") {
+    throw new GradleException("❌ Failed to resolve @react-native/gradle-plugin.")
+  }
+
+  def pluginDir = new File(pluginPath).getParentFile()
+  includeBuild(pluginDir)
+}
+
+rootProject.name = 'Safe_Call'
+
+dependencyResolutionManagement {
+  versionCatalogs {
+    reactAndroidLibs {
+      def rnPath = ["node", "--print", "require.resolve('react-native/package.json')"]
+        .execute(null, rootDir).text.trim()
+      from(files(new File(rnPath, "../gradle/libs.versions.toml")))
+    }
+  }
+}
+
+apply from: new File(["node", "--print", "require.resolve('expo/package.json')"]
+  .execute(null, rootDir).text.trim(), "../scripts/autolinking.gradle")
+useExpoModules()
+
+include ':app'
