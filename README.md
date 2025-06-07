@@ -29,7 +29,7 @@
 **개발 도구:** Visual Studio, Google Firebase, AWS Lambda, OpenAI API, LiveKit  
 **개발 환경:** Windows, Android  
 **프레임워크:** Expo, React Native  
-<img src="https://github.com/user-attachments/assets/1d02b1a0-a1f0-42cf-bbec-d9b684c0e378" width="400" alt="07조_이미지_주요 적용 기술 및 구조" />
+<img src="https://github.com/user-attachments/assets/1d02b1a0-a1f0-42cf-bbec-d9b684c0e378" alt="07조_이미지_주요 적용 기술 및 구조" />
 
 
 
